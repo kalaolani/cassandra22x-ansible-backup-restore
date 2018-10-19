@@ -14,76 +14,40 @@ To avoid all of this hassle... Do give Datastax, a commercial dirivative of Cass
 
 ## Environment
 ### Software Versions
-https://www.centos.org/
-Linux - CentOS Linux release 7.5.1804 (Core) w/ minimal, dev tools, compatibility
-    * Newbie How To? cat /etc/centos-release
+- Linux - CentOS Linux release 7.5.1804 (Core) w/ minimal, dev tools, compatibility
+  - https://www.centos.org/
+- Ansible - ansible 2.7.0
+  - https://www.ansible.com/    
+  - Newbie How To? ansible --version
+- Java - openjdk version "1.8.0_181"
+  - https://openjdk.java.net/
+- Cassandra - 2.2.13
+  - http://cassandra.apache.org/
 
-https://www.ansible.com/    
-Ansible - ansible 2.7.0
-                config file = /etc/ansible/ansible.cfg
-                configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
-                ansible python module location = /usr/lib/python2.7/site-packages/ansible
-                executable location = /usr/bin/ansible
-                python version = 2.7.5 (default, Jul 13 2018, 13:06:57) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
-    * Newbie How To? ansible --version
-
-https://openjdk.java.net/
-Java - openjdk version "1.8.0_181"
-            OpenJDK Runtime Environment (build 1.8.0_181-b13)
-            OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
-    * Newbie How To? java -version
-
-http://cassandra.apache.org/
-Cassandra - 2.2.13
-    * Newbie How To 1?  cassandra -v
-                        2.2.13
-    * Newbie How To 2?  cqlsh cass1.deltakappa.com
-                        Connected to cluster22 at cass1.deltakappa.com:9042.
-                        [cqlsh 5.0.1 | Cassandra 2.2.13 | CQL spec 3.3.1 | Native protocol v4]
-                        Use HELP for help.
-                        cqlsh>
-    * Newbie How To 3?  cqlsh> show version
-                        [cqlsh 5.0.1 | Cassandra 2.2.13 | CQL spec 3.3.1 | Native protocol v4]
-    * Newbie How To 4?  cqlsh> select peer, release_version from system.peers;
-                        
-                        peer        | release_version
-                        -------------+-----------------
-                        10.10.10.52 |          2.2.13
-                        10.10.10.53 |          2.2.13
-                        
-                        (2 rows)
-
-** Ansible and Cassandra Node HW **
-nothing special ...  1 CPU, 1GB RAM, 20GB Disk per VM all running on an average developer/ops type workstation with a i7-2600K@3.4GHz CPU, 16GB of RAM, RAID-10 SSDs for host OS and developer/ops data, and SATA spinning rust x2 for all VMs with a deployment like this ... ansible cass2 spinning rust 1 | cass 1 cass 3 spinning rust 2 ... so, you can see the type of imbalance that I expect to see in terms of ansible output. The host OS is good old Windows 7 using Oracle Virtual Box for the VMs. Cassandra configuration is all defaults. The only alertaions to any config file was to configure the clusters's minimal settings that include remote networking.
-
-(see another readme about some real world implementations of this)
+### Ansible and Cassandra Node HW
+Nothing special ...  1 CPU, 1GB RAM, 20GB Disk per VM all running on an average developer/ops type workstation with a i7-2600K@3.4GHz CPU, 16GB of RAM, RAID-10 SSDs for host OS and developer/ops data, and SATA spinning rust x2 for all VMs with a deployment like this ... ansible cass2 spinning rust 1 | cass 1 cass 3 spinning rust 2 ... so, you can see the type of imbalance that I expect to see in terms of ansible output. The host OS is good old Windows 7 using Oracle Virtual Box for the VMs. Cassandra configuration is all defaults. The only alertaions to any config file was to configure the clusters's minimal settings that include remote networking.
 
 <rant> 
-Windows 7 note... this is probably the last MS OS that I use on a desktop or laptop. Personally, I'm not a fan of my laptop and workstations being turned into phones. ;) Don't get me wrong. I owe MS my livlihood; I've made a 25+ career focused on MS technologies. My MCP number 21695. I've had all kinds of system and development certification from Lotus Notes to Novell CNE to MCSD/MCDBA/MCSE/MCT... I don't ever remember then all. I taught Windows NT 3.1 Advance Server courses as a MCT. As you can see, I'm that old school and dyed in the wool MS that I can honestly say that I've used SQL Server 4.2 on OS/2. Yep... that's right OS/2. ;) Which is a segway to NoSQL v SQL ... ACID v CAP ... whatever ... The most important thing to accept about Cassandra as a developer is that there is a paradigm shift that you experiece when you "get it." That is ... those things in the very beginning of the best practice for development of Cassandra based storage applications. Those things are data modeling, query planning, logical modeling, physical modeling, up front capacity, performance, scalability, and reliability planning, and accepting the following realities of Cassandra
-
-* Follow the book’s recommendations for development process including all artifact creation in the way they show to make them. Don't make something work. Make everything that you possibly can easy on you to make the paradigm shift.
-
-* Test everything in a realistic test environment. You will be developing more "applications" with cassandra-stres before you every write a single line of application code that will be your end development goal.
-
-* Cassandra seems to demand the Full Stack DevOpsliper or Developer Operator. Success seems to hinge on a harmony between the development side and operational side of Cassandra. Cassandra is NOT agile.
-
-* High Maintenacne! Nothing in Cassandra is set it and forget it. With Windows/SQL Server, we’ve been able to set and forget more than we manage. This is the complete opposite for Cassandra. Cutting corners is dangerous to uptime.
-
+Windows 7 note... this is probably the last MS OS that I use on a desktop or laptop. Personally, I'm not a fan of my laptop and workstations being turned into phones. ;) Don't get me wrong. I owe MS my livlihood; I've made a 25+ career focused on MS technologies. My MCP number 21695. I've had all kinds of system and development certification from Lotus Notes to Novell CNE to MCSD/MCDBA/MCSE/MCT... I don't ever remember then all. I taught Windows NT 3.1 Advance Server courses as a MCT. As you can see, I'm that old school and dyed in the wool MS that I can honestly say that I've used SQL Server 4.2 on OS/2. Yep... that's right OS/2. ;) Which is a segway to NoSQL v SQL ... ACID v CAP ... whatever ... The most important thing to accept about Cassandra as a developer is that there is a paradigm shift that you experiece when you "get it." That is ... those things in the very beginning of the best practice for development of Cassandra based storage applications. Those things are data modeling, query planning, logical modeling, physical modeling, up front capacity, performance, scalability, and reliability planning, and accepting the following realities of Cassandra ...
+- Follow the book’s recommendations for development process including all artifact creation in the way they show to make them. Don't make something work. Make everything that you possibly can easy on you to make the paradigm shift.
+- Test everything in a realistic test environment. You will be developing more "applications" with cassandra-stres before you every write a single line of application code that will be your end development goal.
+- Cassandra seems to demand the Full Stack DevOpsliper or Developer Operator. Success seems to hinge on a harmony between the development side and operational side of Cassandra. Cassandra is NOT agile.
+- High Maintenacne! Nothing in Cassandra is set it and forget it. With Windows/SQL Server, we’ve been able to set and forget more than we manage. This is the complete opposite for Cassandra. Cutting corners is dangerous to uptime.
 There is a place in production for Cassandra. Even though it is seemingly hard, complex, etc., it does fill a specific use case niche and is a blast to work with when production gets the attention and investment that it requires.
 </rant> 
 
-** The Cassandra Cluster **
+### The Cassandra Cluster
 The cluster from an ad hoc Ansible every node (overkill) POV (point of view)...
+- [root@ansible ~]# ansible cluster22 -a"nodetool info"
+- [root@ansible ~]# ansible cluster22 -a"nodetool status"
+- [root@ansible ~]# ansible cluster22 -a"nodetool describecluster"
+- nodetool documentation"
+  - nodetool - https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/tools/toolsNodetool_r.html
+  - easiest to use good enough docs ^
+  - http://cassandra.apache.org/doc/4.0/tools/nodetool/nodetool.html
+  - official docs ... meh ... ^
 
-nodetool - https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/tools/toolsNodetool_r.html
-easiest to use good enough docs ^
-
-http://cassandra.apache.org/doc/4.0/tools/nodetool/nodetool.html
-official docs ... meh ... ^
-
-*nodetool info
-
-[root@ansible ~]# ansible cassandra -a"nodetool info"
+### ansible cluster22 -a"nodetool info" output
 cass2.deltakappa.com | CHANGED | rc=0 >>
 ID                     : fbf6aa22-51af-4b79-867f-77d4524d9efa
 Gossip active          : true
@@ -138,9 +102,7 @@ Row Cache              : entries 0, size 0 bytes, capacity 0 bytes, 0 hits, 0 re
 Counter Cache          : entries 2, size 248 bytes, capacity 12 MB, 0 hits, 0 requests, NaN recent hit rate, 7200 save period in seconds
 Token                  : (invoke with -T/--tokens to see all 256 tokens)
 
-*nodetool status
-
-[root@ansible ~]# ansible cassandra -a"nodetool status"
+### ansible cluster22 -a"nodetool status" output
 cass2.deltakappa.com | CHANGED | rc=0 >>
 Datacenter: deltakappa
 ======================
@@ -171,9 +133,7 @@ UN  10.10.10.51  102.96 MB  256          100.0%            a6d9f51e-e665-4062-90
 UN  10.10.10.52  113.47 MB  256          100.0%            fbf6aa22-51af-4b79-867f-77d4524d9efa  rack1
 UN  10.10.10.53  111.81 MB  256          100.0%            0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8  rack1
 
-*nodetool describecluster
-
-[root@ansible ~]# ansible cassandra -a"nodetool describecluster"
+### ansible cluster22 -a"nodetool describecluster" output
 cass2.deltakappa.com | CHANGED | rc=0 >>
 Cluster Information:
         Name: cluster22
@@ -197,6 +157,9 @@ Cluster Information:
         Partitioner: org.apache.cassandra.dht.Murmur3Partitioner
         Schema versions:
                 3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]
+
+
+
 
 ** The test keyspace is KillrVideo **
 https://killrvideo.github.io/ -  Since I did not use their setup, I simple lifted out the schema and data and loaded that up into the keyspace on my cassandra cluster. Thanks Datastax for putting together for us. And, thanks to Patrick McFadin and others at Datastax for the free training videos. I mention Patrick by name only because he is the reason I found out about killrvideo.
