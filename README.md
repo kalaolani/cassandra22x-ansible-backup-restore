@@ -38,7 +38,7 @@ There is a place in production for Cassandra. Even though it is seemingly hard, 
 
 ### The Cassandra Cluster
 The cluster from an ad hoc Ansible every node (overkill) POV (point of view)...
-- [root@ansible ~]# ansible cluster22 -a"nodetool info"
+- <verbatim>[root@ansible ~]# ansible cluster22 -a"nodetool info"</verbatim>
 - [root@ansible ~]# ansible cluster22 -a"nodetool status"
 - [root@ansible ~]# ansible cluster22 -a"nodetool describecluster"
 - nodetool documentation"
@@ -48,7 +48,7 @@ The cluster from an ad hoc Ansible every node (overkill) POV (point of view)...
   - official docs ... meh ... ^
 
 ### ansible cluster22 -a"nodetool info" output
-`cass2.deltakappa.com | CHANGED | rc=0 >>
+cass2.deltakappa.com | CHANGED | rc=0 >>
 ID                     : fbf6aa22-51af-4b79-867f-77d4524d9efa
 Gossip active          : true
 Thrift active          : false
