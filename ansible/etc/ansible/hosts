@@ -43,7 +43,7 @@
 ## db-[99:101]-node.example.com
 
 # cluster level ansible group
-[cassandra]
+[cluster22]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
@@ -59,7 +59,7 @@ cass3.deltakappa.com
 # cass31-3.deltakappa.com
 
 # cluster|dc level ansible group
-[cassandra-deltakappa-dc]
+[cluster22-deltakappa-dc]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
@@ -68,19 +68,19 @@ cass3.deltakappa.com
 # cass3-2.deltakappa.com
 
 # cluster|dc|rack level ansible group
-[cassandra-deltakappa-dc-rack1]
+[cluster22-deltakappa-dc-rack1]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
 
 # cluster|dc|rack level ansible group
-[cassandra-deltakappa-dc-rack2]
+[cluster22-deltakappa-dc-rack2]
 # cass1-2.deltakappa.com
 # cass2-2.deltakappa.com
 # cass3-2.deltakappa.com
 
 # all nodes of a specific dc of the cluster
-[cassandra-deltakappa2-dc]
+[cluster22-deltakappa2-dc]
 # cass11.deltakappa.com
 # cass21.deltakappa.com
 # cass31.deltakappa.com
@@ -89,13 +89,13 @@ cass3.deltakappa.com
 # cass31-3.deltakappa.com
 
 # cluster|dc|rack level ansible group
-[cassandra-deltakappa2-dc-rack1]
+[cluster22-deltakappa2-dc-rack1]
 # cass11.deltakappa.com
 # cass21.deltakappa.com
 # cass31.deltakappa.com
 
 # cluster|dc|rack level ansible group
-[cassandra-deltakappa2-dc-rack2]
+[cluster22-deltakappa2-dc-rack2]
 # cass11-2.deltakappa.com
 # cass21-2.deltakappa.com
 # cass31-3.deltakappa.com

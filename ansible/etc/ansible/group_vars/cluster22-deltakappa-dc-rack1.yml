@@ -1,0 +1,4 @@
+---
+# sample group_vars cluster22-deltakappa-dc-rack1.yml - "cluster22" cassandra cluster, dc deltakappa, and rack 1 level group_vars
+
+cassandra22x_cluster_dc_rack: rack1

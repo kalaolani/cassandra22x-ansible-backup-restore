@@ -1,0 +1,9 @@
+---
+# sample group_vars all.yml
+
+# capture datetime with the following format YYYYmmdd-HHMMSS
+now: "{{ lookup('pipe', 'date +%Y%m%d-%H%M%S') }}"
+
+# ssh_key_master:
+# ansible_ssh_user: root
+# ansible_ssh_password:

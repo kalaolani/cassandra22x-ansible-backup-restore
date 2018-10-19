@@ -1,0 +1,5 @@
+---
+# sample group_vars cluster22-deltakappa-dc.yml - "cluster22" cassandra cluster and dc deltakappa level group_vars
+
+cassandra22x_cluster_dc: deltakappa
+cassandra22x_local_archive: "{{ cassandra22x_var_path }}/archive"

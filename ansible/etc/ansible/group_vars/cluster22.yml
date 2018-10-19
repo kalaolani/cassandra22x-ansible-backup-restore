@@ -1,0 +1,44 @@
+---
+# sample group_vars cluster22.yml - "cluster22" cassandra cluster level group_vars
+
+# configuration
+cassandra22x_environment: cluster22
+cassandra22x_cluster_name: "{{ cassandra22x_environment }}"
+cassandra22x_conf_path: /etc/cassandra/conf
+cassandra22x_yaml: "{{ cassandra22x_conf_path }}/cassandra.yaml"
+cassandra22x_cluster_seeds: 10.10.10.51,10.10.10.52,10.10.10.53
+cassandra22x_rackdc_prop: "{{ cass_conf_path }}/cassandra-rackdc.properties"
+cassandra22x_log_path: /var/log/cassandra
+cassandra22x_log_cassandra: "{{ cassandra22x_log_path }}/cassandra.log"
+cassandra22x_log_system: "{{ cassandra22x_log_path }}/system.log"
+cassandra22x_log_debug: "{{ cassandra22x_log_path }}/debug.log"
+cassandra22x_log_gc: "{{ cassandra22x_log_path }}/gc.log.0.current"
+cassandra22x_var_path: /var/lib/cassandra
+cassandra22x_data_path: "{{ cassandra22x_var_path }}/data"
+
+# access
+cassandra22x_ansible_superuser: cassandra
+cassandra22x_ansible_superuser_password: cassandra
+cassandra22x_remote_jmx_user: cassandra
+cassandra22x_remote_jmx_pass: cassandra
+
+# logging
+cassandra22x_ansible_log_path: "/var/log/ansible/cassandra22x/{{ cassandra22x_environment }}"
+cassandra22x_ansible_log: "{{ cassandra22x_ansible_log_path }}/cassandra22x_ansible.log"
+
+# experimental incremental backups
+# disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"
+# enabled               cassandra22x_incremental_backup_configuration: "incremental_backups: true"
+
+# experimental commit log archiving
+# cassandra22x_commitlog_path: /var/lib/cassandra/commitlog
+# cassandra22x_commitlog_commitlog_archiving_properties: "{{ cass_conf_path }}/commitlog_archiving.properties"
+# disabled  defauilt    cassandra22x_commitlog_archive_configuration: "archive_command=" 
+# enabled               cassandra22x_commitlog_archive_configuration: "archive_command=/bin/ln %path {{ cass_commitlog_arch_path }}/%name"
+
+# experimental cassandra tuning
+# MAX_HEAP_SIZE="4G" in /etc/cassandra/conf/cassandra-env.sh
+# HEAP_NEWSIZE="800M" in /etc/cassandra/conf/cassandra-env.sh
+
+# experimental automation scripts
+# cassandra22x_cron_script_path: "/var/lib/ansible/cassandra22x/{{ cassandra22x_environment }}/scripts"
