@@ -38,16 +38,16 @@ There is a place in production for Cassandra. Even though it is seemingly hard, 
 
 ### The Cassandra Cluster
 The cluster from an ad hoc Ansible every node (overkill) POV (point of view)...
-- <verbatim>[root@ansible ~]# ansible cluster22 -a"nodetool info"</verbatim>
-- [root@ansible ~]# ansible cluster22 -a"nodetool status"
-- [root@ansible ~]# ansible cluster22 -a"nodetool describecluster"
-- nodetool documentation"
+- <p><code>[root@ansible ~]# ansible cluster22 -a"nodetool info"</code></p>
+- <p><code>[root@ansible ~]# ansible cluster22 -a"nodetool status"</code></p>
+- <p><code>[root@ansible ~]# ansible cluster22 -a"nodetool describecluster"</code></p>
+- nodetool documentation
   - nodetool - https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/tools/toolsNodetool_r.html
   - easiest to use good enough docs ^
   - http://cassandra.apache.org/doc/4.0/tools/nodetool/nodetool.html
   - official docs ... meh ... ^
 
-### ansible cluster22 -a"nodetool info" output
+#### ansible cluster22 -a"nodetool info" output
 cass2.deltakappa.com | CHANGED | rc=0 >>
 ID                     : fbf6aa22-51af-4b79-867f-77d4524d9efa
 Gossip active          : true
@@ -103,7 +103,7 @@ Counter Cache          : entries 2, size 248 bytes, capacity 12 MB, 0 hits, 0 re
 Token                  : (invoke with -T/--tokens to see all 256 tokens)`
 
 ### ansible cluster22 -a"nodetool status" output
-`cass2.deltakappa.com | CHANGED | rc=0 >>
+cass2.deltakappa.com | CHANGED | rc=0 >>
 Datacenter: deltakappa
 ======================
 Status=Up/Down
@@ -131,10 +131,10 @@ Status=Up/Down
 --  Address      Load       Tokens       Owns (effective)  Host ID                               Rack
 UN  10.10.10.51  102.96 MB  256          100.0%            a6d9f51e-e665-4062-9063-c0f62a5cd7ed  rack1
 UN  10.10.10.52  113.47 MB  256          100.0%            fbf6aa22-51af-4b79-867f-77d4524d9efa  rack1
-UN  10.10.10.53  111.81 MB  256          100.0%            0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8  rack1`
+UN  10.10.10.53  111.81 MB  256          100.0%            0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8  rack1
 
-### ansible cluster22 -a"nodetool describecluster" output
-`cass2.deltakappa.com | CHANGED | rc=0 >>
+#### ansible cluster22 -a"nodetool describecluster" output
+cass2.deltakappa.com | CHANGED | rc=0 >>
 Cluster Information:
         Name: cluster22
         Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch
@@ -156,7 +156,7 @@ Cluster Information:
         Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch
         Partitioner: org.apache.cassandra.dht.Murmur3Partitioner
         Schema versions:
-                3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]`
+                3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]
 
 
 
