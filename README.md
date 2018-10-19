@@ -1,19 +1,19 @@
-cassandra22x-ansible-backup-restore README
+# cassandra22x-ansible-backup-restore
+## README
 
+### What the heck is this and what is it about?
 This ansible backup / restore solution was developed with the following specifics. How to see these specifics includes a newbie how to that I wished existed for me when I was a 100% Linux world newbie... tip of the hat to the newbies who are trying to survive after losing the ease of a Microsoft world. 
 
 Don't feel like a =:-). You know what this means if you are an old MS employee from a long time ago... in a galaxy not so far away. Double Space ate my drive... oh no... should've used Stacker. ¯\_(ツ)_/¯ yeah... I'm that old.
 
 To avoid all of this hassle... Do give Datastax, a commercial dirivative of Cassandra, a try. It seems to support backup/restore out of the box.
 
-****** Environment ******
-Quick notes about git repo...
-    * The git repo is organized by the ansible host file system under ansible ... ansible/etc/ansible ... where ansible is the host and /etc/ansible is the target path on the ansible host.
-    * The git repo is organized by the cassandra noe file system under cassandra ... cassandra/ ... where / is the root of the cassandra node and the cassandra config and data directories are the default /etc/cassandra/conf and /var/lib/cassandra/data.    
+### Quick notes about git repo...
+- The git repo is organized by the ansible host file system under ansible ... ansible/etc/ansible ... where ansible is the host and /etc/ansible is the target path on the ansible host.
+- The git repo is organized by the cassandra noe file system under cassandra ... cassandra/ ... where / is the root of the cassandra node and the cassandra config and data directories are the default /etc/cassandra/conf and /var/lib/cassandra/data.    
 
-****** Environment ******
-
-** Software Versions **
+## Environment
+### Software Versions
 https://www.centos.org/
 Linux - CentOS Linux release 7.5.1804 (Core) w/ minimal, dev tools, compatibility
     * Newbie How To? cat /etc/centos-release
