@@ -104,7 +104,63 @@ Counter Cache          : entries 2, size 248 bytes, capacity 12 MB, 0 hits, 0 re
 Token                  : (invoke with -T/--tokens to see all 256 tokens)
 ```
 #### ansible cluster22 -a"nodetool status" output
+```
+cass2.deltakappa.com | CHANGED | rc=0 >>
+Datacenter: deltakappa
+======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address      Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  10.10.10.51  103.14 MB  256          100.0%            a6d9f51e-e665-4062-9063-c0f62a5cd7ed  rack1
+UN  10.10.10.52  113.73 MB  256          100.0%            fbf6aa22-51af-4b79-867f-77d4524d9efa  rack1
+UN  10.10.10.53  111.31 MB  256          100.0%            0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8  rack1
+
+cass3.deltakappa.com | CHANGED | rc=0 >>
+Datacenter: deltakappa
+======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address      Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  10.10.10.51  103.14 MB  256          100.0%            a6d9f51e-e665-4062-9063-c0f62a5cd7ed  rack1
+UN  10.10.10.52  113.73 MB  256          100.0%            fbf6aa22-51af-4b79-867f-77d4524d9efa  rack1
+UN  10.10.10.53  111.31 MB  256          100.0%            0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8  rack1
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+Datacenter: deltakappa
+======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address      Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  10.10.10.51  103.14 MB  256          100.0%            a6d9f51e-e665-4062-9063-c0f62a5cd7ed  rack1
+UN  10.10.10.52  113.73 MB  256          100.0%            fbf6aa22-51af-4b79-867f-77d4524d9efa  rack1
+UN  10.10.10.53  111.31 MB  256          100.0%            0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8  rack1
+```
 #### ansible cluster22 -a"nodetool describecluster" output
+```
+cass2.deltakappa.com | CHANGED | rc=0 >>
+Cluster Information:
+        Name: cluster22
+        Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch
+        Partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+        Schema versions:
+                3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]
+
+cass3.deltakappa.com | CHANGED | rc=0 >>
+Cluster Information:
+        Name: cluster22
+        Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch
+        Partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+        Schema versions:
+                3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+Cluster Information:
+        Name: cluster22
+        Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch
+        Partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+        Schema versions:
+                3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]
+```
 
 ### Test keyspace is KillrVideo
 https://killrvideo.github.io/
@@ -112,13 +168,15 @@ https://killrvideo.github.io/
 Since I did not use their setup, I simple lifted out the schema and data and loaded that up into the keyspace on my cassandra cluster. Thanks Datastax for putting together for us. And, thanks to Patrick McFadin and others at Datastax for the free training videos. I mention Patrick by name only because he is the reason I found out about killrvideo.
 
 This is the "footprint" or the scale of the cassandra data that I'm dealing with in this development test environment.
-<p><code>[root@ansible ~]# ansible cassandra -m shell -a "du -sh /var/lib/cassandra/data"</code></p>
-<p><code>cass2.deltakappa.com | CHANGED | rc=0 >></code></p>
-<p><code>115M    /var/lib/cassandra/data</code></p>
-<p><code>cass3.deltakappa.com | CHANGED | rc=0 >></code></p>
-<p><code>114M    /var/lib/cassandra/data</code></p>
-<p><code>cass1.deltakappa.com | CHANGED | rc=0 >></code></p>
-<p><code>105M    /var/lib/cassandra/data</code></p>
+```
+[root@ansible ~]# ansible cassandra -m shell -a "du -sh /var/lib/cassandra/data"
+cass2.deltakappa.com | CHANGED | rc=0 >>
+115M    /var/lib/cassandra/data
+cass3.deltakappa.com | CHANGED | rc=0 >>
+114M    /var/lib/cassandra/data
+cass1.deltakappa.com | CHANGED | rc=0 >>
+105M    /var/lib/cassandra/data
+```
 
 ### Requirements & Notes
 Some of the parts of this solution are not yet optimized. This is literally the results of the  first run through by a newbie to Linux, Python, Ansible, Cassandra, and FOSS in general using one Datastax as a specification document: https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/operations/ops_backup_restore_c.html
