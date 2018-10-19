@@ -102,7 +102,7 @@ Row Cache              : entries 0, size 0 bytes, capacity 0 bytes, 0 hits, 0 re
 Counter Cache          : entries 2, size 248 bytes, capacity 12 MB, 0 hits, 0 requests, NaN recent hit rate, 7200 save period in seconds
 Token                  : (invoke with -T/--tokens to see all 256 tokens)</code></p>
 
-### ansible cluster22 -a"nodetool status" output
+#### ansible cluster22 -a"nodetool status" output
 <p><code>cass2.deltakappa.com | CHANGED | rc=0 >>
 Datacenter: deltakappa
 ======================
@@ -158,15 +158,14 @@ Cluster Information:
         Schema versions:
                 3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]</code></p>
 
+### Test keyspace is KillrVideo
+https://killrvideo.github.io/
 
-
-
-** The test keyspace is KillrVideo **
-https://killrvideo.github.io/ -  Since I did not use their setup, I simple lifted out the schema and data and loaded that up into the keyspace on my cassandra cluster. Thanks Datastax for putting together for us. And, thanks to Patrick McFadin and others at Datastax for the free training videos. I mention Patrick by name only because he is the reason I found out about killrvideo.
+Since I did not use their setup, I simple lifted out the schema and data and loaded that up into the keyspace on my cassandra cluster. Thanks Datastax for putting together for us. And, thanks to Patrick McFadin and others at Datastax for the free training videos. I mention Patrick by name only because he is the reason I found out about killrvideo.
 
 This is the "footprint" or the scale of the cassandra data that I'm dealing with in this development test environment.
 
-[root@ansible ~]# ansible cassandra -m shell -a "du -sh /var/lib/cassandra/data"
+<p><code>[root@ansible ~]# ansible cassandra -m shell -a "du -sh /var/lib/cassandra/data"
 cass2.deltakappa.com | CHANGED | rc=0 >>
 115M    /var/lib/cassandra/data
 
@@ -174,15 +173,16 @@ cass3.deltakappa.com | CHANGED | rc=0 >>
 114M    /var/lib/cassandra/data
 
 cass1.deltakappa.com | CHANGED | rc=0 >>
-105M    /var/lib/cassandra/data
+105M    /var/lib/cassandra/data</code></p>
 
-** Some of the parts of this solution are not yet optimized. This is literally the results of the  first run through by a newbie to Linux, Python, Ansible, Cassandra, and FOSS in general using one Datastax as a specification document: https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/operations/ops_backup_restore_c.html
+### Requirements & Notes
+Some of the parts of this solution are not yet optimized. This is literally the results of the  first run through by a newbie to Linux, Python, Ansible, Cassandra, and FOSS in general using one Datastax as a specification document: https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/operations/ops_backup_restore_c.html
 Where working from these documents took the most focus...
 https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/operations/ops_snapshot_restore_new_cluster.html
 https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/operations/ops_backup_snapshot_restore_t.html#ops_backup_snapshot_restore_t
 
-** Ansible Configuration **
-/etc/ansible/ansible.cfg - using the default (sample in repo)
-/etc/ansible/hosts - using the default plus this smaple environment (sample in repo)
-
-
+### Ansible Configuration
+- /etc/ansible/ansible.cfg
+  - using the default (sample in repo)
+- /etc/ansible/hosts
+  - using the default plus this smaple environment (sample in repo)
