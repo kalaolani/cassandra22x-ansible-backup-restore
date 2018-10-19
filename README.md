@@ -184,16 +184,42 @@ Where working from these documents took the most focus...
 https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/operations/ops_snapshot_restore_new_cluster.html
 https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/operations/ops_backup_snapshot_restore_t.html#ops_backup_snapshot_restore_t
 
-<<<<<<< HEAD
-** Ansible Configuration **
-Most important read IMHO: https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
-/etc/ansible/ansible.cfg - using the default (sample in repo)
-/etc/ansible/hosts - using the default plus this smaple environment (sample in repo)
-
-=======
 ### Ansible Configuration
 Following best practices on directory and file organization: https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
 - ansible.cfg - using the default (sample in repo)
 - hosts - using the default plus this smaple environment (sample in repo)
->>>>>>> 1ee9740621f6196ed9032f44a72325a594a20301
 
+### Ansible Configuration Testing
+Using the ping module to test inventory (/etc/ansible/hosts file)
+```
+[root@ansible ~]# ansible cluster22 -m ping
+cass2.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+cass1.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+cass3.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+[root@ansible ~]# ansible cluster22-deltakappa-dc -m ping
+cass3.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+cass1.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+cass2.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+[root@ansible ~]# ansible cass2.deltakappa.com -m ping
+cass2.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+```
