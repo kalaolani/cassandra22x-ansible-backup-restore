@@ -48,7 +48,7 @@ The cluster from an ad hoc Ansible every node (overkill) POV (point of view)...
   - official docs ... meh ... ^
 
 #### ansible cluster22 -a"nodetool info" output
-...
+```
 cass2.deltakappa.com | CHANGED | rc=0 >>
 ID                     : fbf6aa22-51af-4b79-867f-77d4524d9efa
 Gossip active          : true
@@ -102,7 +102,7 @@ Key Cache              : entries 46, size 4.15 KB, capacity 24 MB, 174 hits, 239
 Row Cache              : entries 0, size 0 bytes, capacity 0 bytes, 0 hits, 0 requests, NaN recent hit rate, 0 save period in seconds
 Counter Cache          : entries 2, size 248 bytes, capacity 12 MB, 0 hits, 0 requests, NaN recent hit rate, 7200 save period in seconds
 Token                  : (invoke with -T/--tokens to see all 256 tokens)
-...
+```
 #### ansible cluster22 -a"nodetool status" output
 #### ansible cluster22 -a"nodetool describecluster" output
 
