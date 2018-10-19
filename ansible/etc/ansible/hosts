@@ -1,0 +1,102 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+# Ex 1: Ungrouped hosts, specify before any group headers.
+
+## green.example.com
+## blue.example.com
+## 192.168.100.1
+## 192.168.100.10
+
+# Ex 2: A collection of hosts belonging to the 'webservers' group
+
+## [webservers]
+## alpha.example.org
+## beta.example.org
+## 192.168.1.100
+## 192.168.1.110
+
+# If you have multiple hosts following a pattern you can specify
+# them like this:
+
+## www[001:006].example.com
+
+# Ex 3: A collection of database servers in the 'dbservers' group
+
+## [dbservers]
+## 
+## db01.intranet.mydomain.net
+## db02.intranet.mydomain.net
+## 10.25.1.56
+## 10.25.1.57
+
+# Here's another example of host ranges, this time there are no
+# leading 0s:
+
+## db-[99:101]-node.example.com
+
+# cluster level ansible group
+[cassandra]
+cass1.deltakappa.com
+cass2.deltakappa.com
+cass3.deltakappa.com
+# sample design goal example only
+# cass1-2.deltakappa.com
+# cass2-2.deltakappa.com
+# cass3-2.deltakappa.com
+# cass11.deltakappa.com
+# cass21.deltakappa.com
+# cass31.deltakappa.com
+# cass11-2.deltakappa.com
+# cass21-2.deltakappa.com
+# cass31-3.deltakappa.com
+
+# cluster|dc level ansible group
+[cassandra-deltakappa-dc]
+cass1.deltakappa.com
+cass2.deltakappa.com
+cass3.deltakappa.com
+# cass1-2.deltakappa.com
+# cass2-2.deltakappa.com
+# cass3-2.deltakappa.com
+
+# cluster|dc|rack level ansible group
+[cassandra-deltakappa-dc-rack1]
+cass1.deltakappa.com
+cass2.deltakappa.com
+cass3.deltakappa.com
+
+# cluster|dc|rack level ansible group
+[cassandra-deltakappa-dc-rack2]
+# cass1-2.deltakappa.com
+# cass2-2.deltakappa.com
+# cass3-2.deltakappa.com
+
+# all nodes of a specific dc of the cluster
+[cassandra-deltakappa2-dc]
+# cass11.deltakappa.com
+# cass21.deltakappa.com
+# cass31.deltakappa.com
+# cass11-2.deltakappa.com
+# cass21-2.deltakappa.com
+# cass31-3.deltakappa.com
+
+# cluster|dc|rack level ansible group
+[cassandra-deltakappa2-dc-rack1]
+# cass11.deltakappa.com
+# cass21.deltakappa.com
+# cass31.deltakappa.com
+
+# cluster|dc|rack level ansible group
+[cassandra-deltakappa2-dc-rack2]
+# cass11-2.deltakappa.com
+# cass21-2.deltakappa.com
+# cass31-3.deltakappa.com
+
