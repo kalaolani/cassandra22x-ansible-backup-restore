@@ -48,10 +48,115 @@ The cluster from an ad hoc Ansible every node (overkill) POV (point of view)...
   - official docs ... meh ... ^
 
 #### ansible cluster22 -a"nodetool info" output
+<p><code>cass2.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>ID                     : fbf6aa22-51af-4b79-867f-77d4524d9efa</code></p>
+<p><code>Gossip active          : true</code></p>
+<p><code>Thrift active          : false</code></p>
+<p><code>Native Transport active: true</code></p>
+<p><code>Load                   : 113.47 MB</code></p>
+<p><code>Generation No          : 1539965741</code></p>
+<p><code>Uptime (seconds)       : 2811</code></p>
+<p><code>Heap Memory (MB)       : 104.42 / 486.00</code></p>
+<p><code>Off Heap Memory (MB)   : 0.17</code></p>
+<p><code>Data Center            : deltakappa</code></p>
+<p><code>Rack                   : rack1</code></p>
+<p><code>Exceptions             : 0</code></p>
+<p><code>Key Cache              : entries 42, size 3.74 KB, capacity 24 MB, 81 hits, 122 requests, 0.664 recent hit rate, 14400 save period in seconds</code></p>
+Row Cache              : entries 0, size 0 bytes, capacity 0 bytes, 0 hits, 0 requests, NaN recent hit rate, 0 save period in seconds
+<p><code>Counter Cache          : entries 2, size 248 bytes, capacity 12 MB, 0 hits, 0 requests, NaN recent hit rate, 7200 save period in seconds</code></p>
+Token                  : (invoke with -T/--tokens to see all 256 tokens)
+<p><code></code></p>
+<p><code>cass3.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>ID                     : 0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8</code></p>
+<p><code>Gossip active          : true</code></p>
+<p><code>Thrift active          : false</code></p>
+<p><code>Native Transport active: true</code></p>
+<p><code>Load                   : 111.81 MB</code></p>
+<p><code>Generation No          : 1539965809</code></p>
+<p><code>Uptime (seconds)       : 2781</code></p>
+<p><code>Heap Memory (MB)       : 60.79 / 486.00</code></p>
+<p><code>Off Heap Memory (MB)   : 0.20</code></p>
+<p><code>Data Center            : deltakappa</code></p>
+<p><code>Rack                   : rack1</code></p>
+<p><code>Exceptions             : 0</code></p>
+<p><code>Key Cache              : entries 65, size 8.42 KB, capacity 24 MB, 76 hits, 135 requests, 0.563 recent hit rate, 14400 save period in seconds</code></p>
+<p><code>Row Cache              : entries 0, size 0 bytes, capacity 0 bytes, 0 hits, 0 requests, NaN recent hit rate, 0 save period in seconds</code></p>
+<p><code>Counter Cache          : entries 0, size 0 bytes, capacity 12 MB, 0 hits, 0 requests, NaN recent hit rate, 7200 save period in seconds</code></p>
+<p><code>Token                  : (invoke with -T/--tokens to see all 256 tokens)</code></p>
+<p><code></code></p>
+<p><code>cass1.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>ID                     : a6d9f51e-e665-4062-9063-c0f62a5cd7ed</code></p>
+<p><code>Gossip active          : true</code></p>
+<p><code>Thrift active          : false</code></p>
+<p><code>Native Transport active: true</code></p>
+<p><code>Load                   : 102.96 MB</code></p>
+<p><code>Generation No          : 1539965669</code></p>
+<p><code>Uptime (seconds)       : 2915</code></p>
+<p><code>Heap Memory (MB)       : 186.00 / 486.00</code></p>
+<p><code>Off Heap Memory (MB)   : 0.17</code></p>
+<p><code>Data Center            : deltakappa</code></p>
+<p><code>Rack                   : rack1</code></p>
+<p><code>Exceptions             : 0</code></p>
+<p><code>Key Cache              : entries 68, size 6.28 KB, capacity 24 MB, 88 hits, 153 requests, 0.575 recent hit rate, 14400 save period in seconds</code></p>
+<p><code>Row Cache              : entries 0, size 0 bytes, capacity 0 bytes, 0 hits, 0 requests, NaN recent hit rate, 0 save period in seconds</code></p>
+<p><code>Counter Cache          : entries 2, size 248 bytes, capacity 12 MB, 0 hits, 0 requests, NaN recent hit rate, 7200 save period in seconds</code></p>
+<p><code>Token                  : (invoke with -T/--tokens to see all 256 tokens)</code></p></code></p>
 
 #### ansible cluster22 -a"nodetool status" output
+<p><code>cass2.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>Datacenter: deltakappa</code></p>
+<p><code>======================</code></p>
+<p><code>Status=Up/Down</code></p>
+<p><code>|/ State=Normal/Leaving/Joining/Moving</code></p>
+<p><code>--  Address      Load       Tokens       Owns (effective)  Host ID                               Rack</code></p>
+<p><code>UN  10.10.10.51  102.96 MB  256          100.0%            a6d9f51e-e665-4062-9063-c0f62a5cd7ed  rack1</code></p>
+<p><code>UN  10.10.10.52  113.47 MB  256          100.0%            fbf6aa22-51af-4b79-867f-77d4524d9efa  rack1</code></p>
+<p><code>UN  10.10.10.53  111.81 MB  256          100.0%            0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8  rack1</code></p>
+<p><code></code></p>
+<p><code>cass1.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>Datacenter: deltakappa</code></p>
+<p><code>======================</code></p>
+<p><code>Status=Up/Down</code></p>
+<p><code>|/ State=Normal/Leaving/Joining/Moving</code></p>
+<p><code>--  Address      Load       Tokens       Owns (effective)  Host ID                               Rack</code></p>
+<p><code>UN  10.10.10.51  102.96 MB  256          100.0%            a6d9f51e-e665-4062-9063-c0f62a5cd7ed  rack1</code></p>
+<p><code>UN  10.10.10.52  113.47 MB  256          100.0%            fbf6aa22-51af-4b79-867f-77d4524d9efa  rack1</code></p>
+<p><code>UN  10.10.10.53  111.81 MB  256          100.0%            0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8  rack1</code></p>
+<p><code></code></p>
+<p><code>cass3.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>Datacenter: deltakappa</code></p>
+<p><code>======================</code></p>
+<p><code>Status=Up/Down</code></p>
+<p><code>|/ State=Normal/Leaving/Joining/Moving</code></p>
+<p><code>--  Address      Load       Tokens       Owns (effective)  Host ID                               Rack</code></p>
+<p><code>UN  10.10.10.51  102.96 MB  256          100.0%            a6d9f51e-e665-4062-9063-c0f62a5cd7ed  rack1</code></p>
+<p><code>UN  10.10.10.52  113.47 MB  256          100.0%            fbf6aa22-51af-4b79-867f-77d4524d9efa  rack1</code></p>
+<p><code>UN  10.10.10.53  111.81 MB  256          100.0%            0222aa0b-a9d0-41cb-8fce-0b0b94d17ba8  rack1</code></p></code></p>
 
 #### ansible cluster22 -a"nodetool describecluster" output
+<p><code>cass2.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>Cluster Information:</code></p>
+        <p><code>Name: cluster22</code></p>
+        <p><code>Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch</code></p>
+        <p><code>Partitioner: org.apache.cassandra.dht.Murmur3Partitioner</code></p>
+        <p><code>Schema versions:</code></p>
+                <p><code>3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]</code></p>
+<p><code></code></p>
+<p><code>cass1.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>Cluster Information:</code></p>
+        <p><code>Name: cluster22</code></p>
+        <p><code>Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch</code></p>
+        <p><code>Partitioner: org.apache.cassandra.dht.Murmur3Partitioner</code></p>
+        <p><code>Schema versions:</code></p>
+                <p><code>3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]</code></p>
+<p><code></code></p>
+<p><code>cass3.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>Cluster Information:</code></p>
+        <p><code>Name: cluster22</code></p>
+        <p><code>Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch</code></p>
+        <p><code>Partitioner: org.apache.cassandra.dht.Murmur3Partitioner</code></p>
+        <p><code>Schema versions:</code></p>
+                <p><code>3adce62d-808d-3f1a-ad24-e23220170631: [10.10.10.51, 10.10.10.52, 10.10.10.53]</code></p>
 
 ### Test keyspace is KillrVideo
 https://killrvideo.github.io/
