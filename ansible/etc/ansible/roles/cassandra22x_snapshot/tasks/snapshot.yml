@@ -1,0 +1,4 @@
+---
+- name: nodetool snapshot keyspace on the C* node
+  script: nodetool-snapshot.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ fact_snapshot_name }} {{ item }} {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_{{ item }}.log
+  with_items: "{{ fact_snapshot_keyspace_list }}"

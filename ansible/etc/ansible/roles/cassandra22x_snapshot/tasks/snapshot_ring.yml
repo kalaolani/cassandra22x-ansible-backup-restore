@@ -1,0 +1,3 @@
+---
+- name: "create {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_ring_tokens.log and save the token list"
+  script: nodetool-ring.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_ring_tokens.log

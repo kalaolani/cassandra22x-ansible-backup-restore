@@ -1,0 +1,20 @@
+---
+- name: "set fact_snapshot_name fact to snapshot_{{ snapshot_uuid }}"
+  set_fact:
+    fact_snapshot_name: "snapshot_{{ snapshot_uuid }}"
+
+- name: "get all keyspaces on the {{ cassandra22x_cluster_name }} cluster per node"
+  script: get_keyspaces.py --contact_points {{ inventory_hostname }} --username {{ cassandra22x_ansible_superuser }} --password {{ cassandra22x_ansible_superuser_password }}
+  register: get_keyspaces
+
+- name: set fact_snapshot_keyspace_list fact to the results of get_keyspaces
+  set_fact:    
+    fact_snapshot_keyspace_list: "{{ get_keyspaces.stdout_lines }}"
+
+- import_tasks: create_snapshot_yamls.yml
+- import_tasks: snapshot_ring.yml
+- import_tasks: snapshot_config.yml
+- import_tasks: snapshot_keyspace_schema.yml
+- import_tasks: snapshot_keyspace_columnfamilies.yml
+- import_tasks: snapshot.yml
+- import_tasks: rsync_snapshot_yamls.yml

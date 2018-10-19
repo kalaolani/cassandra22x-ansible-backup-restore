@@ -26,6 +26,9 @@ cassandra22x_remote_jmx_pass: cassandra
 cassandra22x_ansible_log_path: "/var/log/ansible/cassandra22x/{{ cassandra22x_environment }}"
 cassandra22x_ansible_log: "{{ cassandra22x_ansible_log_path }}/cassandra22x_ansible.log"
 
+# ansible automation
+restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
+
 # experimental incremental backups
 # disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"
 # enabled               cassandra22x_incremental_backup_configuration: "incremental_backups: true"

@@ -1,0 +1,16 @@
+---
+- name: "create missing vars paths - {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+  file:
+    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+    state: directory
+  delegate_to: 127.0.0.1
+        
+- name: "rsync metadata (yaml files) created to the ansible system"
+  synchronize:
+    mode: pull
+    src: "{{ cassandra22x_log_path }}/"
+    dest: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+    rsync_opts:
+        - "--no-motd"
+        - "--include=*.yml"
+        - "--exclude=*"

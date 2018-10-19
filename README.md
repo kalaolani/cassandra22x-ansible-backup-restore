@@ -24,6 +24,10 @@ To avoid all of this hassle... Do give Datastax, a commercial dirivative of Cass
 - Cassandra - 2.2.13
   - http://cassandra.apache.org/
 
+### other (not part of default CentOS 7 install) repos configured on all systems of the sample environment
+- cassandra.repo - http://cassandra.apache.org/doc/4.0/getting_started/installing.html
+- epel.repo - https://fedoraproject.org/wiki/EPEL
+  
 ### Ansible and Cassandra Node HW
 Nothing special ...  1 CPU, 1GB RAM, 20GB Disk per VM all running on an average developer/ops type workstation with a i7-2600K@3.4GHz CPU, 16GB of RAM, RAID-10 SSDs for host OS and developer/ops data, and SATA spinning rust x2 for all VMs with a deployment like this ... ansible cass2 spinning rust 1 | cass 1 cass 3 spinning rust 2 ... so, you can see the type of imbalance that I expect to see in terms of ansible output. The host OS is good old Windows 7 using Oracle Virtual Box for the VMs. Cassandra configuration is all defaults. The only alertaions to any config file was to configure the clusters's minimal settings that include remote networking.
 
@@ -223,3 +227,22 @@ cass2.deltakappa.com | SUCCESS => {
     "changed": false,
     "ping": "pong"
 ```
+
+### Using ad hoc Ansible commands to add other dependencies
+install the python-setuptools, python-pip, the cassandra-driver on each cassandra node
+- /usr/lib64/python2.7/site-packages (3.15.1)
+- /usr/lib/python2.7/site-packages (from cassandra-driver) (1.11.0)
+- /usr/lib/python2.7/site-packages (from cassandra-driver) (3.2.0)
+
+```
+[root@ansible ~]# ansible cass1.deltakappa.com -m shell -a "yum -y install python-setuptools"
+[root@ansible ~]# ansible cass1.deltakappa.com -m shell -a "yum -y install python-pip"
+[root@ansible ~]# ansible cass1.deltakappa.com -m shell -a "pip install --upgrade pip"
+[root@ansible ~]# ansible cass1.deltakappa.com -m shell -a "pip install cassandra-driver"
+```
+
+### Using the playbooks/cluster22/cassandra22x_snapshot.yml playbook
+```
+ansible-playbook playbooks/cluster22/cassandra22x_snapshot.yml -e "snapshot_uuid=$(uuidgen)" | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_$(date +%Y%d%m%H%M%s).log
+```
+See var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_2018191016431539988994.log to see sample out of a successful run using the sample environment.

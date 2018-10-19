@@ -1,0 +1,6 @@
+---
+- name: "tar {{ cassandra22x_conf_path }}/* to {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_config.tar to snapshot the cassandra configuration on each node."
+  archive:
+    path: "{{ cassandra22x_conf_path }}/*"
+    dest: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_config.tar"
+    format: tar
