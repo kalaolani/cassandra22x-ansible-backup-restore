@@ -59,16 +59,13 @@ https://killrvideo.github.io/
 Since I did not use their setup, I simple lifted out the schema and data and loaded that up into the keyspace on my cassandra cluster. Thanks Datastax for putting together for us. And, thanks to Patrick McFadin and others at Datastax for the free training videos. I mention Patrick by name only because he is the reason I found out about killrvideo.
 
 This is the "footprint" or the scale of the cassandra data that I'm dealing with in this development test environment.
-
-<p><code>[root@ansible ~]# ansible cassandra -m shell -a "du -sh /var/lib/cassandra/data"
-cass2.deltakappa.com | CHANGED | rc=0 >>
-115M    /var/lib/cassandra/data
-
-cass3.deltakappa.com | CHANGED | rc=0 >>
-114M    /var/lib/cassandra/data
-
-cass1.deltakappa.com | CHANGED | rc=0 >>
-105M    /var/lib/cassandra/data</code></p>
+<p><code>[root@ansible ~]# ansible cassandra -m shell -a "du -sh /var/lib/cassandra/data"</code></p>
+<p><code>cass2.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>115M    /var/lib/cassandra/data</code></p>
+<p><code>cass3.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>114M    /var/lib/cassandra/data</code></p>
+<p><code>cass1.deltakappa.com | CHANGED | rc=0 >></code></p>
+<p><code>105M    /var/lib/cassandra/data</code></p>
 
 ### Requirements & Notes
 Some of the parts of this solution are not yet optimized. This is literally the results of the  first run through by a newbie to Linux, Python, Ansible, Cassandra, and FOSS in general using one Datastax as a specification document: https://docs.datastax.com/en/archived/cassandra/2.1/cassandra/operations/ops_backup_restore_c.html
