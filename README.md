@@ -264,10 +264,14 @@ install and configure nfs using a horitzonal deployment equal to your nodes...
 ```
 
 ##### configure nfs
-for the sample environment /etc/exports contains the following config
+for the sample environment /etc/exports contains the following config on each nfs server
 ```
-/var/nfsshare    10.10.10.*(rw,sync,no_root_squash,no_all_squash)
+/var/nfsshare/{{ cassandra22x_nfs_server }}    10.10.10.*(rw,sync,no_root_squash,no_all_squash)
 ```
+replace {{ cassandra22x_nfs_server }} with the appropriate nfs archive server's host_name 
 
-
-
+and then use ansible to create paths and mount the nfs servers
+```
+[root@ansible ansible]# ansible cluster22 -m shell -a "mkdir -p {{ cassandra22x_nfs_server_mount }}"
+[root@ansible ansible]# ansible cluster22 -m shell -a "mount -t nfs {{ cassandra22x_nfs_server }}:{{ cassandra22x_nfs_server_path }} {{ cassandra22x_nfs_client_mount }}"
+```
