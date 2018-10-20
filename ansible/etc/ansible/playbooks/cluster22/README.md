@@ -29,7 +29,7 @@ ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive.yml -e 
 ```
 #### Seeing the results of the playbooks/cluster22/cassandra22x_snapshot_local_archive.yml playbook
 
-### Using the playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml
+### Using the playbooks/cluster22/cassandra22x_snapshot_local_archive_remote_archive_rsync.yml
 ```
 
 ```
