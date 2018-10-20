@@ -1,0 +1,19 @@
+---
+- name: "include the {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
+  include_vars:
+    file: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
+  delegate_to: 127.0.0.1
+
+- name: "set fact_snapshot_name fact to snapshot_{{ snapshot_uuid }}"
+  set_fact:
+    fact_snapshot_name: "{{ snapshot_name }}"
+
+- name: set fact_snapshot_keyspace_list fact to the results of get_keyspaces
+  set_fact:    
+    fact_snapshot_keyspace_list: "{{ keyspace_names }}"
+    
+- import_tasks: local_tar_snapshot.yml
+  when: cassandra22x_local_archive_compression == "false"
+  
+- import_tasks: local_gz_snapshot.yml
+  when: cassandra22x_local_archive_compression == "true"

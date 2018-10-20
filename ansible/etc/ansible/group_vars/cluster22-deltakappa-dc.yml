@@ -3,3 +3,7 @@
 
 cassandra22x_cluster_dc: deltakappa
 cassandra22x_local_archive: "{{ cassandra22x_var_path }}/archive"
+cassandra22x_local_archive_path: "{{ cassandra22x_var_path }}/archive"
+cassandra22x_local_archive_compression: "false"
+cassandra22x_nfs_archive_path: "{{ cassandra22x_nfs_client_mount }}/cassandra22x/{{ cassandra22x_environment }}/{{ cassandra22x_cluster_name }}/{{ inventory_hostname }}"
+cassandra22x_remote_archive_path: "{{ cassandra22x_nfs_archive_path }}{{ cassandra22x_local_archive_path }}"

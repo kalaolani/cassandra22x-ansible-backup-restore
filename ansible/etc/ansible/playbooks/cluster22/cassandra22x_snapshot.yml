@@ -18,10 +18,10 @@
       set_fact: 
         end_date_time_fact: "{{ now }}"
         
-    - name: snapshot.yml start end date times
+    - name: cassandra22x_snapshot.yml play start and end date times
       debug: 
         msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }}"
 
-    - name: Snapshot Cassandra End Message
+    - name: snapshot confirm message
       debug: 
         msg: "Snapshot created... {{ fact_snapshot_name }} for these keyspaces {{ fact_snapshot_keyspace_list }}"

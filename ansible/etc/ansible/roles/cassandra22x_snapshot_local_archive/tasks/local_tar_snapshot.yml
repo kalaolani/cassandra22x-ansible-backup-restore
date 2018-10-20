@@ -1,0 +1,31 @@
+---
+- name: create missing archive directories for each keyspace
+  file:
+    path: "{{ cassandra22x_local_archive }}/{{ item }}/snapshots"
+    state: directory
+    owner: cassandra
+    group: cassandra
+    mode: "u=rwx,g=rx,o=rx"
+  with_items: "{{ fact_snapshot_keyspace_list }}"
+ 
+- name: "tar snapshot {{ cassandra22x_data_path }}/keyspaces/*/snapshots/{{ fact_snapshot_name }} into {{ cassandra22x_local_archive_path }}/{{ fact_snapshot_name }}.tar"
+  archive:
+    path: "{{ cassandra22x_data_path }}/{{ item }}/*/snapshots/{{ fact_snapshot_name }}"
+    dest: "{{ cassandra22x_local_archive_path }}/{{ item }}/snapshots/{{ fact_snapshot_name }}.tar"
+    format: tar
+  with_items: "{{ fact_snapshot_keyspace_list }}"
+
+- name: create missing log archive directory
+  file:
+    path: "{{ cassandra22x_local_archive }}/archived_logs"
+    state: directory
+    owner: cassandra
+    group: cassandra
+    mode: "u=rwx,g=rx,o=rx"
+  
+- name: "tar snapshot {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}*.* into {{ cassandra22x_local_archive_path }}/{{ fact_snapshot_name }}.tar"
+  archive:
+    path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}*.*"
+    dest: "{{ cassandra22x_local_archive_path }}/archived_logs/{{ fact_snapshot_name }}.tar"
+    format: tar
+    remove: yes

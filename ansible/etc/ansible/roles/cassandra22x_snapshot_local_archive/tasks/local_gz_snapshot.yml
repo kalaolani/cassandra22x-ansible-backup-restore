@@ -1,0 +1,22 @@
+---
+- name: create missing archive directories for each keyspace
+  file:
+    path: "{{ cassandra22x_local_archive }}/{{ item }}/snapshots"
+    state: directory
+    owner: cassandra
+    group: cassandra
+    mode: "u=rwx,g=rx,o=rx"
+  with_items: "{{ fact_snapshot_keyspace_list }}"
+
+- name: "gz archive snapshot {{ cassandra22x_data_path }}/keyspaces/*/snapshots/{{ fact_snapshot_name }} into {{ cassandra22x_local_archive_path }}/keyspaces/snapshots/{{ fact_snapshot_name }}.tar.gz"
+  archive:
+    path: "{{ cassandra22x_data_path }}/{{ item }}/*/snapshots/{{ fact_snapshot_name }}"
+    dest: "{{ cassandra22x_local_archive_path }}/{{ item }}/snapshots/{{ fact_snapshot_name }}.tar.gz"
+    format: gz
+  with_items: "{{ fact_snapshot_keyspace_list }}"
+
+- name: "gz archive snapshot {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}*.* into {{ cassandra22x_local_archive_path }}/{{ fact_snapshot_name }}.tar.gz"
+  archive:
+    path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}*.*"
+    dest: "{{ cassandra22x_local_archive_path }}/{{ fact_snapshot_name }}.gz"
+    format: gz
