@@ -11,9 +11,11 @@
 - name: set fact_snapshot_keyspace_list fact to the results of get_keyspaces
   set_fact:    
     fact_snapshot_keyspace_list: "{{ keyspace_names }}"
-    
+
+- import_tasks: configure_local_archive_paths.yml
+
 - import_tasks: local_tar_snapshot.yml
   when: cassandra22x_local_archive_path_compression == "false"
-  
+
 - import_tasks: local_gz_snapshot.yml
   when: cassandra22x_local_archive_path_compression == "true"

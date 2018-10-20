@@ -1,37 +1,20 @@
 ---
-- name: create missing archive directories for each keyspace
-  file:
-    path: "{{ cassandra22x_local_archive_path }}/{{ item }}/snapshots"
-    state: directory
-    owner: cassandra
-    group: cassandra
-    mode: "u=rwx,g=rx,o=rx"
-  with_items: "{{ fact_snapshot_keyspace_list }}"
-
-- name: "gz archive snapshot {{ cassandra22x_data_path }}/keyspaces/*/snapshots/{{ fact_snapshot_name }} into {{ cassandra22x_local_archive_path }}/keyspaces/snapshots/{{ fact_snapshot_name }}.tar.gz"
+- name: "tar gz snapshot {{ cassandra22x_data_path }}/keyspaces/*/snapshots/{{ fact_snapshot_name }} into {{ cassandra22x_local_archive_path }}/{{ fact_snapshot_name }}.tar.gz"
   archive:
     path: "{{ cassandra22x_data_path }}/{{ item }}/*/snapshots/{{ fact_snapshot_name }}"
     dest: "{{ cassandra22x_local_archive_path }}/{{ item }}/snapshots/{{ fact_snapshot_name }}.tar.gz"
     format: gz
   with_items: "{{ fact_snapshot_keyspace_list }}"
   
-- name: "create {{ cassandra22x_local_archive_path_archived_logs }}"
-  file:
-    path: "{{ cassandra22x_local_archive_path_archived_logs }}
-    state: directory
-    owner: cassandra
-    group: cassandra
-    mode: "u=rwx,g=rx,o=rx"  
-
-- name: "gz archive snapshot {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}*.* into {{ cassandra22x_local_archive_path }}/{{ fact_snapshot_name }}.tar.gz"
+- name: "tar gz snapshot {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}*.* into {{ cassandra22x_local_archive_path }}/{{ fact_snapshot_name }}.tar.gz"
   archive:
     path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}*.*"
-    dest: "{{ cassandra22x_local_archive_path }}/{{ fact_snapshot_name }}.gz"
-    format: gz
-    
-- name: "gz archive snapshot {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml into {{ cassandra22x_local_archive_path_archived_logs }}/{{ fact_snapshot_name }}.tar.gz"
-  archive:
-    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml"
     dest: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ fact_snapshot_name }}.tar.gz"
     format: gz
-  delegate_to: 127.0.0.1    
+
+- name: "tar gz snapshot {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml into {{ cassandra22x_local_archive_path_archived_logs }}/{{ fact_snapshot_name }}.tar"
+  archive:
+    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml"
+    dest: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}.tar.gz"
+    format: gz
+  delegate_to: 127.0.0.1
