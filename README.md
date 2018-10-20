@@ -250,8 +250,24 @@ install and configure nfs using a horitzonal deployment equal to your nodes...
 | cass2.deltakappa.com | cass3.deltakappa.com |
 | cass3.deltakappa.com | cass1.deltakappa.com |
 
+##### install nfs
 ```
-[root@ansible ~]# ansible cluster22 -m shell -a "yum -y install nfs-utils"
+[root@ansible ansible]# ansible cluster22 -m shell -a "yum -y install nfs-utils"
+[root@ansible ansible]# ansible cluster22 -m shell -a "systemctl enable rpcbind"
+[root@ansible ansible]# ansible cluster22 -m shell -a "systemctl enable nfs-server"
+[root@ansible ansible]# ansible cluster22 -m shell -a "systemctl enable nfs-lock"
+[root@ansible ansible]# ansible cluster22 -m shell -a "systemctl enable nfs-idmap"
+[root@ansible ansible]# ansible cluster22 -m shell -a "systemctl start rpcbind"
+[root@ansible ansible]# ansible cluster22 -m shell -a "systemctl start nfs-server"
+[root@ansible ansible]# ansible cluster22 -m shell -a "systemctl start nfs-lock"
+[root@ansible ansible]# ansible cluster22 -m shell -a "systemctl start nfs-idmap"
 ```
+
+##### configure nfs
+for the sample environment /etc/exports contains the following config
+```
+/var/nfsshare    10.10.10.*(rw,sync,no_root_squash,no_all_squash)
+```
+
 
 
