@@ -28,6 +28,7 @@ ansible-playbook playbooks/cluster22/cassandra22x_snapshot_get_for_yml.yml -e"sn
 ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive.yml -e "snapshot_yml=snapshot_953485c7-275c-4e97-95b4-849613929621.yml" | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_local_archive_snapshot_953485c7-275c-4e97-95b4-84961392962_$(date +%Y%d%m%H%M%s).log
 ```
 #### Seeing the results of the playbooks/cluster22/cassandra22x_snapshot_local_archive.yml playbook
+Using Ansible to see it all...
 ```
 [root@ansible ansible]# ansible cluster22 -m shell -a "ls {{ cassandra22x_remote_archive_path }}/archived_logs"
 
@@ -78,6 +79,69 @@ snapshot_953485c7-275c-4e97-95b4-849613929621.tar
 /mnt/nfs/cass3.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass2.deltakappa.com/var/lib/cassandra/archive/system_traces/snapshots:
 snapshot_953485c7-275c-4e97-95b4-849613929621.tar
 ```
+
+Walking an nfs server from the client (cass1 is cass3's remote file store)...
+```
+[root@cass3 ~]# ls /mnt/nfs/
+cass1.deltakappa.com
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/
+var
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/
+nfsshare
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/
+cassandra22x
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/
+cluster22
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/
+cluster22
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/
+cass3.deltakappa.com
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/
+var
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/
+lib
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/
+cassandra
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/
+archive
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/
+archived_logs  killrvideo  system  system_auth  system_distributed  system_traces
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/*
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/archived_logs:
+snapshot_953485c7-275c-4e97-95b4-849613929621.tar
+
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/killrvideo:
+snapshots
+
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/system:
+snapshots
+
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/system_auth:
+snapshots
+
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/system_distributed:
+snapshots
+
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/system_traces:
+snapshots
+[root@cass3 ~]# ls /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/*/snapshots
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/killrvideo/snapshots:
+snapshot_953485c7-275c-4e97-95b4-849613929621.tar
+
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/system_auth/snapshots:
+snapshot_953485c7-275c-4e97-95b4-849613929621.tar
+
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/system_distributed/snapshots:
+snapshot_953485c7-275c-4e97-95b4-849613929621.tar
+
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/system/snapshots:
+snapshot_953485c7-275c-4e97-95b4-849613929621.tar
+
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive/system_traces/snapshots:
+snapshot_953485c7-275c-4e97-95b4-849613929621.tar
+[root@cass3 ~]#
+```
+
 ### Using the playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml
 
 ```
