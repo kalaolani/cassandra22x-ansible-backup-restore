@@ -2,11 +2,14 @@
 
 ## Cassandra 2.2.x / Ansible / Backup / Restore
 What the heck is this and what is it about?
+
 This ansible backup / restore solution was developed with the following specifics. How to see these specifics includes a newbie how to that I wished existed for me when I was a 100% Linux world newbie... tip of the hat to the newbies who are trying to survive after losing the ease of a Microsoft world. 
+
+To avoid all of this hassle... Do give Datastax, a commercial dirivative of Cassandra, a try. It seems to support backup/restore out of the box.
 
 Don't feel like a =:-). You know what this means if you are an old MS employee from a long time ago... in a galaxy not so far away. Double Space ate my drive... oh no... should've used Stacker. ¯\_(ツ)_/¯ yeah... I'm that old.
 
-To avoid all of this hassle... Do give Datastax, a commercial dirivative of Cassandra, a try. It seems to support backup/restore out of the box.
+And... fear not... You'll end up loving the Linux world as much as I do now. Don't think I'll ever install Windows again for personal use.
 
 ### Git Patterns
 - The git repo is organized by the ansible host file system under ansible ... ansible/etc/ansible ... where ansible is the host and /etc/ansible is the target path on the ansible host.
@@ -275,12 +278,3 @@ and then use ansible to create paths and mount the nfs servers
 [root@ansible ansible]# ansible cluster22 -m shell -a "mkdir -p {{ cassandra22x_nfs_server_mount }}"
 [root@ansible ansible]# ansible cluster22 -m shell -a "mount -t nfs {{ cassandra22x_nfs_server }}:{{ cassandra22x_nfs_server_path }} {{ cassandra22x_nfs_client_mount }}"
 ```
-
-##### =) begin rant
-Windows 7 note... this is probably the last MS OS that I use on a desktop or laptop. Personally, I'm not a fan of my laptop and workstations being turned into phones. ;) Don't get me wrong. I owe MS my livlihood; I've made a 25+ career focused on MS technologies. My MCP number 21695. I've had all kinds of system and development certification from Lotus Notes to Novell CNE to MCSD/MCDBA/MCSE/MCT... I don't ever remember them all. As an early MCT, I'm even old enough to have taught Windows NT 3.1 Advance Server courses. As you can see, I'm that old school and dyed in the wool MS guy who can honestly say that he's been MS-RDBMS guy since SQL Server 4.2 on OS/2. Yep... that's right OS/2. ;) Which is a segway to NoSQL v SQL ... ACID v CAP ... whatever ... The most important thing to accept about Cassandra as a developer is that there is a paradigm shift that you experiece when you "get it." That is you see how important those things in the very beginning of the best practices for development of Cassandra based storage applications are. Those things are data modeling, query planning, logical modeling, physical modeling, up front capacity, performance, scalability, and reliability planning, and accepting the following realities of Cassandra ...
-- Follow the book’s recommendations for development process including all artifact creation in the way they show to make them. Don't make something work. Make everything that you possibly can easy on you to make the paradigm shift.
-- Test everything in a realistic test environment. You will be developing more "applications" with cassandra-stres before you every write a single line of application code that will be your end development goal.
-- Cassandra seems to demand the Full Stack DevOpsliper or Developer Operator. Success seems to hinge on a harmony between the development side and operational side of Cassandra. Cassandra is NOT agile.
-- High Maintenance! Nothing in Cassandra is set it and forget it. With Windows/SQL Server, we’ve been able to set and forget more than we manage. This is the complete opposite for Cassandra. Cutting corners is dangerous to uptime.
-There is a place in production for Cassandra. Even though it is seemingly hard, complex, etc., it does fill a specific use case niche and is a blast to work with when production gets the attention and investment that it requires.
-##### end rant =)
