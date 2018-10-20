@@ -243,8 +243,8 @@ install the python-setuptools, python-pip, the cassandra-driver on each cassandr
 ```
 #### nfs servers for off node archiving of snapshots
 install and configure nfs using a horitzonal deployment equal to your nodes...
-| cassandra source     | nfs archive server   |
-| -------------------- | -------------------- |
+| cassandra source | nfs archive server |
+| --- | --- |
 | cass1.deltakappa.com | cass2.deltakappa.com |
 | cass2.deltakappa.com | cass3.deltakappa.com |
 | cass3.deltakappa.com | cass1.deltakappa.com |
