@@ -1,0 +1,71 @@
+
+PLAY [cluster22] ************************************************************************************************************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ******************************************************************************************************************************************************************************************************************************************************************************************
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+ok: [cass1.deltakappa.com]
+
+TASK [capture playbook start time] ******************************************************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_clear : include the /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com/snapshot_953485c7-275c-4e97-95b4-849613929621.yml vars] *****************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1]
+ok: [cass2.deltakappa.com -> 127.0.0.1]
+ok: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_snapshot_clear : nodetool clearsnapshot -t for each keyspace in the snapshot_953485c7-275c-4e97-95b4-849613929621.yml] ***********************************************************************************************************************************************************************
+included: /etc/ansible/roles/cassandra22x_snapshot_clear/tasks/keyspace_clear_napshot.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
+included: /etc/ansible/roles/cassandra22x_snapshot_clear/tasks/keyspace_clear_napshot.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
+included: /etc/ansible/roles/cassandra22x_snapshot_clear/tasks/keyspace_clear_napshot.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
+included: /etc/ansible/roles/cassandra22x_snapshot_clear/tasks/keyspace_clear_napshot.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
+included: /etc/ansible/roles/cassandra22x_snapshot_clear/tasks/keyspace_clear_napshot.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
+
+TASK [cassandra22x_snapshot_clear : nodetool clearsnapshot -t snapshot_953485c7-275c-4e97-95b4-849613929621 killrvideo] *****************************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot_clear : nodetool clearsnapshot -t snapshot_953485c7-275c-4e97-95b4-849613929621 system_auth] ****************************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot_clear : nodetool clearsnapshot -t snapshot_953485c7-275c-4e97-95b4-849613929621 system_distributed] *********************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot_clear : nodetool clearsnapshot -t snapshot_953485c7-275c-4e97-95b4-849613929621 system] *********************************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_clear : nodetool clearsnapshot -t snapshot_953485c7-275c-4e97-95b4-849613929621 system_traces] **************************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [capture playbook end time] ********************************************************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_clear.yml play start and end date times] ********************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": "start_date_time: 20181020-102325 & end_date_time: 20181020-102625"
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": "start_date_time: 20181020-102325 & end_date_time: 20181020-102625"
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": "start_date_time: 20181020-102325 & end_date_time: 20181020-102625"
+}
+
+PLAY RECAP ******************************************************************************************************************************************************************************************************************************************************************************************************
+cass1.deltakappa.com       : ok=15   changed=5    unreachable=0    failed=0   
+cass2.deltakappa.com       : ok=15   changed=5    unreachable=0    failed=0   
+cass3.deltakappa.com       : ok=15   changed=5    unreachable=0    failed=0   
+

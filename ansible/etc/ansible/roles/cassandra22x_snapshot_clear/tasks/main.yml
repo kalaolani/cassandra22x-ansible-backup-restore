@@ -1,0 +1,11 @@
+---
+- name: "include the {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }} vars"
+  include_vars:
+    file: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
+  delegate_to: 127.0.0.1
+  
+- name: "nodetool clearsnapshot -t for each keyspace in the {{ snapshot_yml }}"
+  include_tasks: keyspace_clear_napshot.yml
+  loop: "{{ keyspace_names }}"
+  loop_control:
+    loop_var: keyspace_name
