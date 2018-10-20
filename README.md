@@ -249,12 +249,6 @@ install and configure nfs using a horitzonal deployment equal to your nodes...
 | cass2.deltakappa.com | cass3.deltakappa.com |
 | cass3.deltakappa.com | cass1.deltakappa.com |
 
-| cassandra source | nfs archive server |
-| --- | --- |
-| cass1.deltakappa.com | cass2.deltakappa.com |
-| cass2.deltakappa.com | cass3.deltakappa.com |
-| cass3.deltakappa.com | cass1.deltakappa.com |
-
 ```
 [root@ansible ~]# ansible cluster22 -m shell -a "yum -y install nfs-utils"
 ```
