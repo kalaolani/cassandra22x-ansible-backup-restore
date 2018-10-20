@@ -1,0 +1,10 @@
+snapshot_name: snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f
+keyspace_name: system_traces
+column_families:
+    - events
+    - sessions
+
+column_families_disk:
+    - events-8826e8e9e16a372887533bc1fc713c25
+    - sessions-c5e99f1686773914b17e960613512345
+
