@@ -29,11 +29,11 @@ ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive.yml -e 
 ```
 #### Seeing the results of the playbooks/cluster22/cassandra22x_snapshot_local_archive.yml playbook
 
-### Using the playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml
+### Using the playbooks/cluster22/cassandra22x_snapshot_local_archive_remote_archive_rsync.yml
 ```
-ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_local_archive_rsync_$(date +%Y%d%m%H%M%s).log
+ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive_remote_archive_rsync.yml | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_local_archive_remote_archive_rsync_$(date +%Y%d%m%H%M%s).log
 ```
-#### Seeing the results of the playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml playbook
+#### Seeing the results of the playbooks/cluster22/cassandra22x_snapshot_local_archive_remote_archive_rsync.yml playbook
 Using Ansible to see it all...
 ```
 [root@ansible ansible]# ansible cluster22 -m shell -a "ls {{ cassandra22x_remote_archive_path }}/archived_logs"

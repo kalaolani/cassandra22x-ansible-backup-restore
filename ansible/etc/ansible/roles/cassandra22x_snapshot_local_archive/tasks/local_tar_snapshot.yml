@@ -1,7 +1,7 @@
 ---
 - name: create missing archive directories for each keyspace
   file:
-    path: "{{ cassandra22x_local_archive }}/{{ item }}/snapshots"
+    path: "{{ cassandra22x_local_archive_path }}/{{ item }}/snapshots"
     state: directory
     owner: cassandra
     group: cassandra
@@ -15,9 +15,9 @@
     format: tar
   with_items: "{{ fact_snapshot_keyspace_list }}"
 
-- name: create missing log archive directory
+- name: "create {{ cassandra22x_local_archive_path_archived_logs }}"
   file:
-    path: "{{ cassandra22x_local_archive }}/archived_logs"
+    path: "{{ cassandra22x_local_archive_path_archived_logs }}
     state: directory
     owner: cassandra
     group: cassandra
@@ -26,6 +26,12 @@
 - name: "tar snapshot {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}*.* into {{ cassandra22x_local_archive_path }}/{{ fact_snapshot_name }}.tar"
   archive:
     path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}*.*"
-    dest: "{{ cassandra22x_local_archive_path }}/archived_logs/{{ fact_snapshot_name }}.tar"
+    dest: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ fact_snapshot_name }}.tar"
     format: tar
-    remove: yes
+
+- name: "tar snapshot {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml into {{ cassandra22x_local_archive_path_archived_logs }}/{{ fact_snapshot_name }}.tar"
+  archive:
+    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml"
+    dest: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ fact_snapshot_name }}.tar"
+    format: tar
+  delegate_to: 127.0.0.1

@@ -4,6 +4,7 @@
 # capture datetime with the following format YYYYmmdd-HHMMSS
 now: "{{ lookup('pipe', 'date +%Y%m%d-%H%M%S') }}"
 
+# sample environment was configured with root ssh access to/from all hosts: ansible, cass1, cass2, and cass3
 # ssh_key_master:
 # ansible_ssh_user: root
 # ansible_ssh_password:

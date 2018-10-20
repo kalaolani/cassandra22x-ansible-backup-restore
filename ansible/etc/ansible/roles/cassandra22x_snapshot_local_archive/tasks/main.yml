@@ -13,7 +13,7 @@
     fact_snapshot_keyspace_list: "{{ keyspace_names }}"
     
 - import_tasks: local_tar_snapshot.yml
-  when: cassandra22x_local_archive_compression == "false"
+  when: cassandra22x_local_archive_path_compression == "false"
   
 - import_tasks: local_gz_snapshot.yml
-  when: cassandra22x_local_archive_compression == "true"
+  when: cassandra22x_local_archive_path_compression == "true"

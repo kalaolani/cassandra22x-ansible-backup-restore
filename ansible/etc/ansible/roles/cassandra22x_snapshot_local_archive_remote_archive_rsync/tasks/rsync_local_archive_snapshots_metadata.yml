@@ -1,0 +1,11 @@
+---
+- name: "rsync snapshot metadata from {{ cassandra22x_local_archive_path_archived_logs }}/ to {{ cassandra22x_remote_archive_path_archived_logs }}"
+  synchronize:
+    src: "{{ cassandra22x_local_archive_path_archived_logs }}/"
+    dest: "{{ cassandra22x_remote_archive_path_archived_logs }}"
+    rsync_opts:
+        - "--bwlimit={{ rsync_bwlimit }}"
+        - "--no-motd"
+        - "--include=snapshot*.*"
+        - "--exclude=*"
+  delegate_to: "{{ inventory_hostname }}"

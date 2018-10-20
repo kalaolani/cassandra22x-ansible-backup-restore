@@ -1,0 +1,24 @@
+---
+# pwd = /etc/ansible
+# ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive_remote_archive_rsync.yml
+
+- hosts: cluster22
+  any_errors_fatal: true
+  gather_facts: false
+   
+  pre_tasks:
+    - name: capture playbook start time
+      set_fact: 
+        start_date_time_fact: "{{ now }}"  
+
+  roles:
+    - cassandra22x_snapshot_local_archive_remote_archive_rsync
+
+  post_tasks:
+    - name: capture playbook end time
+      set_fact: 
+        end_date_time_fact: "{{ now }}"
+        
+    - name: cassandra22x_snapshot_local_archive_remote_archive_rsync.yml play start and end date times
+      debug: 
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }}"

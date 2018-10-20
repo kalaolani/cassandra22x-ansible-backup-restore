@@ -1,0 +1,12 @@
+---
+- name: "create {{ cassandra22x_remote_archive_path }}"
+  file:
+    path: "{{ cassandra22x_remote_archive_path }}"
+    state: directory
+    mode: "u=rwx,g=rx,o=rx"
+
+- name: "create {{ cassandra22x_remote_archive_path_archived_logs }}"
+  file:
+    path: "{{ cassandra22x_remote_archive_path_archived_logs }}"
+    state: directory
+    mode: "u=rwx,g=rx,o=rx"

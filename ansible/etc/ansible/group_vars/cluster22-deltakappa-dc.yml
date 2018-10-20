@@ -1,9 +1,19 @@
 ---
 # sample group_vars cluster22-deltakappa-dc.yml - "cluster22" cassandra cluster and dc deltakappa level group_vars
 
+# name of the cassandra datacenter
 cassandra22x_cluster_dc: deltakappa
-cassandra22x_local_archive: "{{ cassandra22x_var_path }}/archive"
+
+# archive settings
+cassandra22x_local_archive_path_compression: "false"
+
+# nfs remote archive mount point
+cassandra22x_remote_archive_nfs_mount: "{{ cassandra22x_nfs_client_mount }}/cassandra22x/{{ cassandra22x_environment }}/{{ cassandra22x_cluster_name }}/{{ inventory_hostname }}"
+
+# local archive paths for keyspace snapshot on node(s) archives and metadata snapshot on node(s) archives
 cassandra22x_local_archive_path: "{{ cassandra22x_var_path }}/archive"
-cassandra22x_local_archive_compression: "false"
-cassandra22x_nfs_archive_path: "{{ cassandra22x_nfs_client_mount }}/cassandra22x/{{ cassandra22x_environment }}/{{ cassandra22x_cluster_name }}/{{ inventory_hostname }}"
-cassandra22x_remote_archive_path: "{{ cassandra22x_nfs_archive_path }}{{ cassandra22x_local_archive_path }}"
+cassandra22x_local_archive_path_archived_logs: "{{ cassandra22x_local_archive_path }}/archived_logs"
+
+# remote archive paths for keyspace snapshot on node(s) archives and metadata snapshot on node(s) archives
+cassandra22x_remote_archive_path: "{{ cassandra22x_remote_archive_nfs_mount }}{{ cassandra22x_local_archive_path }}"
+cassandra22x_remote_archive_path_archived_logs: "{{ cassandra22x_remote_archive_path }}/archived_logs"
