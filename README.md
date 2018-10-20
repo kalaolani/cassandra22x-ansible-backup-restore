@@ -245,4 +245,12 @@ install the python-setuptools, python-pip, the cassandra-driver on each cassandr
 ```
 ansible-playbook playbooks/cluster22/cassandra22x_snapshot.yml -e "snapshot_uuid=$(uuidgen)" | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_$(date +%Y%d%m%H%M%s).log
 ```
-See var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_2018191016431539988994.log to see sample out of a successful run using the sample environment.
+See var/log/ansible/cassandra22x/cluster22/ for samples
+
+Seeing the results of the playbooks/cluster22/cassandra22x_snapshot.yml playbook
+```
+ansible cluster22 -a"nodetool listsnapshots" | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_nodetool_listsnapshots_$(date +%Y%d%m%H%M%s).log
+ansible cluster22 -m shell -a"ls {{ cassandra22x_data_path }}/killrvideo/*/snapshots"  | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_killrvideo_snapshot_ls__$(date +%Y%d%m%H%M%s).log
+ansible cluster22 -m shell -a"ls {{ cassandra22x_data_path }}/killrvideo/*/snapshots"/*  | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_killrvideo_snapshot_contents_ls__$(date +%Y%d%m%H%M%s).log
+```
+See var/log/ansible/cassandra22x/cluster22/ for sample log files.
