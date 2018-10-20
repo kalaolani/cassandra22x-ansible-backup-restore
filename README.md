@@ -229,6 +229,7 @@ cass2.deltakappa.com | SUCCESS => {
 ```
 
 ### Using ad hoc Ansible commands to add other dependencies
+#### python-setuptools, python-pip, and the cassandra-driver
 install the python-setuptools, python-pip, the cassandra-driver on each cassandra node
 - /usr/lib64/python2.7/site-packages (3.15.1)
 - /usr/lib/python2.7/site-packages (from cassandra-driver) (1.11.0)
@@ -240,3 +241,16 @@ install the python-setuptools, python-pip, the cassandra-driver on each cassandr
 [root@ansible ~]# ansible cass1.deltakappa.com -m shell -a "pip install --upgrade pip"
 [root@ansible ~]# ansible cass1.deltakappa.com -m shell -a "pip install cassandra-driver"
 ```
+#### nfs servers for off node archiving of snapshots
+install and configure nfs using a horitzonal deployment equal to your nodes...
+| cassandra source     | nfs archive server   |
+| -------------------- | -------------------- |
+| cass1.deltakappa.com | cass2.deltakappa.com |
+| cass2.deltakappa.com | cass3.deltakappa.com |
+| cass3.deltakappa.com | cass1.deltakappa.com |
+
+```
+[root@ansible ~]# ansible cluster22 -m shell -a "yum -y install nfs-utils"
+```
+
+
