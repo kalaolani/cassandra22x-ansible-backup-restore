@@ -28,6 +28,12 @@ ansible-playbook playbooks/cluster22/cassandra22x_snapshot_get_for_yml.yml -e"sn
 ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive.yml -e "snapshot_yml=snapshot_953485c7-275c-4e97-95b4-849613929621.yml" | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_local_archive_snapshot_953485c7-275c-4e97-95b4-84961392962_$(date +%Y%d%m%H%M%s).log
 ```
 #### Seeing the results of the playbooks/cluster22/cassandra22x_snapshot_local_archive.yml playbook
+
+### Using the playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml
+```
+ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_local_archive_rsync_$(date +%Y%d%m%H%M%s).log
+```
+#### Seeing the results of the playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml playbook
 Using Ansible to see it all...
 ```
 [root@ansible ansible]# ansible cluster22 -m shell -a "ls {{ cassandra22x_remote_archive_path }}/archived_logs"
@@ -142,11 +148,7 @@ snapshot_953485c7-275c-4e97-95b4-849613929621.tar
 [root@cass3 ~]#
 ```
 
-### Using the playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml
 
-```
-ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive_rsync.yml | tee /var/log/ansible/cassandra22x/cluster22/cassandra22x_snapshot_local_archive_rsync_$(date +%Y%d%m%H%M%s).log
-```
 
 ### Using the playbooks/cluster22/cassandra22x_snapshot_clear.yml
 ```
