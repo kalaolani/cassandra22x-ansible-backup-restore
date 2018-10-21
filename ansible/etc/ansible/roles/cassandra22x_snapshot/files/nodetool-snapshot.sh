@@ -9,5 +9,5 @@ USER=$1
 PASS=$2
 SNAPSHOTNAME=$3
 KEYSPACE=$4
-OUTFILE=$5
-nodetool --username $USER --password $PASS snapshot --tag $SNAPSHOTNAME $KEYSPACE > $OUTFILE
+LOGFILE=$5
+nodetool --username $USER --password $PASS snapshot --tag $SNAPSHOTNAME $KEYSPACE > $LOGFILE
