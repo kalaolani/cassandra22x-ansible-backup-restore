@@ -1,0 +1,131 @@
+
+PLAY [cluster22] *************************************************************************************************************************************************************************************************************************************************************
+
+TASK [capture playbook start time] *******************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_rsync_local_snapshots_by_keyspace : include the snapshot_keyspace yaml file per node] *************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_rsync_local_snapshots_by_keyspace : rsync hardlink local snapshot files back to the keyspace for all column families data directories on disk] ****************************************************************************************************
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=comments_by_user-44441930d01e11e8af9161a24d399e62)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=comments_by_user-44441930d01e11e8af9161a24d399e62)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=comments_by_user-44441930d01e11e8af9161a24d399e62)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=comments_by_video-431fe481d01e11e88aba9fbe3aadd836)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=latest_videos-401c1a63d01e11e8af9161a24d399e62)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=tags_by_letter-42768523d01e11e89422bbcdcbc5c11b)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=comments_by_video-431fe481d01e11e88aba9fbe3aadd836)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=comments_by_video-431fe481d01e11e88aba9fbe3aadd836)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=user_credentials-3d119983d01e11e88aba9fbe3aadd836)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=latest_videos-401c1a63d01e11e8af9161a24d399e62)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=user_videos-3f8383e3d01e11e88aba9fbe3aadd836)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=latest_videos-401c1a63d01e11e8af9161a24d399e62)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=tags_by_letter-42768523d01e11e89422bbcdcbc5c11b)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=tags_by_letter-42768523d01e11e89422bbcdcbc5c11b)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=user_credentials-3d119983d01e11e88aba9fbe3aadd836)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=users-3e553d13d01e11e8af9161a24d399e62)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=user_videos-3f8383e3d01e11e88aba9fbe3aadd836)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=user_credentials-3d119983d01e11e88aba9fbe3aadd836)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=video_event-44e3dba3d01e11e89422bbcdcbc5c11b)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=user_videos-3f8383e3d01e11e88aba9fbe3aadd836)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=video_rating-40af0b93d01e11e89422bbcdcbc5c11b)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=users-3e553d13d01e11e8af9161a24d399e62)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=video_event-44e3dba3d01e11e89422bbcdcbc5c11b)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=video_ratings_by_user-41550f91d01e11e88aba9fbe3aadd836)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=users-3e553d13d01e11e8af9161a24d399e62)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=video_rating-40af0b93d01e11e89422bbcdcbc5c11b)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=video_event-44e3dba3d01e11e89422bbcdcbc5c11b)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=videos-3eedfaa3d01e11e89422bbcdcbc5c11b)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=video_ratings_by_user-41550f91d01e11e88aba9fbe3aadd836)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=video_rating-40af0b93d01e11e89422bbcdcbc5c11b)
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=videos_by_tag-41e58fc0d01e11e8af9161a24d399e62)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=videos-3eedfaa3d01e11e89422bbcdcbc5c11b)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=video_ratings_by_user-41550f91d01e11e88aba9fbe3aadd836)
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=videos_by_tag-41e58fc0d01e11e8af9161a24d399e62)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=videos-3eedfaa3d01e11e89422bbcdcbc5c11b)
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=videos_by_tag-41e58fc0d01e11e8af9161a24d399e62)
+
+TASK [cassandra22x_restore_rsync_local_snapshots_by_keyspace : cassandra is the owner/group for all rsync-hardlink-ed files of the keyspace for all column families] *********************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass2.deltakappa.com]
+
+TASK [cassandra22x_restore_refresh_colunmfamilies_by_keyspace : include the snapshot_keyspace yaml file per node] ************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_refresh_colunmfamilies_by_keyspace : nodetool-refresh.sh restored column family] ******************************************************************************************************************************************************************
+changed: [cass1.deltakappa.com] => (item=comments_by_user)
+changed: [cass3.deltakappa.com] => (item=comments_by_user)
+changed: [cass2.deltakappa.com] => (item=comments_by_user)
+changed: [cass1.deltakappa.com] => (item=comments_by_video)
+changed: [cass2.deltakappa.com] => (item=comments_by_video)
+changed: [cass3.deltakappa.com] => (item=comments_by_video)
+changed: [cass1.deltakappa.com] => (item=latest_videos)
+changed: [cass3.deltakappa.com] => (item=latest_videos)
+changed: [cass2.deltakappa.com] => (item=latest_videos)
+changed: [cass1.deltakappa.com] => (item=tags_by_letter)
+changed: [cass3.deltakappa.com] => (item=tags_by_letter)
+changed: [cass2.deltakappa.com] => (item=tags_by_letter)
+changed: [cass2.deltakappa.com] => (item=user_credentials)
+changed: [cass1.deltakappa.com] => (item=user_credentials)
+changed: [cass3.deltakappa.com] => (item=user_credentials)
+changed: [cass2.deltakappa.com] => (item=user_videos)
+changed: [cass1.deltakappa.com] => (item=user_videos)
+changed: [cass3.deltakappa.com] => (item=user_videos)
+changed: [cass2.deltakappa.com] => (item=users)
+changed: [cass1.deltakappa.com] => (item=users)
+changed: [cass3.deltakappa.com] => (item=users)
+changed: [cass2.deltakappa.com] => (item=video_event)
+changed: [cass1.deltakappa.com] => (item=video_event)
+changed: [cass3.deltakappa.com] => (item=video_event)
+changed: [cass2.deltakappa.com] => (item=video_rating)
+changed: [cass3.deltakappa.com] => (item=video_rating)
+changed: [cass1.deltakappa.com] => (item=video_rating)
+changed: [cass2.deltakappa.com] => (item=video_ratings_by_user)
+changed: [cass3.deltakappa.com] => (item=video_ratings_by_user)
+changed: [cass1.deltakappa.com] => (item=video_ratings_by_user)
+changed: [cass2.deltakappa.com] => (item=videos)
+changed: [cass1.deltakappa.com] => (item=videos)
+changed: [cass3.deltakappa.com] => (item=videos)
+changed: [cass2.deltakappa.com] => (item=videos_by_tag)
+changed: [cass1.deltakappa.com] => (item=videos_by_tag)
+changed: [cass3.deltakappa.com] => (item=videos_by_tag)
+
+TASK [capture playbook end time] *********************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_local.yml play start and end date times] **********************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": "start_date_time: 20181021-143432 & end_date_time: 20181021-143516"
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": "start_date_time: 20181021-143432 & end_date_time: 20181021-143516"
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": "start_date_time: 20181021-143432 & end_date_time: 20181021-143516"
+}
+
+TASK [restore confirm message] ***********************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": "Snapshot snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162 for the keyspaces killrvideo restored successfully... run a repair."
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": "Snapshot snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162 for the keyspaces killrvideo restored successfully... run a repair."
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": "Snapshot snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162 for the keyspaces killrvideo restored successfully... run a repair."
+}
+
+PLAY RECAP *******************************************************************************************************************************************************************************************************************************************************************
+cass1.deltakappa.com       : ok=9    changed=3    unreachable=0    failed=0   
+cass2.deltakappa.com       : ok=9    changed=3    unreachable=0    failed=0   
+cass3.deltakappa.com       : ok=9    changed=3    unreachable=0    failed=0   
+

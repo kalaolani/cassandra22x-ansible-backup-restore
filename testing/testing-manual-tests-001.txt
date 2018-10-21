@@ -1,0 +1,407 @@
+There are no snapshots
+
+************************************************************************************************************************
+create a snapshot, make a local archive, and rsync the archive
+************************************************************************************************************************
+ansible-playbook playbooks/cluster22/cassandra22x_snapshot.yml -e "snapshot_uuid=$(uuidgen)" | tee /var/log/ansible/cassandra22x/cluster22/cluster22-cassandra22x_snapshot.yml.log
+ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive.yml -e"snapshot_yml=snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.yml" | tee /var/log/ansible/cassandra22x/cluster22/cluster22-cassandra22x_snapshot_local_archive.yml.log
+ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive_remote_archive_rsync.yml | tee /var/log/ansible/cassandra22x/cluster22/cluster22-cassandra22x_snapshot_local_archive_remote_archive_rsync.yml.log
+************************************************************************************************************************
+in repo
+* execution logs of the above commands
+* ansible generated yaml files (snapshot metadata)
+* repair logs from the nodes and the ansible repair logs
+************************************************************************************************************************
+
+************************************************************************************************************************
+w/ auto snapshot disabled on the cluster truncate all tables in killrvideo
+************************************************************************************************************************
+
+*** Check the table counts with consistency all
+cassandra@cqlsh> consistency all;
+Consistency level set to ALL.
+cassandra@cqlsh> source 'killrvideo/cql_scripts/count_all_tables_in_killrvideo.cql';
+
+ count
+-------
+ 68131
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+ 68131
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     7
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     3
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  1020
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+ 43800
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     4
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  1012
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+ 68668
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  1018
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  6103
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+*** truncate all the tables
+cassandra@cqlsh> source 'killrvideo/cql_scripts/truncate_all_tables_in_killrvideo.cql';
+
+*** Check the table counts with consistency all
+cassandra@cqlsh> source 'killrvideo/cql_scripts/count_all_tables_in_killrvideo.cql';
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+************************************************************************************************************************
+RESTORE! - pwd = /etc/ansible
+************************************************************************************************************************
+snapshot?
+[root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_snapshot_get_all.yml | tee /var/log/ansible/cassandra22x/cluster22/cluster22-cassandra22x_snapshot_get_all.yml.log
+[root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_snapshot_get_for_yml.yml -e"snapshot_yml=snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.yml" | tee /var/log/ansible/cassandra22x/cluster22/cluster22-cassandra22x_snapshot_get_for_yml.yml.log
+
+*** RESTORE!
+[root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_restore_local_keyspace.yml -e"snapshot_keyspace_yml=snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162_killrvideo.yml" | tee /var/log/ansible/cassandra22x/cluster22/cluster22-cassandra22x_restore_local_keyspace.yml.log
+
+*** Check the table counts with consistency all
+cassandra@cqlsh> consistency all;
+Consistency level set to ALL.
+cassandra@cqlsh> source 'killrvideo/cql_scripts/count_all_tables_in_killrvideo.cql';
+
+ count
+-------
+ 68131
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+ 68131
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     7
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     3
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  1020
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+ 43800
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     4
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  1012
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+ 68668
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  1018
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  6103
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+*** DATA is back!
+
+*** Run repair... for stability test...
+ansible-playbook playbooks/cluster22/cassandra22x_operate_rolling_full_partitioner-range_repair_by_node_for_keyspace.yml -e"keyspace_name=killrvideo" | tee /var/log/ansible/cassandra22x/cluster22/cluster22-cassandra22x_operate_rolling_full_partitioner-range_repair_by_node_for_keyspace.yml.log

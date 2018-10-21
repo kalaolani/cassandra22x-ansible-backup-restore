@@ -31,7 +31,7 @@ cass2.deltakappa.com | CHANGED | rc=0 >>
 ************************************************************************************************************************
 create the first snapshot - pwd = /etc/ansible
 ************************************************************************************************************************
-ansible-playbook playbooks/cluster22/cassandra22x_snapshot.yml -e "snapshot_uuid=$(uuidgen)" | tee /var/log/ansible/cluster22-cassandra22x_snapshot.yml.log
+ansible-playbook playbooks/cluster22/cassandra22x_snapshot.yml -e "snapshot_uuid=$(uuidgen)"
 
 Results Verification ****************************************************************************************************************************************************************
 

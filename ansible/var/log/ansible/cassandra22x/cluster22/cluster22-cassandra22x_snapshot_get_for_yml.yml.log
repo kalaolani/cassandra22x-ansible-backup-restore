@@ -1,0 +1,50 @@
+
+PLAY [cluster22] *************************************************************************************************************************************************************************************************************************************************************
+
+TASK [find snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.yml in /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com] *********************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1]
+ok: [cass2.deltakappa.com -> 127.0.0.1]
+ok: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [build list of snapshot_yml(s)] *****************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1] => (item=None)
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com -> 127.0.0.1] => (item=None)
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com -> 127.0.0.1] => (item=None)
+ok: [cass3.deltakappa.com]
+
+TASK [show keyspaces in snapshot snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162] **********************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1] => {
+    "msg": [
+        "killrvideo", 
+        "system_auth", 
+        "system_distributed", 
+        "system", 
+        "system_traces"
+    ]
+}
+ok: [cass2.deltakappa.com -> 127.0.0.1] => {
+    "msg": [
+        "killrvideo", 
+        "system_auth", 
+        "system_distributed", 
+        "system", 
+        "system_traces"
+    ]
+}
+ok: [cass3.deltakappa.com -> 127.0.0.1] => {
+    "msg": [
+        "killrvideo", 
+        "system_auth", 
+        "system_distributed", 
+        "system", 
+        "system_traces"
+    ]
+}
+
+PLAY RECAP *******************************************************************************************************************************************************************************************************************************************************************
+cass1.deltakappa.com       : ok=3    changed=0    unreachable=0    failed=0   
+cass2.deltakappa.com       : ok=3    changed=0    unreachable=0    failed=0   
+cass3.deltakappa.com       : ok=3    changed=0    unreachable=0    failed=0   
+

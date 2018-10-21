@@ -1,0 +1,135 @@
+
+PLAY [cluster22] *************************************************************************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************************************************************************************************************************************************************
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+ok: [cass1.deltakappa.com]
+
+TASK [capture playbook start time] *******************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive : include the /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.yml vars] **********************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1]
+ok: [cass2.deltakappa.com -> 127.0.0.1]
+ok: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_snapshot_local_archive : set fact_snapshot_name fact to snapshot_{{ snapshot_uuid }}] *********************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive : set fact_snapshot_keyspace_list fact to the results of get_keyspaces] ************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive : create /var/lib/cassandra/archive] ***********************************************************************************************************************************************************************************************
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+ok: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive : create /var/lib/cassandra/archive/archived_logs] *********************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive : create /var/lib/cassandra/archive/ansible_restore_vars] **************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1]
+ok: [cass2.deltakappa.com -> 127.0.0.1]
+ok: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_snapshot_local_archive : create missing /var/lib/cassandra/archive for each keyspace/snapshots] ***********************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => (item=killrvideo)
+ok: [cass2.deltakappa.com] => (item=killrvideo)
+ok: [cass3.deltakappa.com] => (item=killrvideo)
+ok: [cass1.deltakappa.com] => (item=system_auth)
+ok: [cass2.deltakappa.com] => (item=system_auth)
+ok: [cass3.deltakappa.com] => (item=system_auth)
+ok: [cass1.deltakappa.com] => (item=system_distributed)
+ok: [cass2.deltakappa.com] => (item=system_distributed)
+ok: [cass3.deltakappa.com] => (item=system_distributed)
+ok: [cass1.deltakappa.com] => (item=system)
+ok: [cass3.deltakappa.com] => (item=system)
+ok: [cass2.deltakappa.com] => (item=system)
+ok: [cass1.deltakappa.com] => (item=system_traces)
+ok: [cass2.deltakappa.com] => (item=system_traces)
+ok: [cass3.deltakappa.com] => (item=system_traces)
+
+TASK [cassandra22x_snapshot_local_archive : tar snapshot /var/lib/cassandra/data/keyspaces/*/snapshots/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162 into /var/lib/cassandra/archive/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar] **************************************
+changed: [cass1.deltakappa.com] => (item=killrvideo)
+changed: [cass2.deltakappa.com] => (item=killrvideo)
+changed: [cass3.deltakappa.com] => (item=killrvideo)
+changed: [cass1.deltakappa.com] => (item=system_auth)
+changed: [cass2.deltakappa.com] => (item=system_auth)
+changed: [cass3.deltakappa.com] => (item=system_auth)
+changed: [cass1.deltakappa.com] => (item=system_distributed)
+changed: [cass2.deltakappa.com] => (item=system_distributed)
+changed: [cass3.deltakappa.com] => (item=system_distributed)
+changed: [cass3.deltakappa.com] => (item=system)
+changed: [cass2.deltakappa.com] => (item=system)
+changed: [cass1.deltakappa.com] => (item=system)
+changed: [cass2.deltakappa.com] => (item=system_traces)
+changed: [cass3.deltakappa.com] => (item=system_traces)
+changed: [cass1.deltakappa.com] => (item=system_traces)
+
+TASK [cassandra22x_snapshot_local_archive : tar snapshot /var/log/cassandra/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162*.* into /var/lib/cassandra/archive/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar] **************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive : tar snapshot /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162*.yml into /var/lib/cassandra/archive/archived_logs/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar] ***
+changed: [cass1.deltakappa.com -> 127.0.0.1]
+changed: [cass2.deltakappa.com -> 127.0.0.1]
+changed: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_snapshot_local_archive : tar gz snapshot /var/lib/cassandra/data/keyspaces/*/snapshots/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162 into /var/lib/cassandra/archive/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar.gz] ********************************
+skipping: [cass1.deltakappa.com] => (item=killrvideo) 
+skipping: [cass1.deltakappa.com] => (item=system_auth) 
+skipping: [cass1.deltakappa.com] => (item=system_distributed) 
+skipping: [cass1.deltakappa.com] => (item=system) 
+skipping: [cass1.deltakappa.com] => (item=system_traces) 
+skipping: [cass2.deltakappa.com] => (item=killrvideo) 
+skipping: [cass2.deltakappa.com] => (item=system_auth) 
+skipping: [cass2.deltakappa.com] => (item=system_distributed) 
+skipping: [cass2.deltakappa.com] => (item=system) 
+skipping: [cass2.deltakappa.com] => (item=system_traces) 
+skipping: [cass3.deltakappa.com] => (item=killrvideo) 
+skipping: [cass3.deltakappa.com] => (item=system_auth) 
+skipping: [cass3.deltakappa.com] => (item=system_distributed) 
+skipping: [cass3.deltakappa.com] => (item=system) 
+skipping: [cass3.deltakappa.com] => (item=system_traces) 
+
+TASK [cassandra22x_snapshot_local_archive : tar gz snapshot /var/log/cassandra/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162*.* into /var/lib/cassandra/archive/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar.gz] ********************************************************
+skipping: [cass1.deltakappa.com]
+skipping: [cass2.deltakappa.com]
+skipping: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive : tar gz snapshot /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162*.yml into /var/lib/cassandra/archive/archived_logs/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar] ***
+skipping: [cass1.deltakappa.com]
+skipping: [cass2.deltakappa.com]
+skipping: [cass3.deltakappa.com]
+
+TASK [capture playbook end time] *********************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive.yml play start and end date times] *************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": "start_date_time: 20181021-141846 & end_date_time: 20181021-141858"
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": "start_date_time: 20181021-141846 & end_date_time: 20181021-141858"
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": "start_date_time: 20181021-141846 & end_date_time: 20181021-141858"
+}
+
+PLAY RECAP *******************************************************************************************************************************************************************************************************************************************************************
+cass1.deltakappa.com       : ok=14   changed=3    unreachable=0    failed=0   
+cass2.deltakappa.com       : ok=14   changed=3    unreachable=0    failed=0   
+cass3.deltakappa.com       : ok=14   changed=3    unreachable=0    failed=0   
+
