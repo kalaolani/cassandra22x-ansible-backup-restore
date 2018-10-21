@@ -1,6 +1,11 @@
 ---
 - name: "nodetool clearsnapshot -t {{ snapshot_name}} {{ keyspace_name }}"
   script: nodetool-clearsnapshot.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ snapshot_name }} {{ keyspace_name }}
+
+- name: "clear {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots/{{ snapshot_name }}.tar"
+  file:
+    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots/{{ snapshot_name }}.tar"
+    state: absent
   
 - name: "clear {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}.yml"
   file:
