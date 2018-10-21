@@ -1,67 +1,50 @@
 
-PLAY [cluster22] ************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
+PLAY [cluster22] **********************************************************************************************************************************************************************************************************************************************************************************************
 
-TASK [Gathering Facts] ******************************************************************************************************************************************************************************************************************************************************************************************************************************************************
+TASK [Gathering Facts] ****************************************************************************************************************************************************************************************************************************************************************************************
 ok: [cass2.deltakappa.com]
 ok: [cass3.deltakappa.com]
 ok: [cass1.deltakappa.com]
 
-TASK [capture playbook start time] ******************************************************************************************************************************************************************************************************************************************************************************************************************************************
+TASK [capture playbook start time] ****************************************************************************************************************************************************************************************************************************************************************************
 ok: [cass1.deltakappa.com]
 ok: [cass2.deltakappa.com]
 ok: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : set fact_snapshot_name fact to snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f] *****************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : set fact_snapshot_name fact to snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37] ***************************************************************************************************************************************************************************************************
 ok: [cass1.deltakappa.com]
 ok: [cass2.deltakappa.com]
 ok: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : get all keyspaces on the cluster22 cluster per node] ******************************************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : get all keyspaces on the cluster22 cluster per node] ****************************************************************************************************************************************************************************************************************************
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 changed: [cass1.deltakappa.com]
 
-TASK [cassandra22x_snapshot : set fact_snapshot_keyspace_list fact to the results of get_keyspaces] *************************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : set fact_snapshot_keyspace_list fact to the results of get_keyspaces] ***********************************************************************************************************************************************************************************************************
 ok: [cass1.deltakappa.com]
 ok: [cass2.deltakappa.com]
 ok: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f.yml] ******************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37.yml] ****************************************************************************************************************************************************************************************************
 changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-changed: [cass1.deltakappa.com]
-
-TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f.yml with snapshot_name metadata] **************************************************************************************************************************************************************************************************************************************
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-changed: [cass1.deltakappa.com]
-
-TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f.yml with keyspace_names metadata] *************************************************************************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass3.deltakappa.com]
-changed: [cass2.deltakappa.com]
 
-TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f.yml with fact_snapshot_keyspace_list items metadata] ******************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37.yml with snapshot_name metadata] ************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37.yml with keyspace_names metadata] ***********************************************************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37.yml with fact_snapshot_keyspace_list items metadata] ****************************************************************************************************************************************************
 changed: [cass1.deltakappa.com] => (item=killrvideo)
-changed: [cass2.deltakappa.com] => (item=killrvideo)
 changed: [cass3.deltakappa.com] => (item=killrvideo)
-changed: [cass1.deltakappa.com] => (item=system_auth)
-changed: [cass2.deltakappa.com] => (item=system_auth)
-changed: [cass3.deltakappa.com] => (item=system_auth)
-changed: [cass1.deltakappa.com] => (item=system_distributed)
-changed: [cass2.deltakappa.com] => (item=system_distributed)
-changed: [cass3.deltakappa.com] => (item=system_distributed)
-changed: [cass1.deltakappa.com] => (item=system)
-changed: [cass2.deltakappa.com] => (item=system)
-changed: [cass3.deltakappa.com] => (item=system)
-changed: [cass1.deltakappa.com] => (item=system_traces)
-changed: [cass2.deltakappa.com] => (item=system_traces)
-changed: [cass3.deltakappa.com] => (item=system_traces)
-
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_item.yml file for each keyspace (item) on the C* node for the snapshot snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_item for each keyspace (item)] *******************************************************************************************************************
-changed: [cass1.deltakappa.com] => (item=killrvideo)
 changed: [cass2.deltakappa.com] => (item=killrvideo)
-changed: [cass3.deltakappa.com] => (item=killrvideo)
 changed: [cass1.deltakappa.com] => (item=system_auth)
 changed: [cass3.deltakappa.com] => (item=system_auth)
 changed: [cass2.deltakappa.com] => (item=system_auth)
@@ -69,74 +52,91 @@ changed: [cass1.deltakappa.com] => (item=system_distributed)
 changed: [cass3.deltakappa.com] => (item=system_distributed)
 changed: [cass2.deltakappa.com] => (item=system_distributed)
 changed: [cass1.deltakappa.com] => (item=system)
-changed: [cass3.deltakappa.com] => (item=system)
 changed: [cass2.deltakappa.com] => (item=system)
+changed: [cass3.deltakappa.com] => (item=system)
 changed: [cass1.deltakappa.com] => (item=system_traces)
 changed: [cass3.deltakappa.com] => (item=system_traces)
 changed: [cass2.deltakappa.com] => (item=system_traces)
 
-TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_item.yml file for each keyspace (item) on the C* node for the snapshot snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_item for each keyspace (item) snapshot metadata] *************************************************************************************************
-changed: [cass1.deltakappa.com] => (item=killrvideo)
-changed: [cass2.deltakappa.com] => (item=killrvideo)
-changed: [cass3.deltakappa.com] => (item=killrvideo)
-changed: [cass2.deltakappa.com] => (item=system_auth)
-changed: [cass3.deltakappa.com] => (item=system_auth)
-changed: [cass1.deltakappa.com] => (item=system_auth)
-changed: [cass3.deltakappa.com] => (item=system_distributed)
-changed: [cass2.deltakappa.com] => (item=system_distributed)
-changed: [cass3.deltakappa.com] => (item=system)
-changed: [cass2.deltakappa.com] => (item=system)
-changed: [cass1.deltakappa.com] => (item=system_distributed)
-changed: [cass3.deltakappa.com] => (item=system_traces)
-changed: [cass2.deltakappa.com] => (item=system_traces)
-changed: [cass1.deltakappa.com] => (item=system)
-changed: [cass1.deltakappa.com] => (item=system_traces)
-
-TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_item.yml file for each keyspace (item) on the C* node for the snapshot snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_item for each keyspace (item) keyspace metadata] *************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_item.yml file for each keyspace (item) on the C* node for the snapshot snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_item for each keyspace (item)] *****************************************************
 changed: [cass1.deltakappa.com] => (item=killrvideo)
 changed: [cass2.deltakappa.com] => (item=killrvideo)
 changed: [cass3.deltakappa.com] => (item=killrvideo)
 changed: [cass1.deltakappa.com] => (item=system_auth)
+changed: [cass3.deltakappa.com] => (item=system_auth)
+changed: [cass2.deltakappa.com] => (item=system_auth)
+changed: [cass1.deltakappa.com] => (item=system_distributed)
+changed: [cass3.deltakappa.com] => (item=system_distributed)
+changed: [cass2.deltakappa.com] => (item=system_distributed)
+changed: [cass1.deltakappa.com] => (item=system)
+changed: [cass3.deltakappa.com] => (item=system)
+changed: [cass2.deltakappa.com] => (item=system)
+changed: [cass1.deltakappa.com] => (item=system_traces)
+changed: [cass3.deltakappa.com] => (item=system_traces)
+changed: [cass2.deltakappa.com] => (item=system_traces)
+
+TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_item.yml file for each keyspace (item) on the C* node for the snapshot snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_item for each keyspace (item) snapshot metadata] ***********************************
+changed: [cass1.deltakappa.com] => (item=killrvideo)
+changed: [cass2.deltakappa.com] => (item=killrvideo)
+changed: [cass3.deltakappa.com] => (item=killrvideo)
+changed: [cass1.deltakappa.com] => (item=system_auth)
 changed: [cass2.deltakappa.com] => (item=system_auth)
 changed: [cass3.deltakappa.com] => (item=system_auth)
 changed: [cass1.deltakappa.com] => (item=system_distributed)
-changed: [cass2.deltakappa.com] => (item=system_distributed)
 changed: [cass3.deltakappa.com] => (item=system_distributed)
+changed: [cass2.deltakappa.com] => (item=system_distributed)
 changed: [cass1.deltakappa.com] => (item=system)
-changed: [cass2.deltakappa.com] => (item=system)
 changed: [cass3.deltakappa.com] => (item=system)
+changed: [cass2.deltakappa.com] => (item=system)
+changed: [cass1.deltakappa.com] => (item=system_traces)
+changed: [cass3.deltakappa.com] => (item=system_traces)
+changed: [cass2.deltakappa.com] => (item=system_traces)
+
+TASK [cassandra22x_snapshot : update /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_item.yml file for each keyspace (item) on the C* node for the snapshot snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_item for each keyspace (item) keyspace metadata] ***********************************
+changed: [cass2.deltakappa.com] => (item=killrvideo)
+changed: [cass1.deltakappa.com] => (item=killrvideo)
+changed: [cass3.deltakappa.com] => (item=killrvideo)
+changed: [cass2.deltakappa.com] => (item=system_auth)
+changed: [cass3.deltakappa.com] => (item=system_auth)
+changed: [cass1.deltakappa.com] => (item=system_auth)
+changed: [cass1.deltakappa.com] => (item=system_distributed)
+changed: [cass3.deltakappa.com] => (item=system_distributed)
+changed: [cass2.deltakappa.com] => (item=system_distributed)
+changed: [cass1.deltakappa.com] => (item=system)
+changed: [cass3.deltakappa.com] => (item=system)
+changed: [cass2.deltakappa.com] => (item=system)
 changed: [cass1.deltakappa.com] => (item=system_traces)
 changed: [cass2.deltakappa.com] => (item=system_traces)
 changed: [cass3.deltakappa.com] => (item=system_traces)
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_ring_tokens.log and save the token list] ******************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_ring_tokens.log and save the token list] ****************************************************************************************************************************************************************
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 changed: [cass1.deltakappa.com]
 
-TASK [cassandra22x_snapshot : tar /etc/cassandra/conf/* to /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_config.tar to snapshot the cassandra configuration on each node.] *******************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : tar /etc/cassandra/conf/* to /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_config.tar to snapshot the cassandra configuration on each node.] *****************************************************************************************************************
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 changed: [cass1.deltakappa.com]
 
-TASK [cassandra22x_snapshot : loop create_schema_cql_for_keyspace.yml for each keyspace on the cassandra node] **************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : loop create_schema_cql_for_keyspace.yml for each keyspace on the cassandra node] ************************************************************************************************************************************************************************************************
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_schema_cql_for_keyspace.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_schema_cql_for_keyspace.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_schema_cql_for_keyspace.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_schema_cql_for_keyspace.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_schema_cql_for_keyspace.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_killrvideo_schema.cql] ************************************************************************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : get keyspace schema for killrvideo keyspace] **************************************************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_killrvideo_schema.cql] **********************************************************************************************************************************************************************************
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 changed: [cass1.deltakappa.com]
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_killrvideo_schema.cql] ************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : get keyspace schema for killrvideo keyspace] ************************************************************************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_killrvideo_schema.cql] **********************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com] => (item=CREATE KEYSPACE killrvideo WITH replication = {'class': 'NetworkTopologyStrategy', 'deltakappa': '3'}  AND durable_writes = true;
 
 CREATE TABLE killrvideo.users (
@@ -894,17 +894,17 @@ CREATE TABLE killrvideo.comments_by_video (
     AND speculative_retry = '99.0PERCENTILE';
 )
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_auth_schema.cql] ***********************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_auth_schema.cql] *********************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : get keyspace schema for system_auth keyspace] *************************************************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : get keyspace schema for system_auth keyspace] ***********************************************************************************************************************************************************************************************************************************
+changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
-changed: [cass1.deltakappa.com]
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_auth_schema.cql] ***********************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_auth_schema.cql] *********************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com] => (item=CREATE KEYSPACE system_auth WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
 
 CREATE TABLE system_auth.resource_role_permissons_index (
@@ -1146,74 +1146,18 @@ CREATE TABLE system_auth.roles (
     AND speculative_retry = '99.0PERCENTILE';
 )
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_distributed_schema.cql] ****************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_distributed_schema.cql] **************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : get keyspace schema for system_distributed keyspace] ******************************************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : get keyspace schema for system_distributed keyspace] ****************************************************************************************************************************************************************************************************************************
 changed: [cass2.deltakappa.com]
-changed: [cass1.deltakappa.com]
 changed: [cass3.deltakappa.com]
+changed: [cass1.deltakappa.com]
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_distributed_schema.cql] ****************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_distributed_schema.cql] **************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com] => (item=CREATE KEYSPACE system_distributed WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '3'}  AND durable_writes = true;
-
-CREATE TABLE system_distributed.repair_history (
-    keyspace_name text,
-    columnfamily_name text,
-    id timeuuid,
-    coordinator inet,
-    exception_message text,
-    exception_stacktrace text,
-    finished_at timestamp,
-    parent_id timeuuid,
-    participants set<inet>,
-    range_begin text,
-    range_end text,
-    started_at timestamp,
-    status text,
-    PRIMARY KEY ((keyspace_name, columnfamily_name), id)
-) WITH CLUSTERING ORDER BY (id ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = 'Repair history'
-    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 0
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 3600000
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
-
-CREATE TABLE system_distributed.parent_repair_history (
-    parent_id timeuuid PRIMARY KEY,
-    columnfamily_names set<text>,
-    exception_message text,
-    exception_stacktrace text,
-    finished_at timestamp,
-    keyspace_name text,
-    requested_ranges set<text>,
-    started_at timestamp,
-    successful_ranges set<text>
-) WITH bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = 'Repair history'
-    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 0
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 3600000
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
-)
-changed: [cass3.deltakappa.com] => (item=CREATE KEYSPACE system_distributed WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '3'}  AND durable_writes = true;
 
 CREATE TABLE system_distributed.repair_history (
     keyspace_name text,
@@ -1325,18 +1269,74 @@ CREATE TABLE system_distributed.parent_repair_history (
     AND read_repair_chance = 0.0
     AND speculative_retry = '99.0PERCENTILE';
 )
+changed: [cass3.deltakappa.com] => (item=CREATE KEYSPACE system_distributed WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '3'}  AND durable_writes = true;
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_schema.cql] ****************************************************************************************************************************************************************************************************************************************************
+CREATE TABLE system_distributed.repair_history (
+    keyspace_name text,
+    columnfamily_name text,
+    id timeuuid,
+    coordinator inet,
+    exception_message text,
+    exception_stacktrace text,
+    finished_at timestamp,
+    parent_id timeuuid,
+    participants set<inet>,
+    range_begin text,
+    range_end text,
+    started_at timestamp,
+    status text,
+    PRIMARY KEY ((keyspace_name, columnfamily_name), id)
+) WITH CLUSTERING ORDER BY (id ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
+    AND comment = 'Repair history'
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy'}
+    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND dclocal_read_repair_chance = 0.0
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 0
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 3600000
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99.0PERCENTILE';
+
+CREATE TABLE system_distributed.parent_repair_history (
+    parent_id timeuuid PRIMARY KEY,
+    columnfamily_names set<text>,
+    exception_message text,
+    exception_stacktrace text,
+    finished_at timestamp,
+    keyspace_name text,
+    requested_ranges set<text>,
+    started_at timestamp,
+    successful_ranges set<text>
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
+    AND comment = 'Repair history'
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy'}
+    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND dclocal_read_repair_chance = 0.0
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 0
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 3600000
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99.0PERCENTILE';
+)
+
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_schema.cql] **************************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : get keyspace schema for system keyspace] ******************************************************************************************************************************************************************************************************************************************************************************************************
-changed: [cass2.deltakappa.com]
+TASK [cassandra22x_snapshot : get keyspace schema for system keyspace] ****************************************************************************************************************************************************************************************************************************************
 changed: [cass3.deltakappa.com]
 changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_schema.cql] ****************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_schema.cql] **************************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com] => (item=CREATE KEYSPACE system WITH replication = {'class': 'LocalStrategy'}  AND durable_writes = true;
 
 CREATE TABLE system.available_ranges (
@@ -2727,66 +2727,18 @@ CREATE TABLE system.hints (
     AND speculative_retry = '99.0PERCENTILE';
 )
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_traces_schema.cql] *********************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_traces_schema.cql] *******************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : get keyspace schema for system_traces keyspace] ***********************************************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : get keyspace schema for system_traces keyspace] *********************************************************************************************************************************************************************************************************************************
 changed: [cass2.deltakappa.com]
 changed: [cass1.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_traces_schema.cql] *********************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_traces_schema.cql] *******************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com] => (item=CREATE KEYSPACE system_traces WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '2'}  AND durable_writes = true;
-
-CREATE TABLE system_traces.events (
-    session_id uuid,
-    event_id timeuuid,
-    activity text,
-    source inet,
-    source_elapsed int,
-    thread text,
-    PRIMARY KEY (session_id, event_id)
-) WITH CLUSTERING ORDER BY (event_id ASC)
-    AND bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = 'tracing events'
-    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 0
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 3600000
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
-
-CREATE TABLE system_traces.sessions (
-    session_id uuid PRIMARY KEY,
-    client inet,
-    command text,
-    coordinator inet,
-    duration int,
-    parameters map<text, text>,
-    request text,
-    started_at timestamp
-) WITH bloom_filter_fp_chance = 0.01
-    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
-    AND comment = 'tracing sessions'
-    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy'}
-    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
-    AND dclocal_read_repair_chance = 0.0
-    AND default_time_to_live = 0
-    AND gc_grace_seconds = 0
-    AND max_index_interval = 2048
-    AND memtable_flush_period_in_ms = 3600000
-    AND min_index_interval = 128
-    AND read_repair_chance = 0.0
-    AND speculative_retry = '99.0PERCENTILE';
-)
-changed: [cass2.deltakappa.com] => (item=CREATE KEYSPACE system_traces WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '2'}  AND durable_writes = true;
 
 CREATE TABLE system_traces.events (
     session_id uuid,
@@ -2882,165 +2834,213 @@ CREATE TABLE system_traces.sessions (
     AND read_repair_chance = 0.0
     AND speculative_retry = '99.0PERCENTILE';
 )
+changed: [cass2.deltakappa.com] => (item=CREATE KEYSPACE system_traces WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '2'}  AND durable_writes = true;
 
-TASK [cassandra22x_snapshot : loop create_snapshot_keyspace_columnfamilies_yaml.yml for each keyspace on the cassandra node] ************************************************************************************************************************************************************************************************************************************************
+CREATE TABLE system_traces.events (
+    session_id uuid,
+    event_id timeuuid,
+    activity text,
+    source inet,
+    source_elapsed int,
+    thread text,
+    PRIMARY KEY (session_id, event_id)
+) WITH CLUSTERING ORDER BY (event_id ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
+    AND comment = 'tracing events'
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy'}
+    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND dclocal_read_repair_chance = 0.0
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 0
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 3600000
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99.0PERCENTILE';
+
+CREATE TABLE system_traces.sessions (
+    session_id uuid PRIMARY KEY,
+    client inet,
+    command text,
+    coordinator inet,
+    duration int,
+    parameters map<text, text>,
+    request text,
+    started_at timestamp
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
+    AND comment = 'tracing sessions'
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy'}
+    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND dclocal_read_repair_chance = 0.0
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 0
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 3600000
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99.0PERCENTILE';
+)
+
+TASK [cassandra22x_snapshot : loop create_snapshot_keyspace_columnfamilies_yaml.yml for each keyspace on the cassandra node] **********************************************************************************************************************************************************************************
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_snapshot_keyspace_columnfamilies_yaml.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_snapshot_keyspace_columnfamilies_yaml.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_snapshot_keyspace_columnfamilies_yaml.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_snapshot_keyspace_columnfamilies_yaml.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 included: /etc/ansible/roles/cassandra22x_snapshot/tasks/create_snapshot_keyspace_columnfamilies_yaml.yml for cass1.deltakappa.com, cass2.deltakappa.com, cass3.deltakappa.com
 
-TASK [cassandra22x_snapshot : get all column family names for the killrvideo keyspace on the cassandra node] ****************************************************************************************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_killrvideo.yml for each cassandra node] *************************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the killrvideo keyspace on each cassandra node] ************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : get all column family on disk names for the killrvideo keyspace on the cassandra node] ********************************************************************************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_killrvideo.yml on each cassandra node] *****************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the killrvideo keyspace on each cassandra node] **********************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : get all column family names for the system_auth keyspace on the cassandra node] ***************************************************************************************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_auth.yml for each cassandra node] ************************************************************************************************************************************************************************************************
-changed: [cass2.deltakappa.com]
-changed: [cass1.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the system_auth keyspace on each cassandra node] ***********************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : get all column family on disk names for the system_auth keyspace on the cassandra node] *******************************************************************************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_auth.yml on each cassandra node] ****************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the system_auth keyspace on each cassandra node] *********************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : get all column family names for the system_distributed keyspace on the cassandra node] ********************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : get all column family names for the killrvideo keyspace on the cassandra node] **************************************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass3.deltakappa.com]
 changed: [cass2.deltakappa.com]
 
-TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_distributed.yml for each cassandra node] *****************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_killrvideo.yml for each cassandra node] ***********************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the system_distributed keyspace on each cassandra node] ****************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the killrvideo keyspace on each cassandra node] **********************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : get all column family on disk names for the system_distributed keyspace on the cassandra node] ************************************************************************************************************************************************************************************************************************************************
-changed: [cass2.deltakappa.com]
-changed: [cass1.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_distributed.yml on each cassandra node] *********************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass2.deltakappa.com]
-changed: [cass3.deltakappa.com]
-
-TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the system_distributed keyspace on each cassandra node] **************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
+TASK [cassandra22x_snapshot : get all column family on disk names for the killrvideo keyspace on the cassandra node] ******************************************************************************************************************************************************************************************
 changed: [cass3.deltakappa.com]
 changed: [cass2.deltakappa.com]
-
-TASK [cassandra22x_snapshot : get all column family names for the system keyspace on the cassandra node] ********************************************************************************************************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com]
-changed: [cass3.deltakappa.com]
-changed: [cass2.deltakappa.com]
 
-TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system.yml for each cassandra node] *****************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_killrvideo.yml on each cassandra node] ***************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the system keyspace on each cassandra node] ****************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the killrvideo keyspace on each cassandra node] ********************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : get all column family on disk names for the system keyspace on the cassandra node] ************************************************************************************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass3.deltakappa.com]
-changed: [cass2.deltakappa.com]
-
-TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system.yml on each cassandra node] *********************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : get all column family names for the system_auth keyspace on the cassandra node] *************************************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the system keyspace on each cassandra node] **************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_auth.yml for each cassandra node] **********************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : get all column family names for the system_traces keyspace on the cassandra node] *************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the system_auth keyspace on each cassandra node] *********************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_traces.yml for each cassandra node] **********************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : get all column family on disk names for the system_auth keyspace on the cassandra node] *****************************************************************************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass3.deltakappa.com]
 changed: [cass2.deltakappa.com]
 
-TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the system_traces keyspace on each cassandra node] *********************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_auth.yml on each cassandra node] **************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : get all column family on disk names for the system_traces keyspace on the cassandra node] *****************************************************************************************************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com]
-changed: [cass3.deltakappa.com]
-changed: [cass2.deltakappa.com]
-
-TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f_system_traces.yml on each cassandra node] **************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the system_auth keyspace on each cassandra node] *******************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the system_traces keyspace on each cassandra node] *******************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : get all column family names for the system_distributed keyspace on the cassandra node] ******************************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_distributed.yml for each cassandra node] ***************************************************************************************************************************
 changed: [cass1.deltakappa.com]
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 
-TASK [cassandra22x_snapshot : nodetool snapshot keyspace on the C* node] ****************************************************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the system_distributed keyspace on each cassandra node] **************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : get all column family on disk names for the system_distributed keyspace on the cassandra node] **********************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_distributed.yml on each cassandra node] *******************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the system_distributed keyspace on each cassandra node] ************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : get all column family names for the system keyspace on the cassandra node] ******************************************************************************************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass2.deltakappa.com]
+
+TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system.yml for each cassandra node] ***************************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the system keyspace on each cassandra node] **************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : get all column family on disk names for the system keyspace on the cassandra node] **********************************************************************************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system.yml on each cassandra node] *******************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the system keyspace on each cassandra node] ************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : get all column family names for the system_traces keyspace on the cassandra node] ***********************************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot : save the column_families variable to /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_traces.yml for each cassandra node] ********************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the system_traces keyspace on each cassandra node] *******************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : get all column family on disk names for the system_traces keyspace on the cassandra node] ***************************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : save the column_families_disk variable to the /var/log/cassandra/snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37_system_traces.yml on each cassandra node] ************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass2.deltakappa.com]
+
+TASK [cassandra22x_snapshot : metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the system_traces keyspace on each cassandra node] *****************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot : nodetool snapshot keyspace on the C* node] **************************************************************************************************************************************************************************************************************************************
 changed: [cass2.deltakappa.com] => (item=killrvideo)
 changed: [cass2.deltakappa.com] => (item=system_auth)
 changed: [cass2.deltakappa.com] => (item=system_distributed)
@@ -3053,48 +3053,48 @@ changed: [cass1.deltakappa.com] => (item=system_auth)
 changed: [cass3.deltakappa.com] => (item=system_distributed)
 changed: [cass1.deltakappa.com] => (item=system_distributed)
 changed: [cass3.deltakappa.com] => (item=system)
-changed: [cass1.deltakappa.com] => (item=system)
 changed: [cass3.deltakappa.com] => (item=system_traces)
+changed: [cass1.deltakappa.com] => (item=system)
 changed: [cass1.deltakappa.com] => (item=system_traces)
 
-TASK [cassandra22x_snapshot : create missing vars paths - /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com] **************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : create missing vars paths - /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com] ************************************************************************************************************************************************************************
 ok: [cass1.deltakappa.com -> 127.0.0.1]
 ok: [cass2.deltakappa.com -> 127.0.0.1]
 ok: [cass3.deltakappa.com -> 127.0.0.1]
 
-TASK [cassandra22x_snapshot : rsync metadata (yaml files) created to the ansible system] ************************************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot : rsync metadata (yaml files) created to the ansible system] **********************************************************************************************************************************************************************************************************************
 changed: [cass2.deltakappa.com]
 changed: [cass3.deltakappa.com]
 changed: [cass1.deltakappa.com]
 
-TASK [capture playbook end time] ********************************************************************************************************************************************************************************************************************************************************************************************************************************************
-ok: [cass2.deltakappa.com]
+TASK [capture playbook end time] ******************************************************************************************************************************************************************************************************************************************************************************
 ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
 ok: [cass3.deltakappa.com]
 
-TASK [snapshot.yml start end date times] ************************************************************************************************************************************************************************************************************************************************************************************************************************************
+TASK [cassandra22x_snapshot.yml play start and end date times] ************************************************************************************************************************************************************************************************************************************************
 ok: [cass1.deltakappa.com] => {
-    "msg": "start_date_time: 20181019-210717 & end_date_time: 20181019-211211"
+    "msg": "start_date_time: 20181020-185136 & end_date_time: 20181020-185613"
 }
 ok: [cass2.deltakappa.com] => {
-    "msg": "start_date_time: 20181019-210717 & end_date_time: 20181019-211211"
+    "msg": "start_date_time: 20181020-185136 & end_date_time: 20181020-185613"
 }
 ok: [cass3.deltakappa.com] => {
-    "msg": "start_date_time: 20181019-210717 & end_date_time: 20181019-211211"
+    "msg": "start_date_time: 20181020-185136 & end_date_time: 20181020-185613"
 }
 
-TASK [Snapshot Cassandra End Message] ***************************************************************************************************************************************************************************************************************************************************************************************************************************************
+TASK [snapshot confirm message] *******************************************************************************************************************************************************************************************************************************************************************************
 ok: [cass1.deltakappa.com] => {
-    "msg": "Snapshot created... snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f for these keyspaces [u'killrvideo', u'system_auth', u'system_distributed', u'system', u'system_traces']"
+    "msg": "Snapshot created... snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37 for these keyspaces [u'killrvideo', u'system_auth', u'system_distributed', u'system', u'system_traces']"
 }
 ok: [cass2.deltakappa.com] => {
-    "msg": "Snapshot created... snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f for these keyspaces [u'killrvideo', u'system_auth', u'system_distributed', u'system', u'system_traces']"
+    "msg": "Snapshot created... snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37 for these keyspaces [u'killrvideo', u'system_auth', u'system_distributed', u'system', u'system_traces']"
 }
 ok: [cass3.deltakappa.com] => {
-    "msg": "Snapshot created... snapshot_e0115828-84ea-4a07-bf9b-9b3f94ce781f for these keyspaces [u'killrvideo', u'system_auth', u'system_distributed', u'system', u'system_traces']"
+    "msg": "Snapshot created... snapshot_6c1b675b-1603-4604-a954-d5a4c90e2f37 for these keyspaces [u'killrvideo', u'system_auth', u'system_distributed', u'system', u'system_traces']"
 }
 
-PLAY RECAP ******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
+PLAY RECAP ****************************************************************************************************************************************************************************************************************************************************************************************************
 cass1.deltakappa.com       : ok=75   changed=57   unreachable=0    failed=0   
 cass2.deltakappa.com       : ok=75   changed=57   unreachable=0    failed=0   
 cass3.deltakappa.com       : ok=75   changed=57   unreachable=0    failed=0   

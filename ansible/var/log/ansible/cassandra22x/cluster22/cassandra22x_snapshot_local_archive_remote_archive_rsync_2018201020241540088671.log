@@ -1,0 +1,54 @@
+
+PLAY [cluster22] **********************************************************************************************************************************************************************************************************************************************************************************************
+
+TASK [capture playbook start time] ****************************************************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive_remote_archive_rsync : create /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/var/lib/cassandra/archive] ***********************************************************************************************************
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+ok: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive_remote_archive_rsync : create /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/var/lib/cassandra/archive/archived_logs] *********************************************************************************************
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+ok: [cass1.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive_remote_archive_rsync : create /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/var/lib/cassandra/archive/ansible_restore_vars] **************************************************************************************
+changed: [cass1.deltakappa.com -> 127.0.0.1]
+changed: [cass2.deltakappa.com -> 127.0.0.1]
+changed: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_snapshot_local_archive_remote_archive_rsync : rsync /var/lib/cassandra/archive/ to /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/var/lib/cassandra/archive] *****************************************************************************
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com]
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com]
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive_remote_archive_rsync : rsync snapshot ansible metadata from /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com/ to /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/var/lib/cassandra/archive/ansible_restore_vars] ***
+changed: [cass2.deltakappa.com -> 127.0.0.1]
+changed: [cass3.deltakappa.com -> 127.0.0.1]
+changed: [cass1.deltakappa.com -> 127.0.0.1]
+
+TASK [capture playbook end time] ******************************************************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_archive_remote_archive_rsync.yml play start and end date times] *************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": "start_date_time: 20181020-202432 & end_date_time: 20181020-202503"
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": "start_date_time: 20181020-202432 & end_date_time: 20181020-202504"
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": "start_date_time: 20181020-202432 & end_date_time: 20181020-202504"
+}
+
+PLAY RECAP ****************************************************************************************************************************************************************************************************************************************************************************************************
+cass1.deltakappa.com       : ok=8    changed=3    unreachable=0    failed=0   
+cass2.deltakappa.com       : ok=8    changed=3    unreachable=0    failed=0   
+cass3.deltakappa.com       : ok=8    changed=3    unreachable=0    failed=0   
+
