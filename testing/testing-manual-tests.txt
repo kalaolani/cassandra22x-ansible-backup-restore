@@ -1,0 +1,358 @@
+************************************************************************************************************************
+no cassandra snapshots
+************************************************************************************************************************
+[root@ansible ansible]# ansible cluster22 -a"nodetool listsnapshots"
+cass1.deltakappa.com | CHANGED | rc=0 >>
+Snapshot Details:
+There are no snapshots
+cass3.deltakappa.com | CHANGED | rc=0 >>
+Snapshot Details:
+There are no snapshots
+cass2.deltakappa.com | CHANGED | rc=0 >>
+Snapshot Details:
+There are no snapshots
+
+************************************************************************************************************************
+no cassandra local archives
+************************************************************************************************************************
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_local_archive_path }}"
+cass2.deltakappa.com | CHANGED | rc=0 >>
+cass3.deltakappa.com | CHANGED | rc=0 >>
+cass1.deltakappa.com | CHANGED | rc=0 >>
+
+************************************************************************************************************************
+no cassandra remote (nfs) archives
+************************************************************************************************************************
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_remote_archive_path }}"
+cass1.deltakappa.com | CHANGED | rc=0 >>
+cass3.deltakappa.com | CHANGED | rc=0 >>
+cass2.deltakappa.com | CHANGED | rc=0 >>
+
+************************************************************************************************************************
+create the first snapshot - pwd = /etc/ansible
+************************************************************************************************************************
+ansible-playbook playbooks/cluster22/cassandra22x_snapshot.yml -e "snapshot_uuid=$(uuidgen)" | tee /var/log/ansible/cluster22-cassandra22x_snapshot.yml.log
+
+Results Verification ****************************************************************************************************************************************************************
+
+TASK [snapshot confirm message] *****************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": "Snapshot created... snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c for these keyspaces [u'killrvideo', u'system_auth', u'system_distributed', u'system', u'system_traces']"
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": "Snapshot created... snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c for these keyspaces [u'killrvideo', u'system_auth', u'system_distributed', u'system', u'system_traces']"
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": "Snapshot created... snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c for these keyspaces [u'killrvideo', u'system_auth', u'system_distributed', u'system', u'system_traces']"
+
+[root@ansible ansible]# ansible cluster22 -a"nodetool listsnapshots"
+cass3.deltakappa.com | CHANGED | rc=0 >>
+Snapshot Details:
+Snapshot name       Keyspace name                Column family name           True size          Size on disk
+...
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   latest_videos                0 bytes            5.78 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   video_event                  0 bytes            5.08 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   user_videos                  0 bytes            85.06 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   videos                       0 bytes            467.78 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   comments_by_user             0 bytes            53.56 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   video_ratings_by_user        0 bytes            2.71 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   tags_by_letter               0 bytes            13 bytes
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   comments_by_video            0 bytes            47.01 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   users                        0 bytes            5.91 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   user_credentials             0 bytes            5.07 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   video_rating                 0 bytes            81.77 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   videos_by_tag                0 bytes            694.97 KB
+...
+Total TrueDiskSpaceUsed: 0 bytes
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+Snapshot Details:
+Snapshot name       Keyspace name                Column family name           True size          Size on disk
+...
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   latest_videos                0 bytes            5.78 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   video_event                  0 bytes            5.08 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   user_videos                  0 bytes            85.06 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   videos                       0 bytes            467.78 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   comments_by_user             0 bytes            46.44 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   video_ratings_by_user        0 bytes            3.4 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   tags_by_letter               0 bytes            13 bytes
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   comments_by_video            0 bytes            45.68 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   users                        0 bytes            4.54 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   user_credentials             0 bytes            5.07 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   video_rating                 0 bytes            81.77 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   videos_by_tag                0 bytes            694.97 KB
+...
+Total TrueDiskSpaceUsed: 0 bytes
+
+cass2.deltakappa.com | CHANGED | rc=0 >>
+Snapshot Details:
+Snapshot name       Keyspace name                Column family name           True size          Size on disk
+...
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   latest_videos                0 bytes            5.78 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   video_event                  0 bytes            5.08 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   user_videos                  0 bytes            85.06 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   videos                       0 bytes            467.78 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   comments_by_user             0 bytes            50.99 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   video_ratings_by_user        0 bytes            3.22 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   tags_by_letter               0 bytes            13 bytes
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   comments_by_video            0 bytes            53.17 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   users                        0 bytes            4 MB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   user_credentials             0 bytes            5.07 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   video_rating                 0 bytes            81.77 KB
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306ckillrvideo                   videos_by_tag                0 bytes            694.97 KB
+...
+Total TrueDiskSpaceUsed: 0 bytes
+*************************************************************************************************************************************************************************************
+
+Results Verification ****************************************************************************************************************************************************************
+On the ansible node verify that snapshot metadata
+
+[root@ansible cluster22]# pwd
+/etc/ansible/roles/cassandra22x_restore/vars/cluster22
+[root@ansible cluster22]# tree -Dht
+.
+├── [4.0K Oct 21 13:40]  cass1.deltakappa.com
+...
+│   ├── [1.0K Oct 21 13:36]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c_killrvideo.yml
+│   └── [ 170 Oct 21 13:36]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.yml
+├── [4.0K Oct 21 13:40]  cass2.deltakappa.com
+...
+│   ├── [1.0K Oct 21 13:36]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c_killrvideo.yml
+│   └── [ 170 Oct 21 13:36]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.yml
+└── [4.0K Oct 21 13:40]  cass3.deltakappa.com
+...
+    ├── [1.0K Oct 21 13:36]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c_killrvideo.yml
+    └── [ 170 Oct 21 13:36]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.yml
+
+
+************************************************************************************************************************
+create the first snapshot archive for rsyncing - pwd = /etc/ansible & snapshot_yml=snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.yml
+************************************************************************************************************************
+[root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive.yml -e"snapshot_yml=snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.yml"
+
+Results Verification ****************************************************************************************************************************************************************
+cassandra22x_local_archive_path must contain archived_logs metadata 
+
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_local_archive_path }}/*"
+cass2.deltakappa.com | CHANGED | rc=0 >>
+/var/lib/cassandra/archive/archived_logs:
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+
+cass3.deltakappa.com | CHANGED | rc=0 >>
+/var/lib/cassandra/archive/archived_logs:
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+/var/lib/cassandra/archive/archived_logs:
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+
+Results Verification ****************************************************************************************************************************************************************
+cassandra22x_local_archive_path/*/snapshots must contain snapshots
+
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_local_archive_path }}/*/snapshots"
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+/var/lib/cassandra/archive/killrvideo/snapshots:
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+
+cass2.deltakappa.com | CHANGED | rc=0 >>
+/var/lib/cassandra/archive/killrvideo/snapshots:
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+
+cass3.deltakappa.com | CHANGED | rc=0 >>
+/var/lib/cassandra/archive/killrvideo/snapshots:
+snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+
+Results Verification ****************************************************************************************************************************************************************
+On the ansible node verify that a local_archive of the snapshot metadata
+
+[root@ansible cluster22]# pwd
+/etc/ansible/roles/cassandra22x_restore/vars/cluster22
+[root@ansible cluster22]# tree -Dht
+.
+├── [4.0K Oct 21 13:40]  cass1.deltakappa.com
+│   ├── [ 10K Oct 21 13:40]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+...
+├── [4.0K Oct 21 13:40]  cass2.deltakappa.com
+│   ├── [ 10K Oct 21 13:40]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+...
+└── [4.0K Oct 21 13:40]  cass3.deltakappa.com
+    ├── [ 10K Oct 21 13:40]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+...
+
+3 directories, 21 files
+
+
+************************************************************************************************************************
+rsync archives local to remote
+************************************************************************************************************************
+ansible-playbook playbooks/cluster22/cassandra22x_snapshot_local_archive_remote_archive_rsync.yml
+
+Results Verification ****************************************************************************************************************************************************************
+verify that the snapshot, archived_logs, and ansible_restore_vars are on the nfs server
+
+[root@ansible ansible]# ansible cluster22 -m shell -a"tree -Dht {{ cassandra22x_remote_archive_path }}"
+cass3.deltakappa.com | CHANGED | rc=0 >>
+/mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/var/lib/cassandra/archive
+├── [  63 Oct 21 13:41]  archived_logs
+│   └── [210K Oct 21 13:41]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+├── [  23 Oct 21 13:41]  killrvideo
+│   └── [  63 Oct 21 13:41]  snapshots
+│       └── [111M Oct 21 13:41]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+└── [  63 Oct 21 13:40]  ansible_restore_vars
+    └── [ 10K Oct 21 13:40]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+
+12 directories, 7 files
+
+cass2.deltakappa.com | CHANGED | rc=0 >>
+/mnt/nfs/cass3.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass2.deltakappa.com/var/lib/cassandra/archive
+├── [  63 Oct 21 13:41]  archived_logs
+│   └── [210K Oct 21 13:41]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+├── [  23 Oct 21 13:41]  killrvideo
+│   └── [  63 Oct 21 13:41]  snapshots
+│       └── [113M Oct 21 13:41]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+└── [  63 Oct 21 13:40]  ansible_restore_vars
+    └── [ 10K Oct 21 13:40]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+
+12 directories, 7 files
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+/mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/var/lib/cassandra/archive
+├── [  63 Oct 21 13:41]  archived_logs
+│   └── [210K Oct 21 13:41]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+...
+├── [  23 Oct 21 13:41]  killrvideo
+│   └── [  63 Oct 21 13:41]  snapshots
+│       └── [102M Oct 21 13:41]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+└── [  63 Oct 21 13:40]  ansible_restore_vars
+    └── [ 10K Oct 21 13:40]  snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.tar
+
+12 directories, 7 files
+
+
+************************************************************************************************************************
+clear snapshots - pwd = /etc/ansible for snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c
+************************************************************************************************************************
+[root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_snapshot_clear.yml -e"snapshot_yml=snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c.yml"
+
+Results Verification ****************************************************************************************************************************************************************
+verify that the snapshot is clear from the cassandra nodes and the ansible node
+
+*** Check all the nodes... Did nodetool clearsnapshot -t snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c work?
+[root@ansible ansible]# ansible cluster22 -a"nodetool listsnapshots"
+cass2.deltakappa.com | CHANGED | rc=0 >>
+Snapshot Details:
+There are no snapshots
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+Snapshot Details:
+There are no snapshots
+
+cass3.deltakappa.com | CHANGED | rc=0 >>
+Snapshot Details:
+There are no snapshots
+
+*** Check all the nodes... Is snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c cleared from cassandra22x_local_archive_path?
+root@ansible ansible]# ansible cluster22 -m shell -a"tree -Dht {{ cassandra22x_local_archive_path }}"
+cass2.deltakappa.com | CHANGED | rc=0 >>
+/var/lib/cassandra/archive
+├── [   6 Oct 21 14:02]  archived_logs
+├── [  23 Oct 21 13:41]  system
+│   └── [   6 Oct 21 14:02]  snapshots
+├── [  23 Oct 21 13:41]  system_traces
+│   └── [   6 Oct 21 14:02]  snapshots
+├── [  23 Oct 21 13:41]  system_auth
+│   └── [   6 Oct 21 14:02]  snapshots
+├── [  23 Oct 21 13:41]  system_distributed
+│   └── [   6 Oct 21 14:02]  snapshots
+└── [  23 Oct 21 13:41]  killrvideo
+    └── [   6 Oct 21 14:02]  snapshots
+
+11 directories, 0 files
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+/var/lib/cassandra/archive
+├── [   6 Oct 21 14:02]  archived_logs
+├── [  23 Oct 21 13:41]  system
+│   └── [   6 Oct 21 14:02]  snapshots
+├── [  23 Oct 21 13:41]  system_traces
+│   └── [   6 Oct 21 14:02]  snapshots
+├── [  23 Oct 21 13:41]  system_auth
+│   └── [   6 Oct 21 14:02]  snapshots
+├── [  23 Oct 21 13:41]  system_distributed
+│   └── [   6 Oct 21 14:02]  snapshots
+└── [  23 Oct 21 13:41]  killrvideo
+    └── [   6 Oct 21 14:02]  snapshots
+
+11 directories, 0 files
+
+cass3.deltakappa.com | CHANGED | rc=0 >>
+/var/lib/cassandra/archive
+├── [   6 Oct 21 14:02]  archived_logs
+├── [  23 Oct 21 13:41]  system_traces
+│   └── [   6 Oct 21 14:02]  snapshots
+├── [  23 Oct 21 13:41]  system
+│   └── [   6 Oct 21 14:02]  snapshots
+├── [  23 Oct 21 13:41]  system_distributed
+│   └── [   6 Oct 21 14:02]  snapshots
+├── [  23 Oct 21 13:41]  killrvideo
+│   └── [   6 Oct 21 14:02]  snapshots
+└── [  23 Oct 21 13:41]  system_auth
+    └── [   6 Oct 21 14:02]  snapshots
+
+11 directories, 0 files
+
+*** Check all the nodes... Is snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c cleared from cassandra22x_log_path?
+[root@ansible ansible]# ansible cluster22 -m shell -a"tree -Dht {{ cassandra22x_log_path }}"
+cass3.deltakappa.com | CHANGED | rc=0 >>
+/var/log/cassandra
+├── [243K Oct 21 14:03]  debug.log
+├── [145K Oct 21 13:55]  gc.log.0.current
+├── [ 29K Oct 21 13:55]  system.log
+└── [ 22K Oct 21 12:55]  cassandra.log
+
+0 directories, 4 files
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+/var/log/cassandra
+├── [256K Oct 21 14:04]  debug.log
+├── [149K Oct 21 13:58]  gc.log.0.current
+├── [ 33K Oct 21 13:52]  system.log
+└── [ 22K Oct 21 12:52]  cassandra.log
+
+0 directories, 4 files
+
+cass2.deltakappa.com | CHANGED | rc=0 >>
+/var/log/cassandra
+├── [262K Oct 21 14:04]  debug.log
+├── [144K Oct 21 13:54]  gc.log.0.current
+├── [ 33K Oct 21 13:53]  system.log
+└── [ 23K Oct 21 12:54]  cassandra.log
+
+0 directories, 4 files
+
+*** Check all the nodes... snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c is cleared.
+
+*** Check the ansible node
+
+root@ansible ansible]# tree -Dht /etc/ansible/roles/cassandra22x_restore/vars/cluster22/
+/etc/ansible/roles/cassandra22x_restore/vars/cluster22/
+├── [   6 Oct 21 14:02]  cass1.deltakappa.com
+├── [   6 Oct 21 14:02]  cass2.deltakappa.com
+└── [   6 Oct 21 14:02]  cass3.deltakappa.com
+
+3 directories, 0 files
+
+*** Check the ansible node... snapshot_fb1b7d52-39bd-42e1-ad8c-0c54eb28306c is cleared.
+Checkpoint ... all that remains is the archive on the NFS Server
