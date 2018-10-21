@@ -140,6 +140,13 @@ cass2.deltakappa.com       : ok=9    changed=2    unreachable=0    failed=0
 cass3.deltakappa.com       : ok=9    changed=2    unreachable=0    failed=0
 ```
 
+## Ad hoc Commands Notes...
+
+wipe file servers of all cassandra archives
+```
+ansible cluster22 -m shell -a" rm -fR {{ cassandra22x_remote_archive_path }}/*"
+```
+
 ## Ad hoc Environment Notes...
 
 auto_snapshot is enabled by default & disabling auto_snapshot
