@@ -1,8 +1,9 @@
 # cassandra22x-ansible-backup-restore
 A goal of this project is to create something with minimal installs and all freely available software with no licensing costs.
 
-See the Wiki for details for how to.
-See test run files in the repo for details for how to.
+Help and How To...
+- See the Wiki for details for how to.
+- See test run files in the repo for details for how to.
 
 Coming Soon...
 - Use Case - The keyspaces is missing from all the nodes but the local archive exists.
