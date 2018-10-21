@@ -1,0 +1,12 @@
+---
+- name: "clear {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}.tar"
+  file:
+    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}.tar"
+    state: absent
+  delegate_to: 127.0.0.1
+
+- name: "clear {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
+  file:
+    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
+    state: absent
+  delegate_to: 127.0.0.1
