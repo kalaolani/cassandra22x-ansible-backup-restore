@@ -49,4 +49,5 @@ cass3.deltakappa.com | CHANGED | rc=0 >>
 auto_snapshot: false
 # (This can be much longer, because unless auto_snapshot is disabled
 
+ansible-playbook playbooks/cluster22/cassandra22x_operate_rolling_restart.yml
 ```
