@@ -1,0 +1,13 @@
+use killrvideo;
+select count(*) from comments_by_user;
+select count(*) from comments_by_video;
+select count(*) from latest_videos;
+select count(*) from tags_by_letter;
+select count(*) from user_credentials;
+select count(*) from user_videos;
+select count(*) from users;
+select count(*) from video_event;
+select count(*) from video_rating;
+select count(*) from video_ratings_by_user;
+select count(*) from videos;
+select count(*) from videos_by_tag;

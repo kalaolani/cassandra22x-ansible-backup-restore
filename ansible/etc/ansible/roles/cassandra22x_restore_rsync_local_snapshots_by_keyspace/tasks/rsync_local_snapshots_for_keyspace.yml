@@ -1,0 +1,19 @@
+---
+- name: rsync hardlink local snapshot files back to the keyspace for all column families data directories on disk
+  synchronize:
+    src: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/snapshots/{{ snapshot_name }}/"
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/"
+    rsync_opts:
+        - "--no-motd"
+        - "--exclude=manifest.json"
+        - "--link-dest={{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}"
+  with_items: "{{ column_families_disk }}"
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: cassandra is the owner/group for all rsync-hardlink-ed files of the keyspace for all column families
+  file: 
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/"
+    owner: cassandra
+    group: cassandra
+    mode: 0755
+    recurse: yes

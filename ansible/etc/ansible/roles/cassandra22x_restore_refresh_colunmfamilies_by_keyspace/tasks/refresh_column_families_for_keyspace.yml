@@ -1,0 +1,4 @@
+---
+- name: nodetool-refresh.sh restored column family
+  script: nodetool-refresh.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ keyspace_name }} {{ item }}
+  with_items: "{{ column_families }}"
