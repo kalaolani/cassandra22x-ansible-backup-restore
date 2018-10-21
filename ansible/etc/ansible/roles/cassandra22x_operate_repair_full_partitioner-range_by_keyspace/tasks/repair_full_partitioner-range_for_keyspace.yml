@@ -1,0 +1,8 @@
+---
+### Descriptioin: nodetool repair --partitioner-range task
+### Author: David Payne
+### 
+### CQGiki documentation: http://cqgiki.denver.cqg/bin/view/Production/CassandraOps
+
+- name: "nodetool repair --partitioner-range for the keyspace: {{ keyspace_name }}"
+  script: nodetool-repair-partitioner-range-keyspace.sh {{ cassandra22x_remote_jmx_user }} {{ cassandra22x_remote_jmx_pass }} {{ keyspace_name }} {{ cassandra22x_log_path }}/partitioner-range_repair_{{ keyspace_name }}.log

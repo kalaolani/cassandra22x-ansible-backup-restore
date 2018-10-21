@@ -1,0 +1,3 @@
+---
+- name: nodetool repair --partitioner-range for the node
+  script: nodetool-repair-partitioner-range.sh {{ cassandra22x_remote_jmx_user }} {{ cassandra22x_remote_jmx_pass }} {{ cassandra22x_log_path }}/partitioner-range_repair.log
