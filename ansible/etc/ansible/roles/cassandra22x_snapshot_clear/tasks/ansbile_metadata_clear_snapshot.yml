@@ -1,4 +1,13 @@
 ---
+- name: "clear {{ cassandra22x_log_path }} snapshot: {{ snapshot_name}} metadata"
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ cassandra22x_log_path }}/{{ snapshot_name}}_config.tar"
+    - "{{ cassandra22x_log_path }}/{{ snapshot_name}}_ring_tokens.log"    
+    - "{{ cassandra22x_log_path }}/{{ snapshot_name}}.yml"
+
 - name: "clear {{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}.tar"
   file:
     path: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}.tar"

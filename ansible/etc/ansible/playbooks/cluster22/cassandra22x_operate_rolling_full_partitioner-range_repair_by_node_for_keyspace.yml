@@ -1,6 +1,6 @@
 ---
 # pwd = /etc/ansible
-# ansible-playbook playbooks/cluster22/cassandra22x_operate_repair_full_partitioner-range_by_keyspace.yml -e"keyspace_name=keyspace_name"
+# ansible-playbook playbooks/cluster22/cassandra22x_operate_rolling_full_partitioner-range_repair_by_node_for_keyspace.yml -e"keyspace_name=keyspace_name"
 
 - hosts: cluster22
   any_errors_fatal: true
