@@ -1,11 +1,16 @@
 # cassandra22x-ansible-backup-restore
-See the Wiki for details.
+A goal of this project is to create something with minimal installs and all freely available software with no licensing costs.
 
-Recently added ... cassandra22x_operate_rolling_full_partitioner-range_repair_by_node.yml
+See the Wiki for details for how to.
+
+## Recently added ... 
+cassandra22x_operate_rolling_full_partitioner-range_repair_by_node.yml
 Need repairs to test restores.
 
-## Restore is coming soon.
-### sneak peak
+## A simple restore is now available.
+This restore works after truncating all the killrvideo tables (all nodes are up).
+
+### sneak peak docs & samples.
 ```
 [root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_restore_local_keyspace.yml -e"snapshot_keyspace_yml=snapshot_2f6e2e95-cac1-4a1a-b653-07e19b410b75_killrvideo.yml"
 
@@ -145,50 +150,4 @@ cass3.deltakappa.com       : ok=9    changed=2    unreachable=0    failed=0
 wipe file servers of all cassandra archives
 ```
 ansible cluster22 -m shell -a" rm -fR {{ cassandra22x_remote_archive_path }}/*"
-```
-
-## Ad hoc Environment Notes...
-
-auto_snapshot is enabled by default & disabling auto_snapshot
-```
-root@ansible ansible]# ansible cluster22 -m shell -a" grep auto_snapshot {{ cassandra22x_yaml }}"
-cass2.deltakappa.com | CHANGED | rc=0 >>
-auto_snapshot: true
-# (This can be much longer, because unless auto_snapshot is disabled
-
-cass1.deltakappa.com | CHANGED | rc=0 >>
-auto_snapshot: true
-# (This can be much longer, because unless auto_snapshot is disabled
-
-cass3.deltakappa.com | CHANGED | rc=0 >>
-auto_snapshot: true
-# (This can be much longer, because unless auto_snapshot is disabled
-
-[root@ansible ansible]# ansible cluster22 -m shell -a"sed -i 's/auto_snapshot\: true/auto_snapshot\: false/g' {{ cassandra22x_yaml }}"
- [WARNING]: Consider using the replace, lineinfile or template module rather than running sed.  If you need to use command because replace, lineinfile or template is insufficient you can add warn=False to this command task or set command_warnings=False in ansible.cfg
-to get rid of this message.
-
-cass1.deltakappa.com | CHANGED | rc=0 >>
-
-
-cass2.deltakappa.com | CHANGED | rc=0 >>
-
-
-cass3.deltakappa.com | CHANGED | rc=0 >>
-
-
-[root@ansible ansible]# ansible cluster22 -m shell -a" grep auto_snapshot {{ cassandra22x_yaml }}"
-cass1.deltakappa.com | CHANGED | rc=0 >>
-auto_snapshot: false
-# (This can be much longer, because unless auto_snapshot is disabled
-
-cass2.deltakappa.com | CHANGED | rc=0 >>
-auto_snapshot: false
-# (This can be much longer, because unless auto_snapshot is disabled
-
-cass3.deltakappa.com | CHANGED | rc=0 >>
-auto_snapshot: false
-# (This can be much longer, because unless auto_snapshot is disabled
-
-ansible-playbook playbooks/cluster22/cassandra22x_operate_rolling_restart.yml
 ```
