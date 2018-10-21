@@ -1,0 +1,29 @@
+---
+- name: start cassandra service
+  service: 
+    name: cassandra 
+    state: started
+    
+- name: nodetool statusbinary
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} statusbinary"
+  register: statusbinary
+  until: statusbinary.stdout == "running"
+  retries: 60
+  delay: 1
+  ignore_errors: yes
+
+- name: nodetool statusgossip
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} statusgossip"
+  register: statusgossip
+  until: statusgossip.stdout == "running"
+  retries: 60
+  delay: 1
+  ignore_errors: yes
+
+- name: nodetool statushandoff
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} statushandoff"
+  register: statushandoff
+  until: statushandoff.stdout == "running"
+  retries: 60
+  delay: 1
+  ignore_errors: yes
