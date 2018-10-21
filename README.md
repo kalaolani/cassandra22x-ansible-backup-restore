@@ -2,152 +2,18 @@
 A goal of this project is to create something with minimal installs and all freely available software with no licensing costs.
 
 See the Wiki for details for how to.
+See test run files in the repo for details for how to.
 
-## Recently added ... 
-cassandra22x_operate_rolling_full_partitioner-range_repair_by_node.yml
-Need repairs to test restores.
+Coming Soon...
 
-## A simple restore is now available.
-This restore works after truncating all the killrvideo tables (all nodes are up).
+Use Case - The keyspaces is missing from all the nodes but the local archive exists.
+Restore a local archived snapshot to a new schmea
 
-### sneak peak docs & samples.
-```
-[root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_restore_local_keyspace.yml -e"snapshot_keyspace_yml=snapshot_2f6e2e95-cac1-4a1a-b653-07e19b410b75_killrvideo.yml"
+Use Case - The keyspaces is missing from all the nodes and the local archive exists.
+Restore a remote archived snapshot to a new schmea
 
-PLAY [cluster22] *************************************************************************************************************************************************************************************************************************************************************
+Use Case - Restore a keyspace from a source cluster to a new destination cluster with identical topologies.
 
-TASK [capture playbook start time] *******************************************************************************************************************************************************************************************************************************************
-ok: [cass1.deltakappa.com]
-ok: [cass2.deltakappa.com]
-ok: [cass3.deltakappa.com]
+Use Case - Restore a keyspace from a source cluster to an existing destination cluster with identical topologies.
 
-TASK [cassandra22x_restore_rsync_local_snapshots_by_keyspace : include the snapshot_keyspace yaml file per node] *************************************************************************************************************************************************************
-ok: [cass1.deltakappa.com]
-ok: [cass2.deltakappa.com]
-ok: [cass3.deltakappa.com]
-
-TASK [cassandra22x_restore_rsync_local_snapshots_by_keyspace : rsync hardlink local snapshot files back to the keyspace for all column families data directories on disk] ****************************************************************************************************
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=comments_by_user-44441930d01e11e8af9161a24d399e62)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=comments_by_user-44441930d01e11e8af9161a24d399e62)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=comments_by_user-44441930d01e11e8af9161a24d399e62)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=comments_by_video-431fe481d01e11e88aba9fbe3aadd836)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=latest_videos-401c1a63d01e11e8af9161a24d399e62)
-ok: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=tags_by_letter-42768523d01e11e89422bbcdcbc5c11b)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=comments_by_video-431fe481d01e11e88aba9fbe3aadd836)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=comments_by_video-431fe481d01e11e88aba9fbe3aadd836)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=user_credentials-3d119983d01e11e88aba9fbe3aadd836)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=latest_videos-401c1a63d01e11e8af9161a24d399e62)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=latest_videos-401c1a63d01e11e8af9161a24d399e62)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=user_videos-3f8383e3d01e11e88aba9fbe3aadd836)
-ok: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=tags_by_letter-42768523d01e11e89422bbcdcbc5c11b)
-ok: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=tags_by_letter-42768523d01e11e89422bbcdcbc5c11b)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=user_credentials-3d119983d01e11e88aba9fbe3aadd836)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=user_credentials-3d119983d01e11e88aba9fbe3aadd836)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=users-3e553d13d01e11e8af9161a24d399e62)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=user_videos-3f8383e3d01e11e88aba9fbe3aadd836)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=user_videos-3f8383e3d01e11e88aba9fbe3aadd836)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=video_event-44e3dba3d01e11e89422bbcdcbc5c11b)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=video_rating-40af0b93d01e11e89422bbcdcbc5c11b)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=users-3e553d13d01e11e8af9161a24d399e62)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=users-3e553d13d01e11e8af9161a24d399e62)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=video_ratings_by_user-41550f91d01e11e88aba9fbe3aadd836)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=video_event-44e3dba3d01e11e89422bbcdcbc5c11b)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=video_event-44e3dba3d01e11e89422bbcdcbc5c11b)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=videos-3eedfaa3d01e11e89422bbcdcbc5c11b)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=video_rating-40af0b93d01e11e89422bbcdcbc5c11b)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=video_rating-40af0b93d01e11e89422bbcdcbc5c11b)
-changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=videos_by_tag-41e58fc0d01e11e8af9161a24d399e62)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=video_ratings_by_user-41550f91d01e11e88aba9fbe3aadd836)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=video_ratings_by_user-41550f91d01e11e88aba9fbe3aadd836)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=videos-3eedfaa3d01e11e89422bbcdcbc5c11b)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=videos-3eedfaa3d01e11e89422bbcdcbc5c11b)
-changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=videos_by_tag-41e58fc0d01e11e8af9161a24d399e62)
-changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=videos_by_tag-41e58fc0d01e11e8af9161a24d399e62)
-
-TASK [cassandra22x_restore_rsync_local_snapshots_by_keyspace : cassandra is the owner/group for all rsync-hardlink-ed files of the keyspace for all column families] *********************************************************************************************************
-ok: [cass3.deltakappa.com]
-ok: [cass1.deltakappa.com]
-ok: [cass2.deltakappa.com]
-
-TASK [cassandra22x_restore_refresh_colunmfamilies_by_keyspace : include the snapshot_keyspace yaml file per node] ************************************************************************************************************************************************************
-ok: [cass1.deltakappa.com]
-ok: [cass2.deltakappa.com]
-ok: [cass3.deltakappa.com]
-
-TASK [cassandra22x_restore_refresh_colunmfamilies_by_keyspace : nodetool-refresh.sh restored column family] ******************************************************************************************************************************************************************
-changed: [cass1.deltakappa.com] => (item=comments_by_user)
-changed: [cass3.deltakappa.com] => (item=comments_by_user)
-changed: [cass2.deltakappa.com] => (item=comments_by_user)
-changed: [cass3.deltakappa.com] => (item=comments_by_video)
-changed: [cass1.deltakappa.com] => (item=comments_by_video)
-changed: [cass2.deltakappa.com] => (item=comments_by_video)
-changed: [cass3.deltakappa.com] => (item=latest_videos)
-changed: [cass1.deltakappa.com] => (item=latest_videos)
-changed: [cass2.deltakappa.com] => (item=latest_videos)
-changed: [cass3.deltakappa.com] => (item=tags_by_letter)
-changed: [cass1.deltakappa.com] => (item=tags_by_letter)
-changed: [cass2.deltakappa.com] => (item=tags_by_letter)
-changed: [cass3.deltakappa.com] => (item=user_credentials)
-changed: [cass1.deltakappa.com] => (item=user_credentials)
-changed: [cass2.deltakappa.com] => (item=user_credentials)
-changed: [cass3.deltakappa.com] => (item=user_videos)
-changed: [cass1.deltakappa.com] => (item=user_videos)
-changed: [cass2.deltakappa.com] => (item=user_videos)
-changed: [cass3.deltakappa.com] => (item=users)
-changed: [cass1.deltakappa.com] => (item=users)
-changed: [cass2.deltakappa.com] => (item=users)
-changed: [cass1.deltakappa.com] => (item=video_event)
-changed: [cass3.deltakappa.com] => (item=video_event)
-changed: [cass2.deltakappa.com] => (item=video_event)
-changed: [cass1.deltakappa.com] => (item=video_rating)
-changed: [cass3.deltakappa.com] => (item=video_rating)
-changed: [cass2.deltakappa.com] => (item=video_rating)
-changed: [cass1.deltakappa.com] => (item=video_ratings_by_user)
-changed: [cass3.deltakappa.com] => (item=video_ratings_by_user)
-changed: [cass2.deltakappa.com] => (item=video_ratings_by_user)
-changed: [cass1.deltakappa.com] => (item=videos)
-changed: [cass3.deltakappa.com] => (item=videos)
-changed: [cass2.deltakappa.com] => (item=videos)
-changed: [cass1.deltakappa.com] => (item=videos_by_tag)
-changed: [cass3.deltakappa.com] => (item=videos_by_tag)
-changed: [cass2.deltakappa.com] => (item=videos_by_tag)
-
-TASK [capture playbook end time] *********************************************************************************************************************************************************************************************************************************************
-ok: [cass1.deltakappa.com]
-ok: [cass2.deltakappa.com]
-ok: [cass3.deltakappa.com]
-
-TASK [cassandra22x_restore_local.yml play start and end date times] **********************************************************************************************************************************************************************************************************
-ok: [cass1.deltakappa.com] => {
-    "msg": "start_date_time: 20181021-120158 & end_date_time: 20181021-120240"
-}
-ok: [cass2.deltakappa.com] => {
-    "msg": "start_date_time: 20181021-120158 & end_date_time: 20181021-120240"
-}
-ok: [cass3.deltakappa.com] => {
-    "msg": "start_date_time: 20181021-120158 & end_date_time: 20181021-120240"
-}
-
-TASK [restore confirm message] ***********************************************************************************************************************************************************************************************************************************************
-ok: [cass1.deltakappa.com] => {
-    "msg": "Snapshot snapshot_2f6e2e95-cac1-4a1a-b653-07e19b410b75 for the keyspaces killrvideo restored successfully... run a repair."
-}
-ok: [cass2.deltakappa.com] => {
-    "msg": "Snapshot snapshot_2f6e2e95-cac1-4a1a-b653-07e19b410b75 for the keyspaces killrvideo restored successfully... run a repair."
-}
-ok: [cass3.deltakappa.com] => {
-    "msg": "Snapshot snapshot_2f6e2e95-cac1-4a1a-b653-07e19b410b75 for the keyspaces killrvideo restored successfully... run a repair."
-}
-
-PLAY RECAP *******************************************************************************************************************************************************************************************************************************************************************
-cass1.deltakappa.com       : ok=9    changed=2    unreachable=0    failed=0
-cass2.deltakappa.com       : ok=9    changed=2    unreachable=0    failed=0
-cass3.deltakappa.com       : ok=9    changed=2    unreachable=0    failed=0
-```
-
-## Ad hoc Commands Notes...
-
-wipe file servers of all cassandra archives
-```
-ansible cluster22 -m shell -a" rm -fR {{ cassandra22x_remote_archive_path }}/*"
-```
+Use Case - Restore a keyspace from a source cluster to a destination cluster with different topologies.
