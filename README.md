@@ -7,7 +7,38 @@ A goal of this project is to create something with minimal installs and all free
 
 ## Roadmap
 
-### Rebuild the Schema on the same Cluster (nodes) Use Cases
+### Completed
+
+The first version is call the simple backup and restore version.
+
+- Use Case - cluster22 keyspaces need to be backed up
+  - Create a cluster snapshot of all keyspaces including system catalogs using ansible
+- Use Case - view essential "metadata" using ansible - provide all the basic metadata needed for other ansbile plays
+  - View all cassandra22x ansible snapshots
+  - View details of a specific cassandra22x ansible snapshot
+- Use Case - cluster22 keyspaces need to be locally archived before rsyncing to remote storage
+  - Create a cluster node local archive of a snapshot of all keyspaces including system catalogs using ansible
+  - Create a cluster node local archive of a snapshot of all on node metadata archive_logs
+  - Create an ansible local archive of a snapshot ansbile metadata ansible_restore_vars
+- Use Case - cluster22 keyspaces need to be remotely archived before rsyncing to remote storage
+  - Create a cluster node remote archive of a snapshot of all keyspaces including system catalogs using ansible
+  - Create a cluster node remote archive of a snapshot of all on node metadata archive_logs
+  - Create an ansible remote archive of a snapshot ansbile metadata ansible_restore_vars
+- Use Case - restore killrvideo keyspace cluster22 from a node local snapshot
+  - Restore keyspace from local snapshot after table truncation - No data loss
+  - Restore keyspace from local snapshot after stopping the cluster and wiping the cache, commit log, and data files and then restarting successfully - No data loss
+- Use Case - cluster22 snapshots need to be locally cleared
+  - Create a cluster node local snapshot of all keyspaces including system catalogs using ansible
+  - Create a cluster node local snapshot of all on node metadata archive_logs
+  - Create an ansible local snapshot ansbile metadata ansible_restore_vars
+  - Create a cluster node local archive of a snapshot of all keyspaces including system catalogs using ansible
+  - Create a cluster node local archive of a snapshot of all on node metadata archive_logs
+  - Create an ansible local archive of a snapshot ansbile metadata ansible_restore_vars
+
+### Future
+
+#### Rebuild the Schema on the same Cluster (nodes) Use Cases
+
 - Use Case - killrvideo keyspace is missing from all the nodes but the local snapshot (old schema location) is still available
   - Restore a local snapshot to a new schmea
   - Real world ... lol ... this is drop keyspace... oops! Never happen in the real world in production. Right?
@@ -19,8 +50,7 @@ A goal of this project is to create something with minimal installs and all free
   - Restore a remote archived snapshot to a new schmea
   - Real world data volume and local archive volume separate local storage path and each nodes has an independent horizontal nfs path.
   - Cassandra Data and local archive volumes go permanently offline and are replaced.
-  
-### Rebuild on a different Cluster Use Cases
+#### Rebuild on a different Cluster Use Cases
 - Use Case - Restore a keyspace from a source cluster to a new destination cluster with identical topologies.
   - Restore reconfigure destination cluster nodes to use source cluster tokens and new topology
   - Restore a remote archived snapshot to a new schmea and new topology
