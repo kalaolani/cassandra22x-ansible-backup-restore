@@ -42,30 +42,21 @@
 
 ## db-[99:101]-node.example.com
 
+## 
+## cluster22 cassandra cluster
+##
+
 # cluster level ansible group
 [cluster22]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
-# sample design goal example only
-# cass1-2.deltakappa.com
-# cass2-2.deltakappa.com
-# cass3-2.deltakappa.com
-# cass11.deltakappa.com
-# cass21.deltakappa.com
-# cass31.deltakappa.com
-# cass11-2.deltakappa.com
-# cass21-2.deltakappa.com
-# cass31-3.deltakappa.com
 
 # cluster|dc level ansible group
 [cluster22-deltakappa-dc]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
-# cass1-2.deltakappa.com
-# cass2-2.deltakappa.com
-# cass3-2.deltakappa.com
 
 # cluster|dc|rack level ansible group
 [cluster22-deltakappa-dc-rack1]
@@ -75,28 +66,62 @@ cass3.deltakappa.com
 
 # cluster|dc|rack level ansible group
 [cluster22-deltakappa-dc-rack2]
-# cass1-2.deltakappa.com
-# cass2-2.deltakappa.com
-# cass3-2.deltakappa.com
 
 # all nodes of a specific dc of the cluster
 [cluster22-deltakappa2-dc]
-# cass11.deltakappa.com
-# cass21.deltakappa.com
-# cass31.deltakappa.com
-# cass11-2.deltakappa.com
-# cass21-2.deltakappa.com
-# cass31-3.deltakappa.com
 
 # cluster|dc|rack level ansible group
 [cluster22-deltakappa2-dc-rack1]
-# cass11.deltakappa.com
-# cass21.deltakappa.com
-# cass31.deltakappa.com
 
 # cluster|dc|rack level ansible group
 [cluster22-deltakappa2-dc-rack2]
-# cass11-2.deltakappa.com
-# cass21-2.deltakappa.com
-# cass31-3.deltakappa.com
 
+## 
+## cluster220 cassandra cluster
+##
+
+# cluster level ansible group
+[cluster220]
+cass10.deltakappa.com
+cass20.deltakappa.com
+cass30.deltakappa.com
+
+# cluster|dc level ansible group
+[cluster220-deltakappa-dc]
+cass10.deltakappa.com
+cass20.deltakappa.com
+cass30.deltakappa.com
+
+# cluster|dc|rack level ansible group
+[cluster220-deltakappa-dc-rack1]
+cass10.deltakappa.com
+cass20.deltakappa.com
+cass30.deltakappa.com
+
+## 
+## nfs servers
+##
+
+## 
+## all nfs servers
+##
+
+[nfs]
+cass1.deltakappa.com
+cass2.deltakappa.com
+cass3.deltakappa.com
+cass10.deltakappa.com
+cass20.deltakappa.com
+cass30.deltakappa.com
+
+# cluster nfs servers
+[cluster22-nfs]
+cass1.deltakappa.com
+cass2.deltakappa.com
+cass3.deltakappa.com
+
+# cluster nfs servers
+[cluster220-nfs]
+cass10.deltakappa.com
+cass20.deltakappa.com
+cass30.deltakappa.com
