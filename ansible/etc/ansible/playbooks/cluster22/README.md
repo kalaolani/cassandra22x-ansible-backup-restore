@@ -372,6 +372,5 @@ The local archive is now empty.
 11 directories, 0 files
 ```
 
-## Template
-### Using the playbooks/cluster22/.yml
-#### Seeing the results of the playbooks/cluster22/.yml playbook
+# Template
+See testing text files for more about playbooks until docs are better updated.
