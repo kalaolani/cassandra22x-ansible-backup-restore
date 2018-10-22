@@ -372,5 +372,5 @@ The local archive is now empty.
 11 directories, 0 files
 ```
 
-# Template
+# Where's the Rest of the playbook docs?
 See testing text files for more about playbooks until docs are better updated.
