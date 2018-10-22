@@ -37,15 +37,15 @@ The first version is call the simple backup and restore version.
 - Use Case - killrvideo keyspace is missing from all the nodes but the local snapshot (old schema location) is still available
   - Restore a local snapshot to a new schmea
   - Real world ... lol ... this is drop keyspace... oops! Never happen in the real world in production. Right?
+- Use Case - killrvideo keyspace is missing from all the nodes and the old schema location on all nodes is gone but the local archive is available on all nodes
+  - Restore a local archived snapshot to a new schmea
+  - Real world data volume and local archive volume separate local storage path
+  - Cassandra Data volume goes permanently offline and is replaced.
 
 ### Future
 
 #### Rebuild the Schema on the same Cluster (nodes) Use Cases
 
-- Use Case - killrvideo keyspace is missing from all the nodes and the old schema location on all nodes is gone but the local archive is available on all nodes
-  - Restore a local archived snapshot to a new schmea
-  - Real world data volume and local archive volume separate local storage path
-  - Cassandra Data volume goes permanently offline and is replaced.
 - Use Case - killrvideo keyspace is missing from all the nodes, the old schema location on all nodes is gone, and the local archive is gone.
   - Restore a remote archived snapshot to a new schmea
   - Real world data volume and local archive volume separate local storage path and each nodes has an independent horizontal nfs path.
