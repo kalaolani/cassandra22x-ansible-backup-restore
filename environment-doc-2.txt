@@ -1,0 +1,192 @@
+create the following environment where you can switch between cluster220 and cluster2200
+
+nfs server nodes:path               cass node archive?
+cass1.deltakappa.com:/var/nfsshare  (archive for cass3)
+cass2.deltakappa.com:/var/nfsshare  (archive for cass1)
+cass3.deltakappa.com:/var/nfsshare  (archive for cass2)
+
+nfs server nodes:path               cass node archive?
+cass10.deltakappa.com:/var/nfsshare (archive for cass30)
+cass20.deltakappa.com:/var/nfsshare (archive for cass10)
+cass30.deltakappa.com:/var/nfsshare (archive for cass20)
+
+cassandra cluster220 nodes           nfs client
+cass1.deltakappa.com                /mnt/nfs/cass2.deltakappa.com/var/nfsshare on cass2.deltakappa.com:/var/nfsshare
+cass2.deltakappa.com                /mnt/nfs/cass3.deltakappa.com/var/nfsshare on cass3.deltakappa.com:/var/nfsshare
+cass3.deltakappa.com                /mnt/nfs/cass1.deltakappa.com/var/nfsshare on cass1.deltakappa.com:/var/nfsshare
+
+cassandra cluster2200 nodes          nfs client
+cass10.deltakappa.com               /mnt/nfs/cass20.deltakappa.com/var/nfsshare on cass20.deltakappa.com:/var/nfsshare
+cass20.deltakappa.com               /mnt/nfs/cass30.deltakappa.com/var/nfsshare on cass30.deltakappa.com:/var/nfsshare
+cass30.deltakappa.com               /mnt/nfs/cass10.deltakappa.com/var/nfsshare on cass10.deltakappa.com:/var/nfsshare
+
+ansbile node
+ansible.deltakappa.com              nfs client
+                                    /mnt/nfs/cass2.deltakappa.com/var/nfsshare on cass2.deltakappa.com:/var/nfsshare
+                                    /mnt/nfs/cass3.deltakappa.com/var/nfsshare on cass3.deltakappa.com:/var/nfsshare
+                                    /mnt/nfs/cass1.deltakappa.com/var/nfsshare on cass1.deltakappa.com:/var/nfsshare
+                                    /mnt/nfs/cass20.deltakappa.com/var/nfsshare on cass20.deltakappa.com:/var/nfsshare
+                                    /mnt/nfs/cass30.deltakappa.com/var/nfsshare on cass30.deltakappa.com:/var/nfsshare
+                                    /mnt/nfs/cass10.deltakappa.com/var/nfsshare on cass10.deltakappa.com:/var/nfsshare
+
+create the cluster2200 cluster
+1. copy the cluster220 VMs to cass10, cass20, cass30
+2. disable cassandra, reconfigure networking, and reboot
+3. configure ssh keys until the following is working
+
+[root@ansible ansible]# ansible cluster2200 -m ping
+cass20.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+cass30.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+cass10.deltakappa.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+
+4. reconfigure cassandra nodes for the cluster2200 cluster
+
+*** change the cluster_name
+
+ansible cluster2200 -m shell -a"grep cluster_name {{ cassandra22x_yaml }}"
+
+cass10.deltakappa.com | CHANGED | rc=0 >>
+cluster_name: 'cluster220'
+
+cass20.deltakappa.com | CHANGED | rc=0 >>
+cluster_name: 'cluster220'
+
+cass30.deltakappa.com | CHANGED | rc=0 >>
+cluster_name: 'cluster220'
+
+ansible cluster2200 -m shell -a"sed -i 's/cluster220/cluster2200/g' {{ cassandra22x_yaml }}"
+
+cass20.deltakappa.com | CHANGED | rc=0 >>
+cass10.deltakappa.com | CHANGED | rc=0 >>
+cass30.deltakappa.com | CHANGED | rc=0 >>
+
+ansible cluster2200 -m shell -a"grep cluster_name {{ cassandra22x_yaml }}"
+cass20.deltakappa.com | CHANGED | rc=0 >>
+cluster_name: 'cluster2200'
+
+cass30.deltakappa.com | CHANGED | rc=0 >>
+cluster_name: 'cluster2200'
+
+cass10.deltakappa.com | CHANGED | rc=0 >>
+cluster_name: 'cluster2200'
+
+*** change the seed nodes
+
+ansible cluster2200 -m shell -a"grep seeds\: {{ cassandra22x_yaml }}"
+
+cass20.deltakappa.com | CHANGED | rc=0 >>
+          - seeds: "cass1.deltakappa.com,cass2.deltakappa.com,cass3.deltakappa.com"
+
+cass10.deltakappa.com | CHANGED | rc=0 >>
+          - seeds: "cass1.deltakappa.com,cass2.deltakappa.com,cass3.deltakappa.com"
+
+cass30.deltakappa.com | CHANGED | rc=0 >>
+          - seeds: "cass1.deltakappa.com,cass2.deltakappa.com,cass3.deltakappa.com"
+
+ansible cluster2200 -m shell -a"sed -i 's/cass1.deltakappa.com,cass2.deltakappa.com,cass3.deltakappa.com/cass10.deltakappa.com,cass20.deltakappa.com,cass30.deltakappa.com/g' {{ cassandra22x_yaml }}"
+
+cass20.deltakappa.com | CHANGED | rc=0 >>
+cass30.deltakappa.com | CHANGED | rc=0 >>
+cass10.deltakappa.com | CHANGED | rc=0 >>
+
+
+nsible cluster2200 -m shell -a"grep seeds\: {{ cassandra22x_yaml }}"
+
+cass20.deltakappa.com | CHANGED | rc=0 >>
+          - seeds: "cass10.deltakappa.com,cass20.deltakappa.com,cass30.deltakappa.com"
+
+cass10.deltakappa.com | CHANGED | rc=0 >>
+          - seeds: "cass10.deltakappa.com,cass20.deltakappa.com,cass30.deltakappa.com"
+
+cass30.deltakappa.com | CHANGED | rc=0 >>
+          - seeds: "cass10.deltakappa.com,cass20.deltakappa.com,cass30.deltakappa.com"
+
+*** change the listen & rpc addresses
+
+ansible cluster2200 -m shell -a"grep listen_address\:cass {{ cassandra22x_yaml }}"
+ansible cluster2200 -m shell -a"grep rpc_address\:cass {{ cassandra22x_yaml }}"
+
+ansible cluster2200 -m shell -a"sed -i 's/cass1.deltakappa.com/cass10.deltakappa.com/g' {{ cassandra22x_yaml }}"
+ansible cluster2200 -m shell -a"sed -i 's/cass2.deltakappa.com/cass20.deltakappa.com/g' {{ cassandra22x_yaml }}"
+ansible cluster2200 -m shell -a"sed -i 's/cass3.deltakappa.com/cass30.deltakappa.com/g' {{ cassandra22x_yaml }}"
+
+ansible cluster2200 -m shell -a"grep 'listen_address\: cass' {{ cassandra22x_yaml }}"
+ansible cluster2200 -m shell -a"grep 'rpc_address\: cass' {{ cassandra22x_yaml }}"
+
+*** reset the node log, commit log, cache, and data
+
+ansible cluster2200 -m shell -a"rm -fR {{ cassandra22x_var_path }}/archive/*"
+ansible cluster2200 -m shell -a"rm -f {{ cassandra22x_var_path }}/commitlog/*"
+ansible cluster2200 -m shell -a"rm -f {{ cassandra22x_var_path }}/saved_caches/*"
+ansible cluster2200 -m shell -a"rm -f {{ cassandra22x_log_path }}/*"
+ansible cluster2200 -m shell -a"rm -fR {{ cassandra22x_data_path }}/*"
+
+enable cassandra and start
+ansible cluster2200 -m shell -a"systemctl enable cassandra"
+ansible cluster2200 -m shell -a"systemctl start cassandra"
+
+[root@ansible ansible]# ansible cluster2200 -m shell -a"nodetool status"
+cass30.deltakappa.com | CHANGED | rc=0 >>
+Datacenter: deltakappa
+======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address      Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  10.10.10.56  97.16 KB   256          68.1%             844372ff-70ba-49b3-a95b-e61b3ceac0ea  rack1
+UN  10.10.10.57  102.2 KB   256          62.9%             d8d043e2-dec2-4fa8-81ac-ce54a8965379  rack1
+UN  10.10.10.55  115.37 KB  256          69.1%             285a5a60-2875-42e8-ac62-6f71cabb8268  rack1
+
+cass20.deltakappa.com | CHANGED | rc=0 >>
+Datacenter: deltakappa
+======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address      Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  10.10.10.56  102.26 KB  256          68.1%             844372ff-70ba-49b3-a95b-e61b3ceac0ea  rack1
+UN  10.10.10.57  88.22 KB   256          62.9%             d8d043e2-dec2-4fa8-81ac-ce54a8965379  rack1
+UN  10.10.10.55  115.37 KB  256          69.1%             285a5a60-2875-42e8-ac62-6f71cabb8268  rack1
+
+cass10.deltakappa.com | CHANGED | rc=0 >>
+Datacenter: deltakappa
+======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address      Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  10.10.10.56  97.16 KB   256          68.1%             844372ff-70ba-49b3-a95b-e61b3ceac0ea  rack1
+UN  10.10.10.57  88.22 KB   256          62.9%             d8d043e2-dec2-4fa8-81ac-ce54a8965379  rack1
+UN  10.10.10.55  67.76 KB   256          69.1%             285a5a60-2875-42e8-ac62-6f71cabb8268  rack1
+
+[root@ansible ansible]# ansible cluster2200 -m shell -a"nodetool describecluster"
+cass20.deltakappa.com | CHANGED | rc=0 >>
+Cluster Information:
+        Name: cluster2200
+        Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch
+        Partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+        Schema versions:
+                b145475a-02dc-370c-8af7-a9aba2d61362: [10.10.10.56, 10.10.10.57, 10.10.10.55]
+
+cass30.deltakappa.com | CHANGED | rc=0 >>
+Cluster Information:
+        Name: cluster2200
+        Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch
+        Partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+        Schema versions:
+                b145475a-02dc-370c-8af7-a9aba2d61362: [10.10.10.56, 10.10.10.57, 10.10.10.55]
+
+cass10.deltakappa.com | CHANGED | rc=0 >>
+Cluster Information:
+        Name: cluster2200
+        Snitch: org.apache.cassandra.locator.DynamicEndpointSnitch
+        Partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+        Schema versions:
+                b145475a-02dc-370c-8af7-a9aba2d61362: [10.10.10.56, 10.10.10.57, 10.10.10.55]
+
+cluster2200 is now ready to go

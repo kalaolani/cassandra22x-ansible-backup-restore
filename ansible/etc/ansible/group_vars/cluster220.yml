@@ -1,0 +1,64 @@
+---
+# sample group_vars cluster2200.yml - "cluster2200" cassandra cluster level group_vars
+
+# configuration
+# the cassandra environment
+cassandra22x_environment: cluster2200
+# name of the cassandra cluster cassandra.yaml
+cassandra22x_cluster_name: "{{ cassandra22x_environment }}"
+# path to the cassandra node configuration
+cassandra22x_conf_path: /etc/cassandra/conf
+# the cassandra yaml main configuration file
+cassandra22x_yaml: "{{ cassandra22x_conf_path }}/cassandra.yaml"
+# the cassandra cluster seed nodes configured in the cassandra yaml
+cassandra22x_cluster_seeds: 10.10.10.55,10.10.10.56,10.10.10.57
+# the cassandra node cassandra-rackdc.properties configuration file
+cassandra22x_rackdc_properties: "{{ cass_conf_path }}/cassandra-rackdc.properties"
+# cassandra log path on the node(s)
+cassandra22x_log_path: /var/log/cassandra
+# active cassandra, system, debug, and garbage collection logs
+cassandra22x_log_cassandra: "{{ cassandra22x_log_path }}/cassandra.log"
+cassandra22x_log_system: "{{ cassandra22x_log_path }}/system.log"
+cassandra22x_log_debug: "{{ cassandra22x_log_path }}/debug.log"
+cassandra22x_log_gc: "{{ cassandra22x_log_path }}/gc.log.0.current"
+# cassandra var root path
+cassandra22x_var_path: /var/lib/cassandra
+# cassandra data path under which keyspaces exist
+cassandra22x_data_path: "{{ cassandra22x_var_path }}/data"
+
+# access
+# cql access to the cassandra cluster
+cassandra22x_ansible_superuser: cassandra
+cassandra22x_ansible_superuser_password: cassandra
+# jmx access to the cassandra node(s)
+cassandra22x_remote_jmx_user: cassandra
+cassandra22x_remote_jmx_pass: cassandra
+
+# ansible logs
+# ansible log path for the cassandra22x_environment
+cassandra22x_ansible_log_path: "/var/log/ansible/cassandra22x/{{ cassandra22x_environment }}"
+# all purpose ansible log for the cassandra22x_environment
+cassandra22x_ansible_log: "{{ cassandra22x_ansible_log_path }}/cassandra22x_ansible.log"
+
+# ansible automation
+# location of the restore_vars (ansible metadata per node, snapshot, keyspaces, column families)
+restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
+# rsync bwlimit configuration for the synchronization ansible module
+rsync_bwlimit: 5000
+
+# experimental incremental backups
+# disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"
+# enabled               cassandra22x_incremental_backup_configuration: "incremental_backups: true"
+
+# experimental commit log archiving
+# cassandra22x_commitlog_path: /var/lib/cassandra/commitlog
+# cassandra22x_commitlog_commitlog_archiving_properties: "{{ cass_conf_path }}/commitlog_archiving.properties"
+# disabled  defauilt    cassandra22x_commitlog_archive_configuration: "archive_command=" 
+# enabled               cassandra22x_commitlog_archive_configuration: "archive_command=/bin/ln %path {{ cass_commitlog_arch_path }}/%name"
+
+# experimental cassandra tuning
+# MAX_HEAP_SIZE="4G" in /etc/cassandra/conf/cassandra-env.sh
+# HEAP_NEWSIZE="800M" in /etc/cassandra/conf/cassandra-env.sh
+
+# experimental automation scripts
+# cassandra22x_cron_script_path: "/var/lib/ansible/cassandra22x/{{ cassandra22x_environment }}/scripts"

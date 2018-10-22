@@ -1,0 +1,23 @@
+---
+# pwd = /etc/ansible
+# ansible-playbook playbooks/cluster220/cassandra22x_snapshot_clear.yml -e"snapshot_yml=snapshot_yml"
+
+- hosts: cluster220
+  any_errors_fatal: true
+   
+  pre_tasks:
+    - name: capture playbook start time
+      set_fact: 
+        start_date_time_fact: "{{ now }}"  
+
+  roles:
+    - cassandra22x_snapshot_clear
+
+  post_tasks:
+    - name: capture playbook end time
+      set_fact: 
+        end_date_time_fact: "{{ now }}"
+        
+    - name: cassandra22x_snapshot_clear.yml play start and end date times
+      debug: 
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }}"
