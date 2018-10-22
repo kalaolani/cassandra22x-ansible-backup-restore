@@ -46,6 +46,9 @@ restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
 # rsync bwlimit configuration for the synchronization ansible module
 rsync_bwlimit: 5000
 
+# restore variables
+default_replication_topology: "'class' : 'NetworkTopologyStrategy', 'deltakappa' : 3"
+
 # experimental incremental backups
 # disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"
 # enabled               cassandra22x_incremental_backup_configuration: "incremental_backups: true"

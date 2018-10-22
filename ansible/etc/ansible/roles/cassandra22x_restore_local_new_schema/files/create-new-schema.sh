@@ -1,0 +1,6 @@
+#!/bin/bash
+SERVER=$1
+USER=$2
+PASSWORD=$3
+NEWSCHEMA=$4
+/usr/bin/cqlsh $SERVER -u $USER -p $PASSWORD -f $NEWSCHEMA

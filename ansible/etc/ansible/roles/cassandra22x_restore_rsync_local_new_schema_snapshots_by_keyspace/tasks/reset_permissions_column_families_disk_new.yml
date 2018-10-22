@@ -1,0 +1,8 @@
+---
+- name: "set cassandra as owner/group rwx/rwx/rx {{ cassandra22x_data_path }}/{{ keyspace_name }}"
+  file: 
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/"
+    owner: cassandra
+    group: cassandra
+    mode: u=rwx,g=rwx,o=rx
+    recurse: yes

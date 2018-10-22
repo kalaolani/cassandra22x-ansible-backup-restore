@@ -1,0 +1,6 @@
+---
+- name: "create the new schema for keyspace: {{ keyspace_name }} using {{ default_replication_topology }}"
+  script: create-new-schema.sh {{ inventory_hostname }} {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ cassandra22x_log_path }}/{{ snapshot_name }}_{{ keyspace_name }}_schema.cql
+  run_once: true  
+  when: snapshot_schema_found.matched == 1 and
+        inventory_hostname == ansible_play_hosts[0]
