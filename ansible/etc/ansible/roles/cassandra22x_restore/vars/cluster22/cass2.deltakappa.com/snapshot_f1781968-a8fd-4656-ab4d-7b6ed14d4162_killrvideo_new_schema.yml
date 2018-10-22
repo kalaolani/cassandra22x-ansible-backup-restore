@@ -1,14 +1,14 @@
 column_families_disk_new:
-    - comments_by_user-38d9f720d5ac11e88c307f59a9b91e72
-    - comments_by_video-3cfb1820d5ac11e88c307f59a9b91e72
-    - latest_videos-37a9db90d5ac11e88c307f59a9b91e72
-    - tags_by_letter-395c4680d5ac11e88c307f59a9b91e72
-    - user_credentials-36fd9600d5ac11e88c307f59a9b91e72
-    - user_videos-3a7cd1b0d5ac11e88c307f59a9b91e72
-    - users-3653e880d5ac11e88c307f59a9b91e72
-    - video_event-3ba1f0c0d5ac11e88c307f59a9b91e72
-    - video_rating-382e74e0d5ac11e88c307f59a9b91e72
-    - video_ratings_by_user-3c573700d5ac11e88c307f59a9b91e72
-    - videos-39e76f80d5ac11e88c307f59a9b91e72
-    - videos_by_tag-3b16eed0d5ac11e88c307f59a9b91e72
+    - comments_by_user-8d9416e0d63a11e8ba49ebc7a1b4d34b
+    - comments_by_video-924f06e0d63a11e8ba49ebc7a1b4d34b
+    - latest_videos-8bc8a5b0d63a11e8ba49ebc7a1b4d34b
+    - tags_by_letter-8e21ff00d63a11e8ba49ebc7a1b4d34b
+    - user_credentials-8b3a4860d63a11e8ba49ebc7a1b4d34b
+    - user_videos-8f67ec80d63a11e8ba49ebc7a1b4d34b
+    - users-8a843ed0d63a11e8ba49ebc7a1b4d34b
+    - video_event-9113eed0d63a11e8ba49ebc7a1b4d34b
+    - video_rating-8d067ce0d63a11e8ba49ebc7a1b4d34b
+    - video_ratings_by_user-91bfbf30d63a11e8ba49ebc7a1b4d34b
+    - videos-8eb601a0d63a11e8ba49ebc7a1b4d34b
+    - videos_by_tag-90a0baa0d63a11e8ba49ebc7a1b4d34b
 

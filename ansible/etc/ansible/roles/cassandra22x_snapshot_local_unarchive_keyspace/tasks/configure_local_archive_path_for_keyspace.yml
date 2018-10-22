@@ -1,0 +1,14 @@
+---
+- name: "create missing {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
+  file:
+    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
+    state: directory
+    mode: "{{ cassandra22x_linux_default_mode }}"
+    
+- name: "create missing {{ cassandra22x_data_path }}/{{ keyspace_name }}"
+  file:
+    path: "{{ cassandra22x_data_path }}/{{ keyspace_name }}"
+    state: directory
+    owner: "{{ cassandra22x_linux_user }}"
+    group: "{{ cassandra22x_linux_group }}"
+    mode: "{{ cassandra22x_linux_default_mode }}"

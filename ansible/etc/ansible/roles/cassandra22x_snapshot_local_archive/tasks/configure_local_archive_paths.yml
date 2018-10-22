@@ -3,24 +3,24 @@
   file:
     path: "{{ cassandra22x_local_archive_path }}"
     state: directory
-    mode: "u=rwx,g=rwx,o=rwx"
+    mode: "{{ cassandra22x_linux_default_mode }}"
 
 - name: "create {{ cassandra22x_local_archive_path_archived_logs }}"
   file:
     path: "{{ cassandra22x_local_archive_path_archived_logs }}"
     state: directory
-    mode: "u=rwx,g=rwx,o=rwx"
+    mode: "{{ cassandra22x_linux_default_mode }}"
     
 - name: "create {{ cassandra22x_local_archive_path_archived_ansible_restore_vars }}"
   file:
     path: "{{ cassandra22x_local_archive_path_archived_ansible_restore_vars }}"
     state: directory
-    mode: "u=rwx,g=rwx,o=rwx"
+    mode: "{{ cassandra22x_linux_default_mode }}"
   delegate_to: 127.0.0.1
     
 - name: "create missing {{ cassandra22x_local_archive_path }} for each keyspace/snapshots"
   file:
     path: "{{ cassandra22x_local_archive_path }}/{{ item }}/snapshots"
     state: directory
-    mode: "u=rwx,g=rwx,o=rwx"
+    mode: "{{ cassandra22x_linux_default_mode }}"
   with_items: "{{ fact_snapshot_keyspace_list }}"

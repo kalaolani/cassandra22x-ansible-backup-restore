@@ -3,4 +3,5 @@
   include_vars:
     file: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }}"
 
-- import_tasks: rsync_local_snapshots_for_keyspace.yml
+- import_tasks: configure_local_archive_path_for_keyspace.yml
+- import_tasks: local_unarchive_snapshot.yml

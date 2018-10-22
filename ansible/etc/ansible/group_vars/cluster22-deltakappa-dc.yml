@@ -5,7 +5,16 @@
 cassandra22x_cluster_dc: deltakappa
 
 # archive settings
-cassandra22x_local_archive_path_compression: "false"
+cassandra22x_local_archive_format: tar
+cassandra22x_local_archive_file_ext: ".tar"
+# cassandra22x_local_archive_format: gz <= ansible default
+# cassandra22x_local_archive_file_ext: ".tar.gz"
+# cassandra22x_local_archive_format: bz2
+# cassandra22x_local_archive_file_ext: ".tar.bz2"
+# cassandra22x_local_archive_format: xz
+# cassandra22x_local_archive_file_ext: ".tar.xz"
+# cassandra22x_local_archive_format: zip
+# cassandra22x_local_archive_file_ext: ".tar.zip"
 
 # nfs remote archive mount point
 cassandra22x_remote_archive_nfs_mount: "{{ cassandra22x_nfs_client_mount }}/cassandra22x/{{ cassandra22x_environment }}/{{ cassandra22x_cluster_name }}/{{ inventory_hostname }}"
