@@ -1,0 +1,630 @@
+[root@ansible ~]# cqlsh cass2.deltakappa.com -u cassandra -p cassandra
+Connected to cluster22 at cass2.deltakappa.com:9042.
+[cqlsh 5.0.1 | Cassandra 2.2.13 | CQL spec 3.3.1 | Native protocol v4]
+Use HELP for help.
+cassandra@cqlsh> desc keyspaces;
+
+system_traces  system_distributed  system_auth  system  killrvideo
+
+cassandra@cqlsh> drop keyspace killrvideo;
+cassandra@cqlsh> consistency all;
+Consistency level set to ALL.
+cassandra@cqlsh> select * from system.schema_keyspaces where keyspace_name = 'killrvideo';
+
+ keyspace_name | durable_writes | strategy_class | strategy_options
+---------------+----------------+----------------+------------------
+
+(0 rows)
+cassandra@cqlsh> select keyspace_name, columnfamily_name from system.schema_columnfamilies where keyspace_name = 'killrvideo';
+
+ keyspace_name | columnfamily_name
+---------------+-------------------
+
+(0 rows)
+cassandra@cqlsh>
+
+***** action ***** remove killrvideo from the nodes
+[root@ansible ansible]# ansible cluster22 -m shell -a"rm -fR {{ cassandra22x_data_path }}/killrvideo"
+***** action ***** verify killrvideo is gone
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_data_path }}"
+***** action ***** remove the entire local_archive
+[root@ansible ansible]# ansible cluster22 -m shell -a"rm -fR {{ cassandra22x_local_archive_path }}/*"
+***** action ***** verify the entire local_archive is gone
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_local_archive_path }}"
+***** action ***** remove local_log snapshot files
+[root@ansible ansible]# ansible cluster22 -m shell -a"rm -f {{ cassandra22x_log_path  }}/snapshot_*"
+***** action ***** verify the entire local_log snapshot files are gone
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_log_path }}"
+
+
+***** action ***** archive is to be used
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_remote_archive_path }}"
+cass3.deltakappa.com | CHANGED | rc=0 >>
+ansible_restore_vars
+archived_logs
+killrvideo <===================================================== remote archive snapshot
+system
+system_auth
+system_distributed
+system_traces
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+ansible_restore_vars
+archived_logs
+killrvideo <===================================================== remote archive snapshot
+system
+system_auth
+system_distributed
+system_traces
+
+cass2.deltakappa.com | CHANGED | rc=0 >>
+ansible_restore_vars
+archived_logs
+killrvideo <===================================================== remote archive snapshot
+system
+system_auth
+system_distributed
+system_traces
+
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_remote_archive_path_archived_logs  }}"
+cass3.deltakappa.com | CHANGED | rc=0 >>
+snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar   <============   remote archive snapshot metadata: node ring_tokens, node config, 
+                                                                    ansible snapshot yaml, keyspace snapshot log, 
+                                                                    keyspace schema cql scripts, ansible keyspace yamls
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar   <============   remote archive snapshot metadata: node ring_tokens, node config, 
+                                                                    ansible snapshot yaml, keyspace snapshot log, 
+                                                                    keyspace schema cql scripts, ansible keyspace yamls
+
+cass2.deltakappa.com | CHANGED | rc=0 >>
+snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar   <============   remote archive snapshot metadata: node ring_tokens, node config, 
+                                                                    ansible snapshot yaml, keyspace snapshot log, 
+                                                                    keyspace schema cql scripts, ansible keyspace yamls
+
+[root@ansible ansible]# ansible cluster22 -m shell -a"ls {{ cassandra22x_remote_archive_path_archived_ansible_restore_vars }}"
+cass3.deltakappa.com | CHANGED | rc=0 >>
+snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar   <============ ansible snapshot yaml, ansible keyspace yamls
+
+cass2.deltakappa.com | CHANGED | rc=0 >>
+snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar   <============ ansible snapshot yaml, ansible keyspace yamls
+
+cass1.deltakappa.com | CHANGED | rc=0 >>
+snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar   <============ ansible snapshot yaml, ansible keyspace yamls
+
+***** action ***** verify that there's no killrvido data on the other than the remote archive on the nfs server
+
+
+
+
+
+
+
+[root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_snapshot_get_all.yml
+
+PLAY [cluster22] *********************************************************************************************************************************************************************************************************************************************************************
+
+TASK [find snapshot_ymls /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com] ********************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1]
+ok: [cass2.deltakappa.com -> 127.0.0.1]
+ok: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [build the list of snapshot_ymls per cassandra node] ****************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => (item=None)
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com] => (item=None)
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com] => (item=None)
+ok: [cass3.deltakappa.com]
+
+TASK [build the list of snapshot_yml_mtime_list per cassandra node] ******************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => (item=None)
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com] => (item=None)
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com] => (item=None)
+ok: [cass3.deltakappa.com]
+
+TASK [show snapshot_yml_list per cassandra node] *************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": [
+        "/etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.yml"
+    ]
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": [
+        "/etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass2.deltakappa.com/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.yml"
+    ]
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": [
+        "/etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass3.deltakappa.com/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.yml"
+    ]
+}
+
+TASK [show snapshot_yml_mtime_list per cassandra node] *******************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": [
+        "1540153008.27"
+    ]
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": [
+        "1540153008.27"
+    ]
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": [
+        "1540153008.75"
+    ]
+}
+
+PLAY RECAP ***************************************************************************************************************************************************************************************************************************************************************************
+cass1.deltakappa.com       : ok=5    changed=0    unreachable=0    failed=0
+cass2.deltakappa.com       : ok=5    changed=0    unreachable=0    failed=0
+cass3.deltakappa.com       : ok=5    changed=0    unreachable=0    failed=0
+
+
+[root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_snapshot_get_for_yml.yml -e"snapshot_yml=snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.yml"
+
+PLAY [cluster22] *********************************************************************************************************************************************************************************************************************************************************************
+
+TASK [find snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.yml in /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com] *****************************************************************************************************************************************
+ok: [cass2.deltakappa.com -> 127.0.0.1]
+ok: [cass3.deltakappa.com -> 127.0.0.1]
+ok: [cass1.deltakappa.com -> 127.0.0.1]
+
+TASK [build list of snapshot_yml(s)] *************************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1] => (item=None)
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com -> 127.0.0.1] => (item=None)
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com -> 127.0.0.1] => (item=None)
+ok: [cass3.deltakappa.com]
+
+TASK [show keyspaces in snapshot snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162] ******************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1] => {
+    "msg": [
+        "killrvideo",
+        "system_auth",
+        "system_distributed",
+        "system",
+        "system_traces"
+    ]
+}
+ok: [cass2.deltakappa.com -> 127.0.0.1] => {
+    "msg": [
+        "killrvideo",
+        "system_auth",
+        "system_distributed",
+        "system",
+        "system_traces"
+    ]
+}
+ok: [cass3.deltakappa.com -> 127.0.0.1] => {
+    "msg": [
+        "killrvideo",
+        "system_auth",
+        "system_distributed",
+        "system",
+        "system_traces"
+    ]
+}
+
+PLAY RECAP ***************************************************************************************************************************************************************************************************************************************************************************
+cass1.deltakappa.com       : ok=3    changed=0    unreachable=0    failed=0
+cass2.deltakappa.com       : ok=3    changed=0    unreachable=0    failed=0
+cass3.deltakappa.com       : ok=3    changed=0    unreachable=0    failed=0
+
+RESTORE!
+
+ansible-playbook playbooks/cluster22/cassandra22x_restore_remote_archive_snapshot_new_schema.yml -e"snapshot_keyspace_yml=snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162_killrvideo.yml"
+
+
+[root@ansible ansible]# ansible-playbook playbooks/cluster22/cassandra22x_restore_remote_archive_snapshot_new_schema.yml -e"snapshot_keyspace_yml=snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162_killrvideo.yml"
+
+PLAY [cluster22] *********************************************************************************************************************************************************************************************************************************************************************
+
+TASK [capture playbook start time] ***************************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_local_archive_from_remote_archive_for_keyspace_rsync : include the snapshot_keyspace yaml file per node] **************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_local_archive_from_remote_archive_for_keyspace_rsync : create /var/lib/cassandra/archive/killrvideo] ******************************************************************************************************************************************************
+changed: [cass3.deltakappa.com]
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+
+TASK [cassandra22x_restore_local_archive_from_remote_archive_for_keyspace_rsync : create /var/lib/cassandra/archive/archived_logs] ***************************************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass2.deltakappa.com]
+
+TASK [cassandra22x_restore_local_archive_from_remote_archive_for_keyspace_rsync : create /var/lib/cassandra/archive/ansible_restore_vars] ********************************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1]
+ok: [cass2.deltakappa.com -> 127.0.0.1]
+ok: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_restore_local_archive_from_remote_archive_for_keyspace_rsync : rsync /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/var/lib/cassandra/archive/killrvideo to /var/lib/cassandra/archive/killrvideo] **************
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com]
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com]
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com]
+
+TASK [cassandra22x_restore_local_archive_from_remote_archive_for_keyspace_rsync : rsync /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/var/lib/cassandra/archive/archived_logs/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162*.* to /var/lib/cassandra/archive/archived_logs] ***
+changed: [cass1.deltakappa.com -> 127.0.0.1]
+changed: [cass2.deltakappa.com -> 127.0.0.1]
+changed: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_snapshot_local_unarchive_keyspace : include the /etc/ansible/roles/cassandra22x_restore/vars/cluster22/cass1.deltakappa.com/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162_killrvideo.yml vars] ********************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_unarchive_keyspace : create missing /var/lib/cassandra/archive/killrvideo] *************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass3.deltakappa.com]
+ok: [cass2.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_unarchive_keyspace : create missing /var/lib/cassandra/data/killrvideo] ****************************************************************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass2.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_unarchive_keyspace : unarchive /var/lib/cassandra/archive/killrvideo/snapshots/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar to /var/lib/cassandra/data/killrvideo] ****************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_snapshot_local_unarchive_keyspace : unarchive /var/lib/cassandra/archive/archived_logs/snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162.tar to /var/log/cassandra] ***************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass2.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_local_snapshot_new_schema_for_keyspace : include the snapshot_keyspace yaml file per node] ****************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_local_snapshot_new_schema_for_keyspace : find snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162_killrvideo_schema.cql file] ***********************************************************************************************************************************
+ok: [cass3.deltakappa.com]
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+
+TASK [cassandra22x_restore_local_snapshot_new_schema_for_keyspace : create the new schema for keyspace: killrvideo using 'class' : 'NetworkTopologyStrategy', 'deltakappa' : 3] ******************************************************************************************************
+changed: [cass1.deltakappa.com]
+
+TASK [cassandra22x_restore_local_snapshot_new_schema_for_keyspace : verify that the yml file for the column_families_disk_new list does not exist] ***********************************************************************************************************************************
+ok: [cass1.deltakappa.com -> 127.0.0.1]
+ok: [cass2.deltakappa.com -> 127.0.0.1]
+ok: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_restore_local_snapshot_new_schema_for_keyspace : yml file for the column_families_disk_new list] ******************************************************************************************************************************************************************
+changed: [cass1.deltakappa.com -> 127.0.0.1]
+changed: [cass2.deltakappa.com -> 127.0.0.1]
+changed: [cass3.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_restore_local_snapshot_new_schema_for_keyspace : add yml file column_families_disk_new line] **********************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com -> 127.0.0.1]
+changed: [cass3.deltakappa.com -> 127.0.0.1]
+changed: [cass1.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_restore_local_snapshot_new_schema_for_keyspace : get column_families_disk_new list] *******************************************************************************************************************************************************************************
+changed: [cass2.deltakappa.com]
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_local_snapshot_new_schema_for_keyspace : add yml file column_families_disk_new list] **********************************************************************************************************************************************************************
+changed: [cass1.deltakappa.com -> 127.0.0.1]
+changed: [cass3.deltakappa.com -> 127.0.0.1]
+changed: [cass2.deltakappa.com -> 127.0.0.1]
+
+TASK [cassandra22x_restore_local_snapshot_new_schema_for_keyspace : Schema Settling Warning!] ****************************************************************************************************************************************************************************************
+[cassandra22x_restore_local_snapshot_new_schema_for_keyspace : Schema Settling Warning!]
+Make sure the new schema has settled in the cluster before continuing...:
+
+
+
+[root@ansible ~]# cqlsh cass2.deltakappa.com -u cassandra -p cassandra
+Connected to cluster22 at cass2.deltakappa.com:9042.
+[cqlsh 5.0.1 | Cassandra 2.2.13 | CQL spec 3.3.1 | Native protocol v4]
+Use HELP for help.
+cassandra@cqlsh> desc keyspaces;
+
+system_traces  system_distributed  system_auth  system  killrvideo
+
+cassandra@cqlsh> consistency all;
+Consistency level set to ALL.
+cassandra@cqlsh> select * from system.schema_keyspaces where keyspace_name = 'killrvideo';
+
+ keyspace_name | durable_writes | strategy_class                                       | strategy_options
+---------------+----------------+------------------------------------------------------+--------------------
+    killrvideo |           True | org.apache.cassandra.locator.NetworkTopologyStrategy | {"deltakappa":"3"}
+
+(1 rows)
+cassandra@cqlsh> select keyspace_name, columnfamily_name from system.schema_columnfamilies where keyspace_name = 'killrvideo';
+
+ keyspace_name | columnfamily_name
+---------------+-----------------------
+    killrvideo |      comments_by_user
+    killrvideo |     comments_by_video
+    killrvideo |         latest_videos
+    killrvideo |        tags_by_letter
+    killrvideo |      user_credentials
+    killrvideo |           user_videos
+    killrvideo |                 users
+    killrvideo |           video_event
+    killrvideo |          video_rating
+    killrvideo | video_ratings_by_user
+    killrvideo |                videos
+    killrvideo |         videos_by_tag
+
+(12 rows)
+
+
+
+ok: [cass1.deltakappa.com]
+
+TASK [cassandra22x_restore_rsync_local_new_schema_snapshots_by_keyspace : include the snapshot_keyspace yaml file per node] **********************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_rsync_local_new_schema_snapshots_by_keyspace : include the column_families_disk_new_snapshot_keyspace yaml file per node] *********************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_rsync_local_new_schema_snapshots_by_keyspace : include the column_families_disk_new_snapshot_keyspace yaml file per node] *********************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_rsync_local_new_schema_snapshots_by_keyspace : rsync hardlink local snapshot files to the new schema location for keyspace: killrvideo] *******************************************************************************************************************
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'comments_by_user-44441930d01e11e8af9161a24d399e62', u'comments_by_user-cedb42b0d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'comments_by_user-44441930d01e11e8af9161a24d399e62', u'comments_by_user-cedb42b0d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'comments_by_user-44441930d01e11e8af9161a24d399e62', u'comments_by_user-cedb42b0d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'comments_by_video-431fe481d01e11e88aba9fbe3aadd836', u'comments_by_video-d30e3e00d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'latest_videos-401c1a63d01e11e8af9161a24d399e62', u'latest_videos-cda8b620d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'tags_by_letter-42768523d01e11e89422bbcdcbc5c11b', u'tags_by_letter-cf755fd0d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'comments_by_video-431fe481d01e11e88aba9fbe3aadd836', u'comments_by_video-d30e3e00d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'user_credentials-3d119983d01e11e88aba9fbe3aadd836', u'user_credentials-cd2db9c0d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'comments_by_video-431fe481d01e11e88aba9fbe3aadd836', u'comments_by_video-d30e3e00d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'latest_videos-401c1a63d01e11e8af9161a24d399e62', u'latest_videos-cda8b620d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'user_videos-3f8383e3d01e11e88aba9fbe3aadd836', u'user_videos-d0b1b060d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'latest_videos-401c1a63d01e11e8af9161a24d399e62', u'latest_videos-cda8b620d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'tags_by_letter-42768523d01e11e89422bbcdcbc5c11b', u'tags_by_letter-cf755fd0d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'user_credentials-3d119983d01e11e88aba9fbe3aadd836', u'user_credentials-cd2db9c0d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'tags_by_letter-42768523d01e11e89422bbcdcbc5c11b', u'tags_by_letter-cf755fd0d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'users-3e553d13d01e11e8af9161a24d399e62', u'users-cc7f9f70d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'user_credentials-3d119983d01e11e88aba9fbe3aadd836', u'user_credentials-cd2db9c0d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'video_event-44e3dba3d01e11e89422bbcdcbc5c11b', u'video_event-d1e77140d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'user_videos-3f8383e3d01e11e88aba9fbe3aadd836', u'user_videos-d0b1b060d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'user_videos-3f8383e3d01e11e88aba9fbe3aadd836', u'user_videos-d0b1b060d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'video_rating-40af0b93d01e11e89422bbcdcbc5c11b', u'video_rating-ce57e1e0d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'users-3e553d13d01e11e8af9161a24d399e62', u'users-cc7f9f70d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'video_ratings_by_user-41550f91d01e11e88aba9fbe3aadd836', u'video_ratings_by_user-d2761cb0d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'users-3e553d13d01e11e8af9161a24d399e62', u'users-cc7f9f70d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'video_event-44e3dba3d01e11e89422bbcdcbc5c11b', u'video_event-d1e77140d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'videos-3eedfaa3d01e11e89422bbcdcbc5c11b', u'videos-d00e6b80d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'video_event-44e3dba3d01e11e89422bbcdcbc5c11b', u'video_event-d1e77140d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'video_rating-40af0b93d01e11e89422bbcdcbc5c11b', u'video_rating-ce57e1e0d66f11e8ac4ba351119e31ad'])
+changed: [cass1.deltakappa.com -> cass1.deltakappa.com] => (item=[u'videos_by_tag-41e58fc0d01e11e8af9161a24d399e62', u'videos_by_tag-d149f8c0d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'video_rating-40af0b93d01e11e89422bbcdcbc5c11b', u'video_rating-ce57e1e0d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'video_ratings_by_user-41550f91d01e11e88aba9fbe3aadd836', u'video_ratings_by_user-d2761cb0d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'videos-3eedfaa3d01e11e89422bbcdcbc5c11b', u'videos-d00e6b80d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'video_ratings_by_user-41550f91d01e11e88aba9fbe3aadd836', u'video_ratings_by_user-d2761cb0d66f11e8ac4ba351119e31ad'])
+changed: [cass3.deltakappa.com -> cass3.deltakappa.com] => (item=[u'videos_by_tag-41e58fc0d01e11e8af9161a24d399e62', u'videos_by_tag-d149f8c0d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'videos-3eedfaa3d01e11e89422bbcdcbc5c11b', u'videos-d00e6b80d66f11e8ac4ba351119e31ad'])
+changed: [cass2.deltakappa.com -> cass2.deltakappa.com] => (item=[u'videos_by_tag-41e58fc0d01e11e8af9161a24d399e62', u'videos_by_tag-d149f8c0d66f11e8ac4ba351119e31ad'])
+
+TASK [cassandra22x_restore_rsync_local_new_schema_snapshots_by_keyspace : set cassandra as owner/group rwx/rwx/rx /var/lib/cassandra/data/killrvideo] ********************************************************************************************************************************
+changed: [cass1.deltakappa.com]
+changed: [cass3.deltakappa.com]
+changed: [cass2.deltakappa.com]
+
+TASK [cassandra22x_restore_refresh_colunmfamilies_by_keyspace : include the snapshot_keyspace yaml file per node] ********************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_refresh_colunmfamilies_by_keyspace : nodetool-refresh.sh restored column family] **************************************************************************************************************************************************************************
+changed: [cass1.deltakappa.com] => (item=comments_by_user)
+changed: [cass3.deltakappa.com] => (item=comments_by_user)
+changed: [cass2.deltakappa.com] => (item=comments_by_user)
+changed: [cass1.deltakappa.com] => (item=comments_by_video)
+changed: [cass3.deltakappa.com] => (item=comments_by_video)
+changed: [cass2.deltakappa.com] => (item=comments_by_video)
+changed: [cass1.deltakappa.com] => (item=latest_videos)
+changed: [cass2.deltakappa.com] => (item=latest_videos)
+changed: [cass3.deltakappa.com] => (item=latest_videos)
+changed: [cass1.deltakappa.com] => (item=tags_by_letter)
+changed: [cass3.deltakappa.com] => (item=tags_by_letter)
+changed: [cass2.deltakappa.com] => (item=tags_by_letter)
+changed: [cass1.deltakappa.com] => (item=user_credentials)
+changed: [cass3.deltakappa.com] => (item=user_credentials)
+changed: [cass2.deltakappa.com] => (item=user_credentials)
+changed: [cass3.deltakappa.com] => (item=user_videos)
+changed: [cass1.deltakappa.com] => (item=user_videos)
+changed: [cass2.deltakappa.com] => (item=user_videos)
+changed: [cass1.deltakappa.com] => (item=users)
+changed: [cass3.deltakappa.com] => (item=users)
+changed: [cass2.deltakappa.com] => (item=users)
+changed: [cass3.deltakappa.com] => (item=video_event)
+changed: [cass1.deltakappa.com] => (item=video_event)
+changed: [cass2.deltakappa.com] => (item=video_event)
+changed: [cass3.deltakappa.com] => (item=video_rating)
+changed: [cass1.deltakappa.com] => (item=video_rating)
+changed: [cass2.deltakappa.com] => (item=video_rating)
+changed: [cass3.deltakappa.com] => (item=video_ratings_by_user)
+changed: [cass1.deltakappa.com] => (item=video_ratings_by_user)
+changed: [cass2.deltakappa.com] => (item=video_ratings_by_user)
+changed: [cass3.deltakappa.com] => (item=videos)
+changed: [cass1.deltakappa.com] => (item=videos)
+changed: [cass2.deltakappa.com] => (item=videos)
+changed: [cass3.deltakappa.com] => (item=videos_by_tag)
+changed: [cass1.deltakappa.com] => (item=videos_by_tag)
+changed: [cass2.deltakappa.com] => (item=videos_by_tag)
+
+TASK [capture playbook end time] *****************************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com]
+ok: [cass2.deltakappa.com]
+ok: [cass3.deltakappa.com]
+
+TASK [cassandra22x_restore_remote_archive_snapshot_new_schema.yml play start and end date times] *************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": "start_date_time: 20181022-204946 & end_date_time: 20181022-205259"
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": "start_date_time: 20181022-204946 & end_date_time: 20181022-205259"
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": "start_date_time: 20181022-204947 & end_date_time: 20181022-205259"
+}
+
+TASK [restore confirm message] *******************************************************************************************************************************************************************************************************************************************************
+ok: [cass1.deltakappa.com] => {
+    "msg": "Snapshot snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162 for the keyspaces killrvideo restored successfully... run a repair."
+}
+ok: [cass2.deltakappa.com] => {
+    "msg": "Snapshot snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162 for the keyspaces killrvideo restored successfully... run a repair."
+}
+ok: [cass3.deltakappa.com] => {
+    "msg": "Snapshot snapshot_f1781968-a8fd-4656-ab4d-7b6ed14d4162 for the keyspaces killrvideo restored successfully... run a repair."
+}
+
+PLAY RECAP ***************************************************************************************************************************************************************************************************************************************************************************
+cass1.deltakappa.com       : ok=31   changed=15   unreachable=0    failed=0
+cass2.deltakappa.com       : ok=29   changed=14   unreachable=0    failed=0
+cass3.deltakappa.com       : ok=29   changed=14   unreachable=0    failed=0
+
+cassandra@cqlsh> source 'cassandra/killrvideo/cql_scripts/count_all_tables_in_killrvideo.cql';
+
+ count
+-------
+ 68131
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+ 68131
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     7
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     0
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     3
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  1020
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+ 43800
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+     4
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  1012
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+ 68668
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  1018
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+ count
+-------
+  6103
+
+(1 rows)
+
+Warnings :
+Aggregation query used without partition key
+
+
+THE DATA IS BACK!
+
+
+

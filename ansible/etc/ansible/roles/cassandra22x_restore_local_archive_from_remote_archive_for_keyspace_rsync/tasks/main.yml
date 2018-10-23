@@ -1,0 +1,8 @@
+---
+- name: include the snapshot_keyspace yaml file per node
+  include_vars:
+    file: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }}"
+
+- import_tasks: configure_local_archive_paths.yml
+- import_tasks: rsync_remote_archive_snapshot.yml
+- import_tasks: rsync_remote_archive_snapshots_metadata.yml

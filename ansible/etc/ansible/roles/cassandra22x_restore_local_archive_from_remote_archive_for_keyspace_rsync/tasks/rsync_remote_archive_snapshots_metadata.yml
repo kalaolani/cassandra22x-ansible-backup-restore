@@ -1,0 +1,12 @@
+---
+- name: "rsync {{ cassandra22x_remote_archive_path_archived_logs }}/{{ snapshot_name }}*.* to {{ cassandra22x_local_archive_path_archived_logs }}"
+  synchronize:
+    src: "{{ cassandra22x_remote_archive_path_archived_logs }}/"
+    dest: "{{ cassandra22x_local_archive_path_archived_logs }}"
+    rsync_opts:
+        - "--bwlimit={{ rsync_bwlimit }}"
+        - "--no-motd"
+        - "--include={{ snapshot_name }}.tar.gz"
+        - "--include={{ snapshot_name }}.tar"
+        - "--exclude=*"
+  delegate_to: 127.0.0.1
