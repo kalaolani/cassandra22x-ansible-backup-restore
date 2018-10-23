@@ -8,7 +8,7 @@ A goal of this project is to create something with minimal installs and all free
 ## Roadmap
 
 ### Completed
-
+#### Rebuild the Schema on the same Cluster (nodes) Use Cases
 The first version is call the simple backup and restore version.
 
 - Use Case - cluster22 keyspaces need to be backed up
@@ -41,16 +41,12 @@ The first version is call the simple backup and restore version.
   - Restore a local archived snapshot to a new schmea
   - Real world data volume and local archive volume separate local storage path
   - Cassandra Data volume goes permanently offline and is replaced.
-
-### Future
-
-#### Rebuild the Schema on the same Cluster (nodes) Use Cases
-
 - Use Case - killrvideo keyspace is missing from all the nodes, the old schema location on all nodes is gone, and the local archive is gone.
   - Restore a remote archived snapshot to a new schmea
   - Real world data volume and local archive volume separate local storage path and each nodes has an independent horizontal nfs path.
   - Cassandra Data and local archive volumes go permanently offline and are replaced.
   
+### Future
 #### Rebuild on a different Cluster Use Cases
 
 - Use Case - Restore a keyspace from a source cluster to a new destination cluster with identical topologies.
