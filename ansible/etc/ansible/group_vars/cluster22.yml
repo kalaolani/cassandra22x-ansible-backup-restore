@@ -28,9 +28,14 @@ cassandra22x_data_path: "{{ cassandra22x_var_path }}/data"
 
 # access
 # linux cassandra user/group
+cassandra22x_root_default_directory_mode: "u=rwx,g=rx,o=x"
+cassandra22x_root_default_file_mode: "u=rw,g=r,o=r"
 cassandra22x_linux_user: cassandra
 cassandra22x_linux_group: cassandra
-cassandra22x_linux_default_mode: "u=rwx,g=rwx,o=rwx"
+cassandra22x_cassandra_default_directory_mode: "u=rwx,g=rx,o=x"
+cassandra22x_cassandra_default_file_mode: "u=rw,g=r,o=r"
+cassandra22x_cassandra_default_recursive_mode: "u=rwx,g=rx,o=rx"
+
 # cql access to the cassandra cluster
 cassandra22x_ansible_superuser: cassandra
 cassandra22x_ansible_superuser_password: cassandra

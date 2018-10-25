@@ -2,7 +2,7 @@
 - name: "set cassandra as owner/group rwx/rwx/rx {{ cassandra22x_data_path }}/{{ keyspace_name }}"
   file: 
     dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/"
-    owner: cassandra
-    group: cassandra
-    mode: u=rwx,g=rwx,o=rx
+    owner: "{{ cassandra22x_linux_user }}"
+    group: "{{ cassandra22x_linux_group }}"
+    mode: "{{ cassandra22x_cassandra_default_recursive_mode }}"
     recurse: yes

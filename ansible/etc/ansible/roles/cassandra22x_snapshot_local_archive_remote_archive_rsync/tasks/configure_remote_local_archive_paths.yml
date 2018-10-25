@@ -3,17 +3,23 @@
   file:
     path: "{{ cassandra22x_remote_archive_path }}"
     state: directory
-    mode: "u=rwx,g=rwx,o=rwx"
+    owner: root
+    group: root
+    mode: "{{ cassandra22x_root_default_directory_mode }}"
 
 - name: "create {{ cassandra22x_remote_archive_path_archived_logs }}"
   file:
     path: "{{ cassandra22x_remote_archive_path_archived_logs }}"
     state: directory
-    mode: "u=rwx,g=rwx,o=rwx"
+    owner: root
+    group: root    
+    mode: "{{ cassandra22x_root_default_directory_mode }}"
     
 - name: "create {{ cassandra22x_remote_archive_path_archived_ansible_restore_vars }}"
   file:
     path: "{{ cassandra22x_remote_archive_path_archived_ansible_restore_vars }}"
     state: directory
-    mode: "u=rwx,g=rwx,o=rwx"
+    owner: root
+    group: root    
+    mode: "{{ cassandra22x_root_default_directory_mode }}"
   delegate_to: 127.0.0.1    
