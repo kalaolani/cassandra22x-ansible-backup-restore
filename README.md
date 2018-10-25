@@ -64,3 +64,5 @@ The first version is call the simple backup and restore version.
 #### Commit Log Archiving Use Cases
 
 #### Point In Time Recovery using Snapshots, Incremental Backups, and Commit Log Archives Use Cases
+
+#### Cassandra 3.x
