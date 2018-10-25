@@ -20,7 +20,7 @@ The first version is call the simple backup and restore version.
   - Create a cluster node local archive of a snapshot of all keyspaces including system catalogs using ansible
   - Create a cluster node local archive of a snapshot of all on node metadata archive_logs
   - Create an ansible local archive of a snapshot ansbile metadata ansible_restore_vars
-- Use Case - cluster22 keyspaces need to be remotely archived before rsyncing to remote storage
+- Use Case - cluster22 keyspaces need to be remotely archived (rsync to remote storage)
   - Create a cluster node remote archive of a snapshot of all keyspaces including system catalogs using ansible
   - Create a cluster node remote archive of a snapshot of all on node metadata archive_logs
   - Create an ansible remote archive of a snapshot ansbile metadata ansible_restore_vars
