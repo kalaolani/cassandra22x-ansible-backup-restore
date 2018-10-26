@@ -1,0 +1,5 @@
+---
+- name: "reset cassandra system keyspace {{ cassandra22x_data_path }}/system"
+  file:
+    path: "{{ cassandra22x_data_path }}/system"
+    state: absent

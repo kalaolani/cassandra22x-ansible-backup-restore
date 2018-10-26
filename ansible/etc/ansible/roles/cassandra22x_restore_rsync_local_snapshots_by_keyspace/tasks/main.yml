@@ -1,6 +1,6 @@
 --- 
-- name: "include the {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }} vars"
+- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }} vars"
   include_vars:
-    file: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }}"
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }}"
 
 - import_tasks: rsync_local_snapshots_for_keyspace.yml

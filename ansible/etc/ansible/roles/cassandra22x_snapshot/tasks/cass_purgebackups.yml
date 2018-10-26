@@ -6,7 +6,7 @@
 
 - name: find the snapshot_keyspace_yml file
   find:
-    paths: "{{ restore_vars }}/{{ cqg_env }}/{{ inventory_hostname }}/"
+    paths: "{{ cassandra22x_restore_vars }}/{{ cqg_env }}/{{ inventory_hostname }}/"
     patterns: "{{ fact_snapshot_name }}_{{ keyspace_name }}.yml"
   delegate_to: 127.0.0.1
   register: snapshot_keyspace_yml_found

@@ -1,9 +1,9 @@
 ---
-# sample group_vars cluster2200.yml - "cluster2200" cassandra cluster level group_vars
+# sample group_vars cluster22.yml - "cluster22" cassandra cluster level group_vars
 
 # configuration
 # the cassandra environment
-cassandra22x_environment: cluster2200
+cassandra22x_environment: cluster220
 # name of the cassandra cluster cassandra.yaml
 cassandra22x_cluster_name: "{{ cassandra22x_environment }}"
 # path to the cassandra node configuration
@@ -11,7 +11,7 @@ cassandra22x_conf_path: /etc/cassandra/conf
 # the cassandra yaml main configuration file
 cassandra22x_yaml: "{{ cassandra22x_conf_path }}/cassandra.yaml"
 # the cassandra cluster seed nodes configured in the cassandra yaml
-cassandra22x_cluster_seeds: 10.10.10.55,10.10.10.56,10.10.10.57
+cassandra22x_cluster_seeds: 10.10.10.51,10.10.10.52,10.10.10.53
 # the cassandra node cassandra-rackdc.properties configuration file
 cassandra22x_rackdc_properties: "{{ cass_conf_path }}/cassandra-rackdc.properties"
 # cassandra log path on the node(s)
@@ -27,6 +27,15 @@ cassandra22x_var_path: /var/lib/cassandra
 cassandra22x_data_path: "{{ cassandra22x_var_path }}/data"
 
 # access
+# linux cassandra user/group
+cassandra22x_root_default_directory_mode: "u=rwx,g=rx,o=x"
+cassandra22x_root_default_file_mode: "u=rw,g=r,o=r"
+cassandra22x_linux_user: cassandra
+cassandra22x_linux_group: cassandra
+cassandra22x_cassandra_default_directory_mode: "u=rwx,g=rx,o=x"
+cassandra22x_cassandra_default_file_mode: "u=rw,g=r,o=r"
+cassandra22x_cassandra_default_recursive_mode: "u=rwx,g=rx,o=rx"
+
 # cql access to the cassandra cluster
 cassandra22x_ansible_superuser: cassandra
 cassandra22x_ansible_superuser_password: cassandra
@@ -41,10 +50,17 @@ cassandra22x_ansible_log_path: "/var/log/ansible/cassandra22x/{{ cassandra22x_en
 cassandra22x_ansible_log: "{{ cassandra22x_ansible_log_path }}/cassandra22x_ansible.log"
 
 # ansible automation
-# location of the restore_vars (ansible metadata per node, snapshot, keyspaces, column families)
-restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
+# location of the cassandra22x_restore_vars (ansible metadata per node, snapshot, keyspaces, column families)
+cassandra22x_restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
 # rsync bwlimit configuration for the synchronization ansible module
-rsync_bwlimit: 5000
+cassandra22x_cassandra22x_rsync_bwlimit: 5000
+
+## restore variables local (dest) cluster
+cassandra22x_default_replication_topology: "'class' : 'NetworkTopologyStrategy', 'deltakappa' : 3"
+
+## restore variables foreign (src) cluster
+cassandra22x_src_environment: cluster22
+cassandra22x_src_default_replication_topology: "'class' : 'NetworkTopologyStrategy', 'deltakappa' : 3"
 
 # experimental incremental backups
 # disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"

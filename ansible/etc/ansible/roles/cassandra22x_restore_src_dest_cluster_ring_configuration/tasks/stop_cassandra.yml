@@ -1,0 +1,31 @@
+---
+- name: nodetool flush - flush memtables for all keyspaces
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} flush"
+
+- name: nodetool stop - stop the compaction process for all keyspaces
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} stop"
+
+- name: nodetool disableautocompaction - disable autocompaction
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} disableautocompaction"
+
+- name: nodetool disablethrift - node cannot be a coordinator
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} disablethrift"
+
+- name: nodetool disablebinary - turn off native transport
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} disablebinary"
+
+- name: nodetool disablegossip - mark the node as down
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} disablegossip"
+
+- name: nodetool drain - flush memtables, C* node stops listening, C* node must be restarted
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} drain"
+
+- name: nodetool stopdaemon - this will remove the process now
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} stopdaemon"
+  register: command_result
+  failed_when: "'Cassandra has shutdown.' not in command_result.stdout"
+
+- name: stop cassandra service
+  service: 
+    name: cassandra 
+    state: stopped  

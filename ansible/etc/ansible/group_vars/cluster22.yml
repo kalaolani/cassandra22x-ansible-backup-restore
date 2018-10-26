@@ -50,13 +50,17 @@ cassandra22x_ansible_log_path: "/var/log/ansible/cassandra22x/{{ cassandra22x_en
 cassandra22x_ansible_log: "{{ cassandra22x_ansible_log_path }}/cassandra22x_ansible.log"
 
 # ansible automation
-# location of the restore_vars (ansible metadata per node, snapshot, keyspaces, column families)
-restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
+# location of the cassandra22x_restore_vars (ansible metadata per node, snapshot, keyspaces, column families)
+cassandra22x_restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
 # rsync bwlimit configuration for the synchronization ansible module
-rsync_bwlimit: 5000
+cassandra22x_cassandra22x_rsync_bwlimit: 5000
 
-# restore variables
-default_replication_topology: "'class' : 'NetworkTopologyStrategy', 'deltakappa' : 3"
+## restore variables local (dest) cluster
+cassandra22x_default_replication_topology: "'class' : 'NetworkTopologyStrategy', 'deltakappa' : 3"
+
+## restore variables foreign (src) cluster
+cassandra22x_src_environment: cluster220
+cassandra22x_src_default_replication_topology: "'class' : 'NetworkTopologyStrategy', 'deltakappa' : 3"
 
 # experimental incremental backups
 # disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"

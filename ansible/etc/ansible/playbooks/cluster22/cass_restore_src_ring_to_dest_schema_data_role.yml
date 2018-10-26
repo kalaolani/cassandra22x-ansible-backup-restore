@@ -1,0 +1,23 @@
+---
+### Description: cass_restore_src_ring_to_dest_schema_data_role.yml
+### Author: David Payne
+###
+### CQGiki documentation: http://cqgiki.denver.cqg/bin/view/Production/CassandraOps
+###
+### example... ansible-playbook playbooks/demo_test/cass_restore_src_ring_to_dest_schema_data_role.yml -e"snapshot_keyspace_yml=snapshot.yml is_incremental=true|false"
+
+- hosts: demo_test
+  gather_facts: no
+
+  pre_tasks:
+    - name: cass_restore_src_ring_to_dest_schema_data_role.yml start date time
+      debug: 
+        msg: "{{ now }}"
+
+  roles:
+     - cass_restore_src_ring_to_dest_schema_data
+     
+  post_tasks:
+    - name: cass_restore_src_ring_to_dest_schema_data_role.yml end date time
+      debug: 
+        msg: "{{ now }}"

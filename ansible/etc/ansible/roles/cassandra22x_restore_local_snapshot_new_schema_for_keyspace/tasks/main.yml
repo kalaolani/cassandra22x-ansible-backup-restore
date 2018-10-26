@@ -1,7 +1,7 @@
 ---
 - name: include the snapshot_keyspace yaml file per node
   include_vars:
-    file: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }}"
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }}"
 
 - name: "find {{ snapshot_name }}_{{ keyspace_name }}_schema.cql file"
   find:

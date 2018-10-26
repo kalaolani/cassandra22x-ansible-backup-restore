@@ -12,9 +12,9 @@
     dest: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ fact_snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
     format: "{{ cassandra22x_local_archive_format }}"
 
-- name: "{ cassandra22x_local_archive_format }} snapshot {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml into {{ cassandra22x_local_archive_path_archived_logs }}/{{ fact_snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+- name: "{ cassandra22x_local_archive_format }} snapshot {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml into {{ cassandra22x_local_archive_path_archived_logs }}/{{ fact_snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
   archive:
-    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml"
-    dest: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}*.yml"
+    dest: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ fact_snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
     format: "{{ cassandra22x_local_archive_format }}"
   delegate_to: 127.0.0.1

@@ -1,20 +1,20 @@
 ---
 - name: verify that the yml file for the column_families_disk_new list does not exist
   file: 
-    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
     state: absent
   delegate_to: 127.0.0.1
 
 - name: yml file for the column_families_disk_new list
   file: 
-    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
     state: touch
     mode: "u+rw,g-wx,o-rwx"
   delegate_to: 127.0.0.1
 
 - name: add yml file column_families_disk_new line
   lineinfile:
-    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
     line: "column_families_disk_new:"
   delegate_to: 127.0.0.1
 
@@ -24,6 +24,6 @@
   
 - name: add yml file column_families_disk_new list
   lineinfile:
-    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
     line: "{{ get_columnfamilies_ondisk_for_keyspace.stdout }}"
   delegate_to: 127.0.0.1

@@ -1,7 +1,7 @@
 ---
-- name: "create missing vars paths - {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+- name: "create missing vars paths - {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
   file:
-    path: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
     state: directory
   delegate_to: 127.0.0.1
         
@@ -9,7 +9,7 @@
   synchronize:
     mode: pull
     src: "{{ cassandra22x_log_path }}/"
-    dest: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+    dest: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
     rsync_opts:
         - "--no-motd"
         - "--include=*.yml"

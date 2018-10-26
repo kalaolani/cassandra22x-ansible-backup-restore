@@ -1,9 +1,9 @@
 ---
-- name: "rsync {{ cassandra22x_local_archive_path }}/ to {{ cassandra22x_remote_archive_path }}"
+- name: "rsync cassandra22x_local_archive_path/ to cassandra22x_remote_archive_path"
   synchronize:
     src: "{{ cassandra22x_local_archive_path }}/"
     dest: "{{ cassandra22x_remote_archive_path }}"
     rsync_opts:
-        - "--bwlimit={{ rsync_bwlimit }}"
+        - "--bwlimit={{ cassandra22x_cassandra22x_rsync_bwlimit }}"
         - "--no-motd"
   delegate_to: "{{ inventory_hostname }}"

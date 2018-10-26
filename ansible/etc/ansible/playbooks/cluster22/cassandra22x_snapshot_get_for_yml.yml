@@ -6,9 +6,9 @@
   any_errors_fatal: true
 
   tasks:
-    - name: "find {{ snapshot_yml }} in {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+    - name: "find {{ snapshot_yml }} in {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
       find:
-        paths: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+        paths: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
         patterns: "{{ snapshot_yml }}"
         use_regex: yes
       register: found_snapshot_yml

@@ -10,9 +10,9 @@
     snapshot_yml_mtime_list: []
 
   tasks:
-    - name: "find snapshot_ymls {{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+    - name: "find snapshot_ymls {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
       find:
-        paths: "{{ restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+        paths: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
         patterns: 'snapshot_[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}.yml'
         use_regex: yes
       register: found_snapshot_yml

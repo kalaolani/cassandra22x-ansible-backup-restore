@@ -1,0 +1,36 @@
+---
+- name: nodetool statusbinary
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} statusbinary"
+  register: statusbinary
+  ignore_errors: yes
+
+- name: nodetool statusgossip
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} statusgossip"
+  register: statusgossip
+  ignore_errors: yes
+
+- name: nodetool statushandoff
+  command: "nodetool -u {{ cassandra22x_remote_jmx_user }} -pw {{ cassandra22x_remote_jmx_pass}} statushandoff"
+  register: statushandoff
+  ignore_errors: yes
+    
+- import_tasks: stop_cassandra.yml
+  when: statusbinary.stdout == "running" and
+        statusgossip.stdout == "running" and
+        statushandoff.stdout == "running"
+
+- name: include the snapshot_keyspace yaml file per node
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_node }}/{{ snapshot_keyspace_yml }}"
+
+- import_tasks: configure_local_archive_paths.yml    
+- import_tasks: configure_local_archive_data_path_for_keyspace.yml
+- import_tasks: rsync_src_cluster_remote_archive_to_dest_cluster_local_archive.yml
+# - include_role: cassandra22x_snapshot_local_unarchive_keyspace
+# - import_tasks: get_local_snapshot_metadata.yml
+# - import_tasks: deploy_ring_tokens.yml
+# - import_tasks: remove_system.yml
+# - import_tasks: start_cassandra.yml
+
+- pause: 
+    prompt: 'Ready to create the new keyspaces schemas for data dependent on the deployed ring. Press return to continue. Press Ctrl+c and then "A" to abort'

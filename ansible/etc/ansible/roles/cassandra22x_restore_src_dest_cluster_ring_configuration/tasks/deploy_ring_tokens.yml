@@ -1,0 +1,28 @@
+---
+- name: "find {{ cassandra22x_conf_path }}/cassandra.yaml"
+  find:
+    name: "{{ cassandra22x_conf_path }}"
+    patterns: cassandra.yaml
+  register: cassandra22x_yml_found
+  
+- name: "backup {{ cass_yaml }} to {{ cassandra22x_conf_path }}/cassandra.yaml.{{ snapshot_name }}.bak
+  copy:
+    src: "{{ cass_yaml }}"
+    dest: "{{ cass_yaml }}.{{ snapshot_name }}.bak"
+    owner: cassandra
+    group: cassandra
+    mode: u=rwx,g=rx,o=rx
+    remote_src: yes
+  when: cassandra22x_yml_found.matched == 1
+
+- name: "get src node ring tokens"
+  command: "cat {{ archive_root }}{{ cass_log_path }}/{{ snapshot_name }}_ring_tokens.log"
+  when: cassandra22x_yml_found.matched == 1  
+  register: ring_tokens
+  
+- name: configure cassandra.yaml with the required ring tokens
+  lineinfile:
+    path: "{{ cass_yaml }}"
+    regexp: '^# initial_token:'
+    line: "initial_token: {{ ring_tokens.stdout }}"
+  when: cassandra22x_yml_found.matched == 1    
