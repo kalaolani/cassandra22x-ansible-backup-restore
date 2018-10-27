@@ -1,0 +1,38 @@
+---
+- name: "create missing {{ cassandra22x_src_cluster_nfs_client_mount }}"
+  file:
+    path: "{{ cassandra22x_src_cluster_nfs_client_mount }}"
+    state: directory
+    owner: root
+    group: root    
+    mode: "{{ cassandra22x_root_default_directory_mode }}"
+
+- name: "mount nfs {{ cassandra22x_src_cluster_nfs_client_mount }}"
+  mount:
+    path: "{{ cassandra22x_src_cluster_nfs_client_mount }}"    
+    src: "{{ cassandra22x_src_cluster_nfs_server }}:{{ cassandra22x_src_cluster_nfs_server_path }}"
+    fstype: nfs4
+    opts: "rw"
+    state: mounted
+
+- name: "rsync src cluster remote archive to dest cluster local archive snapshot={{ snapshot_name }} keyspace={{ keyspace_name }}"
+  synchronize:
+    src: "{{ cassandra22x_src_cluster_remote_archive_path }}/{{ keyspace_name }}/snapshots/"
+    dest: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots"
+    rsync_opts:
+        - "--bwlimit={{ cassandra22x_cassandra22x_rsync_bwlimit }}"
+        - "--no-motd"
+        - "--include={{ snapshot_name }}.{{ cassandra22x_src_cluster_archive_format }}"
+        - "--exclude=*"
+  delegate_to: "{{ inventory_hostname }}"
+  
+- name: "rsync src cluster remote archive to dest cluster local archive snapshot={{ snapshot_name }} keyspace={{ keyspace_name }}"
+  synchronize:
+    src: "{{ cassandra22x_src_cluster_remote_archive_path_archived_logs }}/"
+    dest: "{{ cassandra22x_local_archive_path_archived_logs }}"
+    rsync_opts:
+        - "--bwlimit={{ cassandra22x_cassandra22x_rsync_bwlimit }}"
+        - "--no-motd"
+        - "--include={{ snapshot_name }}.{{ cassandra22x_src_cluster_archive_format }}"
+        - "--exclude=*"
+  delegate_to: "{{ inventory_hostname }}"  

@@ -47,10 +47,9 @@ cassandra22x_remote_archive_path_archived_ansible_restore_vars: "{{ cassandra22x
 cassandra22x_src_cluster_archive_format: tar
 cassandra22x_src_cluster_archive_file_ext: ".tar"
 
-# nfs remote archive mount point (src)
-cassandra22x_src_cluster_remote_archive_nfs_mount: "{{ cassandra22x_src_cluster_nfs_client_mount }}/cassandra22x/{{ cassandra22x_environment }}/{{ cassandra22x_cluster_name }}/{{ inventory_hostname }}"
-
 # src cluster remote archive paths for keyspace snapshot on src cluster node(s) archives and metadata snapshot archives
 cassandra22x_src_cluster_remote_archive_path: "{{ cassandra22x_src_cluster_remote_archive_nfs_mount }}{{ cassandra22x_local_archive_path }}"
 cassandra22x_src_cluster_remote_archive_path_archived_logs: "{{ cassandra22x_src_cluster_remote_archive_path }}/archived_logs"
 cassandra22x_src_cluster_remote_archive_path_archived_ansible_cassandra22x_restore_vars: "{{ cassandra22x_src_cluster_remote_archive_path }}/ansible_cassandra22x_restore_vars"
+# src nfs remote archive mount point
+cassandra22x_src_cluster_remote_archive_nfs_mount: "{{ cassandra22x_src_cluster_nfs_client_mount }}/cassandra22x/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_name }}/{{ cassandra22x_src_cluster_node }}"

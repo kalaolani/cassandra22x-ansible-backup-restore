@@ -60,6 +60,7 @@ cassandra22x_default_replication_topology: "'class' : 'NetworkTopologyStrategy',
 
 ## restore variables foreign (src) cluster
 cassandra22x_src_environment: cluster220
+cassandra22x_src_cluster_name: "{{ cassandra22x_src_environment }}"
 cassandra22x_src_default_replication_topology: "'class' : 'NetworkTopologyStrategy', 'deltakappa' : 3"
 
 # experimental incremental backups

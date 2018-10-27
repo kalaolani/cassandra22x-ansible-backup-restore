@@ -21,12 +21,12 @@
 
 - name: include the snapshot_keyspace yaml file per node
   include_vars:
-    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_node }}/{{ snapshot_keyspace_yml }}"
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_keyspace_yml }}"
 
 - import_tasks: configure_local_archive_paths.yml    
 - import_tasks: configure_local_archive_data_path_for_keyspace.yml
 - import_tasks: rsync_src_cluster_remote_archive_to_dest_cluster_local_archive.yml
-# - include_role: cassandra22x_snapshot_local_unarchive_keyspace
+- include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_local_unarchive_keyspace
 # - import_tasks: get_local_snapshot_metadata.yml
 # - import_tasks: deploy_ring_tokens.yml
 # - import_tasks: remove_system.yml
