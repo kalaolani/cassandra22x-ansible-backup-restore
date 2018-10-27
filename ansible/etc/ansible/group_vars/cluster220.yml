@@ -11,7 +11,7 @@ cassandra22x_conf_path: /etc/cassandra/conf
 # the cassandra yaml main configuration file
 cassandra22x_yaml: "{{ cassandra22x_conf_path }}/cassandra.yaml"
 # the cassandra cluster seed nodes configured in the cassandra yaml
-cassandra22x_cluster_seeds: 10.10.10.55,10.10.10.56,10.10.10.57
+cassandra22x_cluster_seeds: 10.10.10.51,10.10.10.52,10.10.10.53
 # the cassandra node cassandra-rackdc.properties configuration file
 cassandra22x_rackdc_properties: "{{ cass_conf_path }}/cassandra-rackdc.properties"
 # cassandra log path on the node(s)

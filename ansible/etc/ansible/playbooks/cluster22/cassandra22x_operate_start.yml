@@ -5,7 +5,7 @@
 - hosts: cluster22
   any_errors_fatal: true
   # max_fail_percentage: 0
-  # serial: 1
+  serial: 1
   gather_facts: no
   
   pre_tasks:
