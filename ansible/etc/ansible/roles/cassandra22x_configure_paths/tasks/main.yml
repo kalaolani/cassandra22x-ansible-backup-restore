@@ -1,0 +1,4 @@
+---
+- import_tasks: configure_ansible_vars_paths.yml
+- import_tasks: configure_local_archive_paths.yml
+- import_tasks: configure_remote_local_archive_paths.yml

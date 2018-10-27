@@ -1,7 +1,7 @@
 ---
 # pwd = /etc/ansible
-# ansible-playbook playbooks/cluster22/cassandra22x_snapshot_get_all.yml
-- hosts: cluster22
+# ansible-playbook playbooks/cluster220/cassandra22x_snapshot_get_all.yml
+- hosts: cluster220
   gather_facts: no
   any_errors_fatal: true
 

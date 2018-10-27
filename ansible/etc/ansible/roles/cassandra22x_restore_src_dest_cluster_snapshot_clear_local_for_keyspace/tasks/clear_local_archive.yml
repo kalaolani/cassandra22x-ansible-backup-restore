@@ -1,0 +1,10 @@
+---
+- name: "clear {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots/{{ snapshot_name }}.tar"
+  file:
+    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots/{{ snapshot_name }}.tar"
+    state: absent
+    
+- name: "clear {{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}.tar"
+  file:
+    path: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}.tar"
+    state: absent

@@ -1,8 +1,8 @@
 ---
 # pwd = /etc/ansible
-# ansible-playbook playbooks/cluster22/cassandra22x_operate_rolling_full_partitioner-range_repair_by_node.yml
+# ansible-playbook playbooks/cluster220/cassandra22x_operate_rolling_full_partitioner-range_repair_by_node.yml
 
-- hosts: cluster22
+- hosts: cluster220
   any_errors_fatal: true
   # max_fail_percentage: 0
   serial: 1

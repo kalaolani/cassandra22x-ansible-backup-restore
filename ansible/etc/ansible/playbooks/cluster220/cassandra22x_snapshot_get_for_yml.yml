@@ -1,0 +1,28 @@
+---
+# pwd = /etc/ansible
+# ansible-playbook playbooks/cluster220/cassandra22x_snapshot_get_for_yml.yml -e"snapshot_yml=snapshot_yml.yml"
+- hosts: cluster220
+  gather_facts: no
+  any_errors_fatal: true
+
+  tasks:
+    - name: "find {{ snapshot_yml }} in {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+      find:
+        paths: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+        patterns: "{{ snapshot_yml }}"
+        use_regex: yes
+      register: found_snapshot_yml
+      delegate_to: 127.0.0.1
+      no_log: true
+     
+    - name: build list of snapshot_yml(s)
+      include_vars:
+        file: "{{ item.path }}"
+      delegate_to: 127.0.0.1
+      with_items: "{{ found_snapshot_yml.files }}"
+      no_log: true            
+      
+    - name: "show keyspaces in snapshot {{ snapshot_name }}"
+      debug:
+        msg: "{{ keyspace_names }}"
+      delegate_to: 127.0.0.1

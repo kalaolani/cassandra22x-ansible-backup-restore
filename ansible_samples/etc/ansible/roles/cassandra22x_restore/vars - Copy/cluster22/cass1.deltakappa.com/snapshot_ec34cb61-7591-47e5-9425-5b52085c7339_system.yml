@@ -1,0 +1,46 @@
+snapshot_name: snapshot_ec34cb61-7591-47e5-9425-5b52085c7339
+keyspace_name: system
+column_families:
+    - IndexInfo
+    - available_ranges
+    - batchlog
+    - compaction_history
+    - compactions_in_progress
+    - hints
+    - local
+    - paxos
+    - peer_events
+    - peers
+    - range_xfers
+    - schema_aggregates
+    - schema_columnfamilies
+    - schema_columns
+    - schema_functions
+    - schema_keyspaces
+    - schema_triggers
+    - schema_usertypes
+    - size_estimates
+    - sstable_activity
+
+column_families_disk:
+    - IndexInfo-9f5c6374d48532299a0a5094af9ad1e3
+    - available_ranges-c539fcabd65a31d18133d25605643ee3
+    - batchlog-0290003c977e397cac3efdfdc01d626b
+    - compaction_history-b4dbb7b4dc493fb5b3bfce6e434832ca
+    - compactions_in_progress-55080ab05d9c388690a4acb25fe1f77b
+    - hints-2666e20573ef38b390fefecf96e8f0c7
+    - local-7ad54392bcdd35a684174e047860b377
+    - paxos-b7b7f0c2fd0a34108c053ef614bb7c2d
+    - peer_events-59dfeaea8db2334191ef109974d81484
+    - peers-37f71aca7dc2383ba70672528af04d4f
+    - range_xfers-55d764384e553f8b9f6e676d4af3976d
+    - schema_aggregates-a5fc57fc9d6c3bfda3fc01ad54686fea
+    - schema_columnfamilies-45f5b36024bc3f83a3631034ea4fa697
+    - schema_columns-296e9c049bec3085827dc17d3df2122a
+    - schema_functions-d1b675fe2b503ca48e49c0f81989dcad
+    - schema_keyspaces-b0f2235744583cdb9631c43e59ce3676
+    - schema_triggers-0359bc7171233ee19a4ab9dfb11fc125
+    - schema_usertypes-3aa752254f82350b8d5c430fa221fa0a
+    - size_estimates-618f817b005f3678b8a453f3930b8e86
+    - sstable_activity-5a1ff267ace03f128563cfae6103c65e
+

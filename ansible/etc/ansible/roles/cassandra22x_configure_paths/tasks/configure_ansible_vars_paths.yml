@@ -1,0 +1,6 @@
+---
+- name: "create missing vars paths - {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+  file:
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+    state: directory
+  delegate_to: 127.0.0.1
