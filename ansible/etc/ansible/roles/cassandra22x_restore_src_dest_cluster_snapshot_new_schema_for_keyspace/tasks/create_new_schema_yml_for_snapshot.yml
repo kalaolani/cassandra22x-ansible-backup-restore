@@ -1,0 +1,35 @@
+---
+- name: "create missing vars paths - {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+  file:
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+    state: directory
+  delegate_to: 127.0.0.1
+
+- name: verify that the yml file for the column_families_disk_new list does not exist
+  file: 
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    state: absent
+  delegate_to: 127.0.0.1
+
+- name: yml file for the column_families_disk_new list
+  file: 
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    state: touch
+    mode: "u+rw,g-wx,o-rwx"
+  delegate_to: 127.0.0.1
+
+- name: add yml file column_families_disk_new line
+  lineinfile:
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    line: "column_families_disk_new:"
+  delegate_to: 127.0.0.1
+
+- name: get column_families_disk_new list
+  script: get_columnfamilies_ondisk_for_keyspace.py --keyspace_name {{ keyspace_name }}  --contact_points {{ inventory_hostname }} --username {{ cassandra22x_ansible_superuser }} --password {{ cassandra22x_ansible_superuser_password }}
+  register: get_columnfamilies_ondisk_for_keyspace
+  
+- name: add yml file column_families_disk_new list
+  lineinfile:
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    line: "{{ get_columnfamilies_ondisk_for_keyspace.stdout }}"
+  delegate_to: 127.0.0.1

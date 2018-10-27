@@ -1,0 +1,19 @@
+---
+- name: "find {{ snapshot_name }}_{{ keyspace_name }}_schema.cql"
+  find:
+    name: "{{ cassandra22x_log_path }}"
+    patterns: "{{ snapshot_name }}_{{ keyspace_name }}_schema.cql"
+  register: snapshot_keyspace_cql_found
+
+- name: "modify dest {{ snapshot_name }}_{{ keyspace_name }}_schema.cql replacing src with dest  cluster replication topology"
+  replace:
+    path: "{{ cassandra22x_log_path }}/{{ snapshot_name }}_{{ keyspace_name }}_schema.cql"
+    regexp: "{{ cassandra22x_src_default_replication_topology }}"
+    replace: "{{ cassandra22x_default_replication_topology }}"
+  when: snapshot_keyspace_cql_found.matched > 0
+
+- name: "create the new schema for keyspace: {{ keyspace_name }} using {{ default_replication_topology }}"
+  script: create-new-schema.sh {{ inventory_hostname }} {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ cassandra22x_log_path }}/{{ snapshot_name }}_{{ keyspace_name }}_schema.cql
+  run_once: true  
+  when: snapshot_schema_found.matched == 1 and
+        inventory_hostname == ansible_play_hosts[0]
