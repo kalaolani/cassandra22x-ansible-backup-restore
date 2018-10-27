@@ -9,7 +9,7 @@ A goal of this project is to create something with minimal installs and all free
 
 ### Completed
 #### Rebuild the Schema on the same Cluster (nodes) Use Cases
-The first version is call the simple backup and restore version.
+The first version is called the simple backup and restore version.
 
 - Use Case - cluster22 keyspaces need to be backed up
   - Create a cluster snapshot of all keyspaces including system catalogs using ansible
@@ -46,12 +46,16 @@ The first version is call the simple backup and restore version.
   - Real world data volume and local archive volume separate local storage path and each nodes has an independent horizontal nfs path.
   - Cassandra Data and local archive volumes go permanently offline and are replaced.
   
-### Future
 #### Rebuild on a different Cluster Use Cases
 
 - Use Case - Restore a keyspace from a source cluster to a new destination cluster with identical topologies.
   - Restore reconfigure destination cluster nodes to use source cluster tokens and new topology
   - Restore a remote archived snapshot to a new schmea and new topology
+
+### Future
+#### Rebuild on a different Cluster Use Cases
+The first version is called the simple backup and restore version.
+
 - Use Case - Restore a keyspace from a source cluster to an existing destination cluster with identical topologies.
   - Restore a remote archived snapshot to a new schmea and new topology
   - Use sstableloader to load data from the source to the destination
@@ -61,8 +65,8 @@ The first version is call the simple backup and restore version.
 
 #### Incremental Backup and Restore Use Cases
 
+#### Cassandra 3.x
+
 #### Commit Log Archiving Use Cases
 
 #### Point In Time Recovery using Snapshots, Incremental Backups, and Commit Log Archives Use Cases
-
-#### Cassandra 3.x
