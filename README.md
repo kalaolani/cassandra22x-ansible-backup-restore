@@ -51,21 +51,21 @@ The first version is called the simple backup and restore version.
 - Use Case - Restore a keyspace from a source cluster to a new destination cluster with identical topologies.
   - Restore reconfigure destination cluster nodes to use source cluster tokens and new topology
   - Restore a remote archived snapshot to a new schmea and new topology
+- Use Case - Restore a keyspace from a source cluster to an existing destination cluster with identical topologies.
+  - Restore a remote archived snapshot to a new schmea and new topology
+  - Use sstableloader to load data from the source to the destination
 
 ### Future
 #### Rebuild on a different Cluster Use Cases
 The first version is called the simple backup and restore version.
 
-- Use Case - Restore a keyspace from a source cluster to an existing destination cluster with identical topologies.
-  - Restore a remote archived snapshot to a new schmea and new topology
-  - Use sstableloader to load data from the source to the destination
 - Use Case - Restore a keyspace from a source cluster to a destination cluster with different topologies.
   - Restore a remote archived snapshot to a new schmea and new topology
   - Use sstableloader to load data from the source to the destination
 
-#### Incremental Backup and Restore Use Cases
-
 #### Cassandra 3.x
+
+#### Incremental Backup and Restore Use Cases
 
 #### Commit Log Archiving Use Cases
 
