@@ -1,0 +1,7 @@
+---
+- name: "remove column_families_disk from restored snapshot={{ snapshot_name }} of keyspace={{ keyspace_name }}"
+  file:
+    path: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}"
+    state: absent
+  with_items: 
+        - "{{ column_families_disk }}"
