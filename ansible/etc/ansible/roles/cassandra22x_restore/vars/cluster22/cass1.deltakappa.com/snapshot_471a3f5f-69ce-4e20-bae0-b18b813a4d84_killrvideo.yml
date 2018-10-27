@@ -1,0 +1,30 @@
+snapshot_name: snapshot_471a3f5f-69ce-4e20-bae0-b18b813a4d84
+keyspace_name: killrvideo
+column_families:
+    - comments_by_user
+    - comments_by_video
+    - latest_videos
+    - tags_by_letter
+    - user_credentials
+    - user_videos
+    - users
+    - video_event
+    - video_rating
+    - video_ratings_by_user
+    - videos
+    - videos_by_tag
+
+column_families_disk:
+    - comments_by_user-ee6704a0d95011e88454db7464e90ad9
+    - comments_by_video-f2967d80d95011e88454db7464e90ad9
+    - latest_videos-ed40d420d95011e88454db7464e90ad9
+    - tags_by_letter-eefa43f0d95011e88454db7464e90ad9
+    - user_credentials-ec9a8200d95011e88454db7464e90ad9
+    - user_videos-f033d560d95011e88454db7464e90ad9
+    - users-ec06f490d95011e88454db7464e90ad9
+    - video_event-f176b5a0d95011e88454db7464e90ad9
+    - video_rating-edd4d6c0d95011e88454db7464e90ad9
+    - video_ratings_by_user-f1ff4690d95011e88454db7464e90ad9
+    - videos-ef9d3ab0d95011e88454db7464e90ad9
+    - videos_by_tag-f0d6cc20d95011e88454db7464e90ad9
+

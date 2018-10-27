@@ -1,0 +1,19 @@
+---
+- name: include the snapshot_keyspace yaml file per node
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_keyspace_yml }}"
+
+- name: "find {{ snapshot_name }}_{{ keyspace_name }}_schema.cql file"
+  find:
+    name: "{{ cassandra22x_log_path }}"
+    patterns: "{{ snapshot_name }}_{{ keyspace_name }}_schema.cql"
+  register: snapshot_schema_found    
+
+- block:
+    - import_tasks: create_new_schema.yml
+    - import_tasks: create_new_schema_yml_for_snapshot.yml
+  when: snapshot_schema_found.matched == 1
+
+- name: "Schema Settling Warning!"
+  pause:
+    prompt: "Make sure the new schema has settled in the cluster before continuing..."

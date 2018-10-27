@@ -1,0 +1,10 @@
+snapshot_name: snapshot_471a3f5f-69ce-4e20-bae0-b18b813a4d84
+keyspace_name: system_distributed
+column_families:
+    - parent_repair_history
+    - repair_history
+
+column_families_disk:
+    - parent_repair_history-deabd734b99d3b9c92e5fd92eb5abf14
+    - repair_history-759fffad624b318180eefa9a52d1f627
+
