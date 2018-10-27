@@ -1,0 +1,14 @@
+column_families_disk_new:
+    - comments_by_user-c4343040d99111e8ac169f477ba1d68c
+    - comments_by_video-c8532e60d99111e8ac169f477ba1d68c
+    - latest_videos-c2ef5430d99111e8ac169f477ba1d68c
+    - tags_by_letter-c4b82d50d99111e8ac169f477ba1d68c
+    - user_credentials-c25c14e0d99111e8ac169f477ba1d68c
+    - user_videos-c5f9d510d99111e8ac169f477ba1d68c
+    - users-c1c245e0d99111e8ac169f477ba1d68c
+    - video_event-c73bf200d99111e8ac169f477ba1d68c
+    - video_rating-c39b72b0d99111e8ac169f477ba1d68c
+    - video_ratings_by_user-c7babef0d99111e8ac169f477ba1d68c
+    - videos-c56472e0d99111e8ac169f477ba1d68c
+    - videos_by_tag-c67594c0d99111e8ac169f477ba1d68c
+
