@@ -1,0 +1,25 @@
+---
+# pwd = /etc/ansible
+# ansible-playbook playbooks/cluster220/cassandra22x_restore_src_dest_cluster_snapshot_local_sstableload_data.yml -e"snapshot_keyspace_yml=snapshot_keyspace_yml"
+
+- hosts: cluster220
+  max_fail_percentage: 0
+  serial: 1
+  # gather_facts: no
+   
+  pre_tasks:
+    - name: capture playbook start time
+      set_fact: 
+        start_date_time_fact: "{{ now }}"  
+
+  roles:
+    - cassandra22x_restore_src_dest_cluster_snapshot_local_sstableload_data
+
+  post_tasks:
+    - name: capture playbook end timec
+      set_fact: 
+        end_date_time_fact: "{{ now }}"
+        
+    - name: cassandra22x_restore_src_dest_cluster_snapshot_local_sstableload_data.yml play start and end date times
+      debug: 
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }}"
