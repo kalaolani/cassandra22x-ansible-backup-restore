@@ -1,0 +1,7 @@
+snapshot_name: snapshot_c56ee4af-f296-45a7-8e1e-9024f2a5ad8b
+keyspace_names:
+    - killrvideo
+    - system_auth
+    - system_distributed
+    - system
+    - system_traces

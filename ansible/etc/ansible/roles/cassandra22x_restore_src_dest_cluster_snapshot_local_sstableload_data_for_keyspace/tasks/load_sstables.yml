@@ -1,0 +1,9 @@
+---
+# - name: sstableload tables
+  # debug:
+    # msg: "sstableloader-snapshot.sh {{ inventory_hostname }} {{ cassandra22x_remote_jmx_user }} {{ cassandra22x_remote_jmx_pass }} {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }} {{ cassandra22x_log_path }}/{{ snapshot_name }}_{{ keyspace_name }}_sstableloader.log"
+  # with_items: "{{ column_families_disk }}"
+  
+- name: sstableload tables
+  script: sstableloader-snapshot.sh {{ inventory_hostname }} {{ cassandra22x_remote_jmx_user }} {{ cassandra22x_remote_jmx_pass }} {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }} {{ cassandra22x_log_path }}/{{ snapshot_name }}_{{ keyspace_name }}_sstableloader.log
+  with_items: "{{ column_families_disk }}"

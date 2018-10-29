@@ -1,0 +1,6 @@
+---
+- name: "include {{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_keyspace_yml }}"
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_keyspace_yml }}"
+
+- import_tasks: load_sstables.yml

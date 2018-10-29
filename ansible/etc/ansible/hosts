@@ -99,6 +99,22 @@ cass20.deltakappa.com
 cass30.deltakappa.com
 
 ## 
+## clusterx cassandra cluster
+##
+
+# cluster level ansible group
+[clusterx]
+cassx.deltakappa.com
+
+# cluster|dc level ansible group
+[clusterx-x-dc]
+cassx.deltakappa.com
+
+# cluster|dc|rack level ansible group
+[clusterx-x-dc-rack1]
+cassx.deltakappa.com
+
+## 
 ## nfs servers
 ##
 

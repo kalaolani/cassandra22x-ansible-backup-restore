@@ -7,8 +7,8 @@
   find:
     name: "{{ cassandra22x_log_path }}"
     patterns: "{{ snapshot_name }}_{{ keyspace_name }}_schema.cql"
-  register: snapshot_schema_found    
-
+  register: snapshot_schema_found
+  
 - block:
     - import_tasks: create_new_schema.yml
     - import_tasks: create_new_schema_yml_for_snapshot.yml

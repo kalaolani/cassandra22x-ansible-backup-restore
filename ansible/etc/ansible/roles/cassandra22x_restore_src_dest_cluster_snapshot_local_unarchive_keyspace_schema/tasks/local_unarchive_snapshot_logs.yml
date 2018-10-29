@@ -1,0 +1,6 @@
+---
+- name: "unarchive {{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }} to {{ cassandra22x_log_path }}"
+  unarchive:
+    src: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+    dest: "{{ cassandra22x_log_path }}"
+    remote_src: yes

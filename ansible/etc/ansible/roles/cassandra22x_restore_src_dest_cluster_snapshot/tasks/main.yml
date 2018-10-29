@@ -1,0 +1,13 @@
+---
+- name: set src cluster src node loop vars for cassandra22x_src_cluster_node_map_dict.cassandra22x_node_idx
+  set_fact:
+    cassandra22x_src_cluster_node: "{{ item.value.cassandra22x_src_cluster_node }}"
+    cassandra22x_src_cluster_nfs_server: "{{ item.value.cassandra22x_src_cluster_nfs_server }}"
+  with_dict: "{{ cassandra22x_node_idx }}"
+
+- include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_remote_local_rsync_for_keyspace
+- include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_local_unarchive_keyspace
+- include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_local_sstableload_data_for_keyspace
+- include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_clear_column_families_disk_for_keyspace
+- include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_clear_local_for_keyspace
+- include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_clear_local_archive_for_keyspace

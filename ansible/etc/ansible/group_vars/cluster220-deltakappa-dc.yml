@@ -1,5 +1,5 @@
 ---
-# sample group_vars cluster22-deltakappa-dc.yml - "cluster22" cassandra cluster and dc deltakappa level group_vars
+# sample group_vars cluster220-deltakappa-dc.yml - "cluster220" cassandra cluster and dc deltakappa level group_vars
 
 # name of the cassandra datacenter
 cassandra22x_cluster_dc: deltakappa
@@ -21,35 +21,22 @@ cassandra22x_local_archive_file_ext: ".tar"
 cassandra22x_remote_archive_nfs_mount: "{{ cassandra22x_nfs_client_mount }}/cassandra22x/{{ cassandra22x_environment }}/{{ cassandra22x_cluster_name }}/{{ inventory_hostname }}"
 
 # local (dest) archive paths for keyspace snapshot on node(s) archives and metadata snapshot on node(s) archives
-# cassandra22x_local_archive_path: /var/lib/cassandra/archive
 cassandra22x_local_archive_path: "{{ cassandra22x_var_path }}/archive"
-# cassandra22x_local_archive_path_archived_logs: /var/lib/cassandra/archive/archived_logs
 cassandra22x_local_archive_path_archived_logs: "{{ cassandra22x_local_archive_path }}/archived_logs"
-# cassandra22x_local_archive_path_archived_ansible_restore_vars:    /var/lib/cassandra/archive/ansible_cassandra22x_restore_vars
 cassandra22x_local_archive_path_archived_ansible_restore_vars: "{{ cassandra22x_local_archive_path }}/ansible_cassandra22x_restore_vars"
 
 # remote archive paths for keyspace snapshot on node(s) archives and metadata snapshot on node(s) archives
-# cassandra22x_remote_archive_path 1: /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com
-# cassandra22x_remote_archive_path 2: /mnt/nfs/cass3.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass2.deltakappa.com
-# cassandra22x_remote_archive_path 3: /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com
 cassandra22x_remote_archive_path: "{{ cassandra22x_remote_archive_nfs_mount }}{{ cassandra22x_local_archive_path }}"
-# cassandra22x_remote_archive_path_archived_logs 1: /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/archived_logs
-# cassandra22x_remote_archive_path_archived_logs 2: /mnt/nfs/cass3.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass2.deltakappa.com/archived_logs
-# cassandra22x_remote_archive_path_archived_logs 3: /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/archived_logs
 cassandra22x_remote_archive_path_archived_logs: "{{ cassandra22x_remote_archive_path }}/archived_logs"
-# cassandra22x_remote_archive_path_archived_ansible_restore_vars 1: /mnt/nfs/cass2.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass1.deltakappa.com/ansible_cassandra22x_restore_vars
-# cassandra22x_remote_archive_path_archived_ansible_restore_vars 2: /mnt/nfs/cass3.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass2.deltakappa.com/ansible_cassandra22x_restore_vars
-# cassandra22x_remote_archive_path_archived_ansible_restore_vars 3: /mnt/nfs/cass1.deltakappa.com/var/nfsshare/cassandra22x/cluster22/cluster22/cass3.deltakappa.com/ansible_cassandra22x_restore_vars
 cassandra22x_remote_archive_path_archived_ansible_restore_vars: "{{ cassandra22x_remote_archive_path }}/ansible_cassandra22x_restore_vars"
 
-## restore variables foreign (src) cluster
+## restore variables
 # src cluster unarchive settings
 cassandra22x_src_cluster_archive_format: tar
 cassandra22x_src_cluster_archive_file_ext: ".tar"
-
-# src cluster remote archive paths for keyspace snapshot on src cluster node(s) archives and metadata snapshot archives
+cassandra22x_src_cluster_nfs_server_path: /var/nfsshare/
+cassandra22x_src_cluster_nfs_client_mount: "/mnt/nfs/{{ cassandra22x_src_cluster_nfs_server }}/var/nfsshare"
+cassandra22x_src_cluster_remote_archive_nfs_mount: "{{ cassandra22x_src_cluster_nfs_client_mount }}/cassandra22x/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_name }}/{{ cassandra22x_src_cluster_node }}" 
 cassandra22x_src_cluster_remote_archive_path: "{{ cassandra22x_src_cluster_remote_archive_nfs_mount }}{{ cassandra22x_local_archive_path }}"
 cassandra22x_src_cluster_remote_archive_path_archived_logs: "{{ cassandra22x_src_cluster_remote_archive_path }}/archived_logs"
 cassandra22x_src_cluster_remote_archive_path_archived_ansible_cassandra22x_restore_vars: "{{ cassandra22x_src_cluster_remote_archive_path }}/ansible_cassandra22x_restore_vars"
-# src nfs remote archive mount point
-cassandra22x_src_cluster_remote_archive_nfs_mount: "{{ cassandra22x_src_cluster_nfs_client_mount }}/cassandra22x/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_name }}/{{ cassandra22x_src_cluster_node }}"

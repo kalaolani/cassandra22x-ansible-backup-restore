@@ -1,0 +1,32 @@
+---
+# sample group_vars clusterx.yml - "clusterx" cassandra cluster level group_vars
+
+# configuration
+# the cassandra environment
+cassandra22x_environment: clusterx
+# name of the cassandra cluster cassandra.yaml
+cassandra22x_cluster_name: "{{ cassandra22x_environment }}"
+# the cassandra cluster seed nodes configured in the cassandra yaml
+cassandra22x_cluster_seeds: 10.10.10.54
+
+## restore variables local (dest) cluster
+cassandra22x_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'x': '1'"
+
+## restore variables foreign (src) cluster
+cassandra22x_src_environment: cluster220
+cassandra22x_src_cluster_name: "{{ cassandra22x_src_environment }}"
+cassandra22x_src_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'deltakappa': '3'"
+
+# experimental incremental backups
+# disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"
+# enabled               cassandra22x_incremental_backup_configuration: "incremental_backups: true"
+
+# experimental commit log archiving
+# cassandra22x_commitlog_path: /var/lib/cassandra/commitlog
+# cassandra22x_commitlog_commitlog_archiving_properties: "{{ cass_conf_path }}/commitlog_archiving.properties"
+# disabled  defauilt    cassandra22x_commitlog_archive_configuration: "archive_command=" 
+# enabled               cassandra22x_commitlog_archive_configuration: "archive_command=/bin/ln %path {{ cass_commitlog_arch_path }}/%name"
+
+# experimental cassandra tuning
+# MAX_HEAP_SIZE="4G" in /etc/cassandra/conf/cassandra-env.sh
+# HEAP_NEWSIZE="800M" in /etc/cassandra/conf/cassandra-env.sh
