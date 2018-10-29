@@ -47,6 +47,7 @@ The first version is called the simple backup and restore version.
   - Cassandra Data and local archive volumes go permanently offline and are replaced.
   
 #### Rebuild on a different Cluster Use Cases
+The first version is called the simple backup and restore version.
 
 - Use Case - Restore a keyspace from a source cluster to a new destination cluster with identical topologies.
   - Restore reconfigure destination cluster nodes to use source cluster tokens and new topology
@@ -54,19 +55,21 @@ The first version is called the simple backup and restore version.
 - Use Case - Restore a keyspace from a source cluster to an existing destination cluster with identical topologies.
   - Restore a remote archived snapshot to a new schmea and new topology
   - Use sstableloader to load data from the source to the destination
-
-### Future
-#### Rebuild on a different Cluster Use Cases
-The first version is called the simple backup and restore version.
-
 - Use Case - Restore a keyspace from a source cluster to a destination cluster with different topologies.
   - Restore a remote archived snapshot to a new schmea and new topology
-  - Use sstableloader to load data from the source to the destination
+  - Use sstableloader to load data from the source to the destination  
+
+### Future
 
 #### Cassandra 3.x
+All uses cases above
 
 #### Incremental Backup and Restore Use Cases
+Considering 2.x 
+Planning 3.x
 
 #### Commit Log Archiving Use Cases
+Planning 3.x
 
 #### Point In Time Recovery using Snapshots, Incremental Backups, and Commit Log Archives Use Cases
+Planning 3.x
