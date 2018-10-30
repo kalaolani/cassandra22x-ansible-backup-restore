@@ -11,13 +11,9 @@
     - name: capture playbook start time
       set_fact: 
         start_date_time_fact: "{{ now }}"
-        
-    - name: sstableloader_keyspace_name
-      set_fact: 
-        sstableloader_keyspace_name_suffix: "_sstableloader"
 
   roles:
-    - cassandra22x_restore_src_dest_cluster_snapshot_remote_local_rsync_unarchive_new_schema_sstableload_data_for_keyspace
+    - cassandra22x_restore_src_dest_cluster_snapshot__loop
 
   post_tasks:
     - name: capture playbook end time
