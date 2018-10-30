@@ -10,9 +10,9 @@
       set_fact: 
         start_date_time_fact: "{{ now }}"  
 
-    - name: loop cassandra22x_restore_src_dest_cluster_snapshot_remote_local_rsync_unarchive_new_schema_for_keyspace role for each cassandra22x_node_idx.cassandra22x_src_cluster_node_map_dict
+    - name: "loop cassandra22x_restore_src_dest_cluster_get_node_map_dict role for just the {{ cassandra22x_dest_cluster_node_schema }}"
       include_role:
-        name: cassandra22x_restore_src_dest_cluster_snapshot_remote_local_rsync_unarchive_new_schema_for_keyspace
+        name: cassandra22x_restore_src_dest_cluster_get_node_map_dict
       loop: "{{ cassandra22x_src_cluster_node_map_dict }}"
       loop_control:
         loop_var: cassandra22x_node_idx

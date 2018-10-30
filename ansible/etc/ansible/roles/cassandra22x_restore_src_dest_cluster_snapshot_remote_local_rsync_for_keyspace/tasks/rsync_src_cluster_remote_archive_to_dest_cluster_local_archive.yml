@@ -26,13 +26,13 @@
         - "--exclude=*"
   delegate_to: "{{ inventory_hostname }}"
   
-- name: "rsync src cluster remote archive to dest cluster local archive snapshot={{ snapshot_name }} keyspace={{ keyspace_name }}"
-  synchronize:
-    src: "{{ cassandra22x_src_cluster_remote_archive_path_archived_logs }}/"
-    dest: "{{ cassandra22x_local_archive_path_archived_logs }}"
-    rsync_opts:
-        - "--bwlimit={{ cassandra22x_cassandra22x_rsync_bwlimit }}"
-        - "--no-motd"
-        - "--include={{ snapshot_name }}.{{ cassandra22x_src_cluster_archive_format }}"
-        - "--exclude=*"
-  delegate_to: "{{ inventory_hostname }}"  
+# - name: "rsync src cluster remote archive to dest cluster local archive snapshot={{ snapshot_name }} keyspace={{ keyspace_name }}"
+  # synchronize:
+    # src: "{{ cassandra22x_src_cluster_remote_archive_path_archived_logs }}/"
+    # dest: "{{ cassandra22x_local_archive_path_archived_logs }}"
+    # rsync_opts:
+        # - "--bwlimit={{ cassandra22x_cassandra22x_rsync_bwlimit }}"
+        # - "--no-motd"
+        # - "--include={{ snapshot_name }}.{{ cassandra22x_src_cluster_archive_format }}"
+        # - "--exclude=*"
+  # delegate_to: "{{ inventory_hostname }}"  

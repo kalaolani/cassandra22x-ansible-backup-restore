@@ -6,7 +6,7 @@
   with_dict: "{{ cassandra22x_node_idx }}"
 
 - include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_remote_local_rsync_for_keyspace
-- include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_local_unarchive_keyspace
+- include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_local_unarchive_for_keyspace
 - include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_local_sstableload_data_for_keyspace
 - include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_clear_column_families_disk_for_keyspace
 - include_role: name=cassandra22x_restore_src_dest_cluster_snapshot_clear_local_for_keyspace

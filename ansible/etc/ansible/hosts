@@ -41,85 +41,18 @@
 # leading 0s:
 
 ## db-[99:101]-node.example.com
+#
+#
 
-## 
-## cluster22 cassandra cluster
+## ansible
 ##
 
-# cluster level ansible group
-[cluster22]
-cass1.deltakappa.com
-cass2.deltakappa.com
-cass3.deltakappa.com
+[ansible]
+ansible.deltakappa.com
 
-# cluster|dc level ansible group
-[cluster22-deltakappa-dc]
-cass1.deltakappa.com
-cass2.deltakappa.com
-cass3.deltakappa.com
-
-# cluster|dc|rack level ansible group
-[cluster22-deltakappa-dc-rack1]
-cass1.deltakappa.com
-cass2.deltakappa.com
-cass3.deltakappa.com
-
-# cluster|dc|rack level ansible group
-[cluster22-deltakappa-dc-rack2]
-
-# all nodes of a specific dc of the cluster
-[cluster22-deltakappa2-dc]
-
-# cluster|dc|rack level ansible group
-[cluster22-deltakappa2-dc-rack1]
-
-# cluster|dc|rack level ansible group
-[cluster22-deltakappa2-dc-rack2]
-
-## 
-## cluster220 cassandra cluster
-##
-
-# cluster level ansible group
-[cluster220]
-cass10.deltakappa.com
-cass20.deltakappa.com
-cass30.deltakappa.com
-
-# cluster|dc level ansible group
-[cluster220-deltakappa-dc]
-cass10.deltakappa.com
-cass20.deltakappa.com
-cass30.deltakappa.com
-
-# cluster|dc|rack level ansible group
-[cluster220-deltakappa-dc-rack1]
-cass10.deltakappa.com
-cass20.deltakappa.com
-cass30.deltakappa.com
-
-## 
-## clusterx cassandra cluster
-##
-
-# cluster level ansible group
-[clusterx]
-cassx.deltakappa.com
-
-# cluster|dc level ansible group
-[clusterx-x-dc]
-cassx.deltakappa.com
-
-# cluster|dc|rack level ansible group
-[clusterx-x-dc-rack1]
-cassx.deltakappa.com
-
-## 
 ## nfs servers
 ##
-
-## 
-## all nfs servers
+## remote storage
 ##
 
 [nfs]
@@ -129,6 +62,34 @@ cass3.deltakappa.com
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
+sstableloaderx.deltakappa.com
+
+[sstableloader]
+sstableloaderx.deltakappa.com
+
+## cassandra clusters
+##
+## all cassandra clusters in inventory are configured in NetworkTopologyStrategy
+## cluster level, data center level, and rack level
+##
+
+# cluster22 cassandra cluster hosts
+[cluster22]
+cass1.deltakappa.com
+cass2.deltakappa.com
+cass3.deltakappa.com
+
+# cluster22 cassandra cluster deltakappa dc hosts
+[cluster22-deltakappa-dc]
+cass1.deltakappa.com
+cass2.deltakappa.com
+cass3.deltakappa.com
+
+# cluster22 cassandra cluster deltakappa dc & rack1 rac hosts
+[cluster22-deltakappa-dc-rack1]
+cass1.deltakappa.com
+cass2.deltakappa.com
+cass3.deltakappa.com
 
 # cluster nfs servers
 [cluster22-nfs]
@@ -136,8 +97,42 @@ cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
 
+# cluster220 cassandra cluster hosts
+[cluster220]
+cass10.deltakappa.com
+cass20.deltakappa.com
+cass30.deltakappa.com
+
+# cluster220 cassandra cluster deltakappa dc hosts
+[cluster220-deltakappa-dc]
+cass10.deltakappa.com
+cass20.deltakappa.com
+cass30.deltakappa.com
+
+# cluster220 cassandra cluster deltakappa dc & rack1 rac hosts
+[cluster220-deltakappa-dc-rack1]
+cass10.deltakappa.com
+cass20.deltakappa.com
+cass30.deltakappa.com
+
 # cluster nfs servers
 [cluster220-nfs]
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
+
+# clusterx cassandra cluster hosts
+[clusterx]
+cassx.deltakappa.com
+
+# clusterx cassandra cluster x dc hosts
+[clusterx-x-dc]
+cassx.deltakappa.com
+
+# clusterx cassandra cluster x dc & rack1 rac hosts
+[clusterx-x-dc-rack1]
+cassx.deltakappa.com
+
+# cluster nfs servers
+[clusterx-nfs]
+sstableloaderx.deltakappa.com
