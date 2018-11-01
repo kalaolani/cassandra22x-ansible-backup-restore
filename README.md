@@ -1,6 +1,9 @@
 # cassandra22x-ansible-backup-restore
 A goal of this project is to create something with minimal installs and all freely available software with no licensing costs.
 
+## IMPORTANT NOTE
+Do not use beyond branch... 1.2_src_to_new_dest_cluster_copy_ring_and_data.
+
 ## Help and How To...
 - See the Wiki for details for how to.
 - See test run files in the repo for details for how to.
