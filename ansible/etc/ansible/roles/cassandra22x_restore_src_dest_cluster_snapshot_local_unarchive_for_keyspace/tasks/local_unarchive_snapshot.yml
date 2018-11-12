@@ -1,6 +1,6 @@
 ---
 - name: "unarchive {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }} to {{ cassandra22x_data_path }}/{{ keyspace_name }}"
   unarchive:
-    src: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+    src: "{{ cassandra22x_local_archive_path_for_src_environment_cluster_node }}/{{ keyspace_name }}/snapshots/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
     dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}"
     remote_src: yes

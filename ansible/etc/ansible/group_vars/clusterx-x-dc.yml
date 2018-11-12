@@ -1,11 +1,11 @@
 ---
-# sample group_vars cluster22-deltakappa-dc.yml - "cluster22" cassandra cluster and dc deltakappa level group_vars
+# sample group_vars clusterx-x-dc.yml - "clusterx" cassandra cluster and dc x level group_vars
 
 # name of the cassandra datacenter
 cassandra22x_cluster_dc: x
 
-## restore variables local (dest) cluster
-# dest archive settings
+## archive management
+# archive variables
 cassandra22x_local_archive_format: tar
 cassandra22x_local_archive_file_ext: ".tar"
 # cassandra22x_local_archive_format: gz <= ansible default
@@ -17,26 +17,34 @@ cassandra22x_local_archive_file_ext: ".tar"
 # cassandra22x_local_archive_format: zip
 # cassandra22x_local_archive_file_ext: ".tar.zip"
 
-# nfs remote archive mount point (dest)
-cassandra22x_remote_archive_nfs_mount: "{{ cassandra22x_nfs_client_mount }}/cassandra22x/{{ cassandra22x_environment }}/{{ cassandra22x_cluster_name }}/{{ inventory_hostname }}"
-
-# local (dest) archive paths for keyspace snapshot on node(s) archives and metadata snapshot on node(s) archives
+# local archive paths for keyspace snapshot on node(s) archives and metadata snapshot on node(s) archives
 cassandra22x_local_archive_path: "{{ cassandra22x_var_path }}/archive"
 cassandra22x_local_archive_path_archived_logs: "{{ cassandra22x_local_archive_path }}/archived_logs"
 cassandra22x_local_archive_path_archived_ansible_restore_vars: "{{ cassandra22x_local_archive_path }}/ansible_cassandra22x_restore_vars"
+
+## remote storage management
+# nfs mount and node remote archive root
+cassandra22x_remote_archive_nfs_mount: "{{ cassandra22x_nfs_client_mount }}/cassandra22x/{{ cassandra22x_environment }}/{{ cassandra22x_cluster_name }}/{{ inventory_hostname }}"
 
 # remote archive paths for keyspace snapshot on node(s) archives and metadata snapshot on node(s) archives
 cassandra22x_remote_archive_path: "{{ cassandra22x_remote_archive_nfs_mount }}{{ cassandra22x_local_archive_path }}"
 cassandra22x_remote_archive_path_archived_logs: "{{ cassandra22x_remote_archive_path }}/archived_logs"
 cassandra22x_remote_archive_path_archived_ansible_restore_vars: "{{ cassandra22x_remote_archive_path }}/ansible_cassandra22x_restore_vars"
 
-## restore variables
-# src cluster unarchive settings
+## restore variables for a foregin cluster src
+# foregin cluster src 
+cassandra22x_src_cluster_var_path: /var/lib/cassandra
+cassandra22x_src_cluster_local_archive_path: "{{ cassandra22x_src_cluster_var_path }}/archive"
 cassandra22x_src_cluster_archive_format: tar
 cassandra22x_src_cluster_archive_file_ext: ".tar"
 cassandra22x_src_cluster_nfs_server_path: /var/nfsshare/
 cassandra22x_src_cluster_nfs_client_mount: "/mnt/nfs/{{ cassandra22x_src_cluster_nfs_server }}/var/nfsshare"
 cassandra22x_src_cluster_remote_archive_nfs_mount: "{{ cassandra22x_src_cluster_nfs_client_mount }}/cassandra22x/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_name }}/{{ cassandra22x_src_cluster_node }}" 
-cassandra22x_src_cluster_remote_archive_path: "{{ cassandra22x_src_cluster_remote_archive_nfs_mount }}{{ cassandra22x_local_archive_path }}"
+
+# remote archive paths for keyspace snapshot on node(s) archives and metadata snapshot on node(s) archives for a foregin cluster src
+cassandra22x_src_cluster_remote_archive_path: "{{ cassandra22x_src_cluster_remote_archive_nfs_mount }}/{{ cassandra22x_src_cluster_local_archive_path }}"
 cassandra22x_src_cluster_remote_archive_path_archived_logs: "{{ cassandra22x_src_cluster_remote_archive_path }}/archived_logs"
-cassandra22x_src_cluster_remote_archive_path_archived_ansible_cassandra22x_restore_vars: "{{ cassandra22x_src_cluster_remote_archive_path }}/ansible_cassandra22x_restore_vars"
+cassandra22x_src_cluster_remote_archive_path_archived_ansible_restore_vars: "{{ cassandra22x_src_cluster_remote_archive_path }}/ansible_cassandra22x_restore_vars"
+
+# restore variables for the local cluster dest
+cassandra22x_local_archive_path_for_src_environment_cluster_node: "{{ cassandra22x_local_archive_path }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_name }}/{{ cassandra22x_src_cluster_node }}"

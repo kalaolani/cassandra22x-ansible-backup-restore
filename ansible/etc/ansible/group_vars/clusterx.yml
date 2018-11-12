@@ -30,3 +30,6 @@ cassandra22x_src_default_replication_topology: "'class': 'NetworkTopologyStrateg
 # experimental cassandra tuning
 # MAX_HEAP_SIZE="4G" in /etc/cassandra/conf/cassandra-env.sh
 # HEAP_NEWSIZE="800M" in /etc/cassandra/conf/cassandra-env.sh
+
+# experimental automation scripts
+# cassandra22x_cron_script_path: "/var/lib/ansible/cassandra22x/{{ cassandra22x_environment }}/scripts"

@@ -5,4 +5,4 @@ PASSWORD=$3
 PATH=$4
 LOG=$5
 
-/usr/bin/sstableloader -d $TARGET -u $USERNAME -pw $PASSWORD $PATH &>> $LOG
+/usr/bin/sstableloader --verbose --nodes $TARGET --username $USERNAME --password $PASSWORD $PATH &>> $LOG

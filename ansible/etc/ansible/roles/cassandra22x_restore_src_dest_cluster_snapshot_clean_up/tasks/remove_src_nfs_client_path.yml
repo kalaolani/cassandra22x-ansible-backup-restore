@@ -1,0 +1,5 @@
+---
+- name: "remove {{ cassandra22x_src_cluster_nfs_client_mount }}"
+  file:
+    path: "{{ cassandra22x_src_cluster_nfs_client_mount }}"
+    state: absent

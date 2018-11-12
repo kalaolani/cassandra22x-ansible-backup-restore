@@ -44,6 +44,19 @@
 #
 #
 
+## all centos systems
+##
+
+[test-lab]
+cass1.deltakappa.com
+cass2.deltakappa.com
+cass3.deltakappa.com
+cass10.deltakappa.com
+cass20.deltakappa.com
+cass30.deltakappa.com
+cassx.deltakappa.com
+sstableloaderx.deltakappa.com
+
 ## ansible
 ##
 
@@ -62,9 +75,10 @@ cass3.deltakappa.com
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
+cassx.deltakappa.com
 sstableloaderx.deltakappa.com
 
-[sstableloader]
+[sstableloaders]
 sstableloaderx.deltakappa.com
 
 ## cassandra clusters

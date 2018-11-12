@@ -1,0 +1,14 @@
+---
+- name: "find {{ cassandra22x_log_path }}/{{ snapshot_name }}_*.* files to remove"
+  find:
+    paths: "{{ cassandra22x_log_path }}"
+    patterns: 
+        - "{{ snapshot_name }}_*.*"
+        - "{{ snapshot_name }}.*"
+  register: files_to_remove
+
+- name: "remove {{ snapshot_name }}_*.* files"
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ files_to_remove.files }}"

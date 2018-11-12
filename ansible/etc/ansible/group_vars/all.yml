@@ -59,7 +59,5 @@ cassandra22x_restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
 # rsync bwlimit configuration for the synchronization ansible module
 cassandra22x_cassandra22x_rsync_bwlimit: 5000
 
-sstableloader_keyspace_name_suffix: ""
-
 # experimental automation scripts
 # cassandra22x_cron_script_path: "/var/lib/ansible/cassandra22x/{{ cassandra22x_environment }}/scripts"

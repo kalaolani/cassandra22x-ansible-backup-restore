@@ -1,0 +1,8 @@
+---
+- name: "create missing {{ cassandra22x_local_archive_path_for_src_environment_cluster_node }}/{{ keyspace_name }} for sstableloader"
+  file:
+    path: "{{ cassandra22x_local_archive_path_for_src_environment_cluster_node }}/{{ keyspace_name }}"
+    state: directory
+    owner: cassandra
+    group: cassandra
+    mode: "{{ cassandra22x_root_default_directory_mode }}"

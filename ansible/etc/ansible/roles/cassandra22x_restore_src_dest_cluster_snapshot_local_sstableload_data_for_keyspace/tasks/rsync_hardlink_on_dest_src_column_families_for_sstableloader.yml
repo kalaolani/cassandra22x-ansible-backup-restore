@@ -1,0 +1,12 @@
+---
+- name: "rsync hardlink local snapshot files to the new schema location for keyspace: {{ keyspace_name }}"
+  synchronize:
+    src: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/snapshots/{{ snapshot_name }}/"
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/"
+    rsync_opts:
+        - "--no-motd"
+        - "--exclude=manifest.json"
+        - "--link-dest={{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}"
+  with_items: 
+        - "{{ column_families_disk }}"
+  delegate_to: "{{ inventory_hostname }}"

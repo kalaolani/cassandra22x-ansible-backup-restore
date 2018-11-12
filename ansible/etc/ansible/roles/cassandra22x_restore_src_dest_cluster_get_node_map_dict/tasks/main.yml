@@ -5,11 +5,3 @@
     cassandra22x_src_cluster_nfs_server: "{{ item.value.cassandra22x_src_cluster_nfs_server }}"
   with_dict: "{{ cassandra22x_node_idx }}"
   when: item.value.cassandra22x_src_cluster_node == cassandra22x_src_cluster_node_schema
-  
-- name: debug message for cassandra22x_src_cluster_node setting
-  debug:
-    msg: "{{ cassandra22x_src_cluster_node }}"
-
-- name: debug message for cassandra22x_src_cluster_nfs_server setting
-  debug:
-    msg: "{{ cassandra22x_src_cluster_nfs_server }}"

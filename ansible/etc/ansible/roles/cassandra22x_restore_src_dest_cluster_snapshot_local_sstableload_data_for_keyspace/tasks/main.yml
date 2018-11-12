@@ -3,4 +3,7 @@
   include_vars:
     file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_keyspace_yml }}"
 
+- import_tasks: rsync_hardlink_on_dest_src_column_families_for_sstableloader.yml
+- import_tasks: reset_permissions_on_dest_src_column_families_for_sstableloader.yml
 - import_tasks: load_sstables.yml
+- import_tasks: clear_loaded_src_column_families_on_dest.yml

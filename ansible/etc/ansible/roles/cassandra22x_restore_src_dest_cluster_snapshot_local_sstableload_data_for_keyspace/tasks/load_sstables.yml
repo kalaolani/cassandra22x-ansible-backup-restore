@@ -1,9 +1,4 @@
 ---
-# - name: sstableload tables
-  # debug:
-    # msg: "sstableloader-snapshot.sh {{ inventory_hostname }} {{ cassandra22x_remote_jmx_user }} {{ cassandra22x_remote_jmx_pass }} {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }} {{ cassandra22x_log_path }}/{{ snapshot_name }}_{{ keyspace_name }}_sstableloader.log"
-  # with_items: "{{ column_families_disk }}"
-  
-- name: sstableload tables
-  script: sstableloader-snapshot.sh {{ inventory_hostname }} {{ cassandra22x_remote_jmx_user }} {{ cassandra22x_remote_jmx_pass }} {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }} {{ cassandra22x_log_path }}/{{ snapshot_name }}_{{ keyspace_name }}_sstableloader.log
+- name: "sstableload tables for each column_families_disk from {{ cassandra22x_local_archive_path_for_src_environment_cluster_node }}/data/{{ keyspace_name }}"
+  script: sstableloader-snapshot.sh {{ inventory_hostname }} {{ cassandra22x_remote_jmx_user }} {{ cassandra22x_remote_jmx_pass }} {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }} {{ cassandra22x_log_path }}/{{ snapshot_name }}_{{ cassandra22x_src_cluster_node }}_{{ keyspace_name }}_sstableloader.log
   with_items: "{{ column_families_disk }}"

@@ -1,0 +1,11 @@
+---
+- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_yml }} vars"
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_yml }}"
+    
+- import_tasks: remove_src_local_archive_path.yml
+- import_tasks: umount_src_nfs_volume.yml
+- import_tasks: remove_src_nfs_client_path.yml
+- import_tasks: remove_src_local_archive_log_files.yml
+- import_tasks: remove_src_local_log_files.yml
+- import_tasks: remove_src_environment_local_archive_path.yml

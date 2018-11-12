@@ -1,0 +1,5 @@
+---
+- name: "umount nfs {{ cassandra22x_src_cluster_nfs_client_mount }}"
+  mount:
+    path: "{{ cassandra22x_src_cluster_nfs_client_mount }}"    
+    state: unmounted

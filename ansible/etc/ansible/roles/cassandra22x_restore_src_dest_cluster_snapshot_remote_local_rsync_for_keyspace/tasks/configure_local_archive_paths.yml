@@ -23,10 +23,10 @@
     group: root    
     mode: "{{ cassandra22x_root_default_directory_mode }}"
   delegate_to: 127.0.0.1
-    
-- name: "create missing {{ cassandra22x_local_archive_path }} for {{ keyspace_name }}/snapshots"
+  
+- name: "create {{ cassandra22x_local_archive_path_for_src_environment_cluster_node }}"
   file:
-    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots"
+    path: "{{ cassandra22x_local_archive_path_for_src_environment_cluster_node }}"
     state: directory
     owner: root
     group: root    
