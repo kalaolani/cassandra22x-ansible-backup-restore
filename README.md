@@ -2,7 +2,7 @@
 A goal of this project is to create something with minimal installs and all freely available software with no licensing costs.
 
 ## IMPORTANT NOTE
-Do not use beyond branch... 1.2_src_to_new_dest_cluster_copy_ring_and_data.
+Currently stable with all tests passing for all "Completed" use cases. Pending Documentation updates and some role pruning before creating the next release branch and version.
 
 ## Help and How To...
 - See the Wiki for details for how to.
