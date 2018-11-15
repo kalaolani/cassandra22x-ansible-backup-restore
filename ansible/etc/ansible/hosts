@@ -146,7 +146,7 @@ cass30.deltakappa.com
 cassx.deltakappa.com
 
 # clusterx cassandra cluster x dc hosts
-[datacenterx]
+[clusterx-datacenterx]
 cassx.deltakappa.com
 
 # clusterx cassandra cluster x dc & rack1 rac hosts

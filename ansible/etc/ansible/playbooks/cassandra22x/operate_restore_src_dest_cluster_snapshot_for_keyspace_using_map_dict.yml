@@ -1,10 +1,10 @@
 ---
-# pwd = /etc/ansible
-# ansible-playbook playbooks/clusterx/cassandra22x_restore_src_dest_cluster_snapshot_remote_local_rsync_unarchive_new_schema_for_keyspace.yml -e"snapshot_keyspace_yml=snapshot_keyspace_yml"
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_restore_src_dest_cluster_snapshot_for_keyspace_using_map_dict.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml"
 
-- hosts: cassx.deltakappa.com
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: true
   any_errors_fatal: true
-   
+
   pre_tasks:
     - name: capture playbook start time
       set_fact: 
@@ -24,9 +24,9 @@
 
   post_tasks:
     - name: capture playbook end time
-      set_fact: 
+      set_fact:
         end_date_time_fact: "{{ now }}"
-        
-    - name: cassandra22x_restore_src_dest_cluster_snapshot_remote_local_rsync_unarchive_new_schema_for_keyspace.yml play start and end date times
-      debug: 
-        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }}"
+
+    - name: operate_restore_src_dest_cluster_snapshot_for_keyspace_using_map_dict.yml play start and end date times
+      debug:
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_restore_src_dest_cluster_snapshot_for_keyspace_using_map_dict.yml playbook executed against {{ target }} for {{ snapshot_keyspace_yml }}"

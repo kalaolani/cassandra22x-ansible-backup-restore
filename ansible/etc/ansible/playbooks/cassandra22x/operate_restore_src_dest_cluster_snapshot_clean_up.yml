@@ -16,7 +16,7 @@
       loop: "{{ cassandra22x_src_cluster_node_map_dict }}"
       loop_control:
         loop_var: cassandra22x_node_idx
-      when: src_cluster_node_map_dict == true
+      when: src_cluster_node_map_dict == "true"
 
   roles:
     - cassandra22x_restore_src_dest_cluster_snapshot_clean_up
