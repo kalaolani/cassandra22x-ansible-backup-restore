@@ -18,7 +18,7 @@
     - cassandra22x_operate_stop
     - cassandra22x_operate_start
     - cassandra22x_restore_src_dest_cluster_snapshot_clear_column_families_disk_for_keyspace
-    - cassandra22x_restore_src_dest_cluster_snapshot_clear_local_archive_for_keyspace    
+    - cassandra22x_restore_src_dest_cluster_snapshot_clear_local_archive_for_keyspace
 
   post_tasks:
     - name: capture playbook end time
