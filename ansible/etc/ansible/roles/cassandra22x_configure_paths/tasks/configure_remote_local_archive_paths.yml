@@ -22,4 +22,4 @@
     owner: root
     group: root    
     mode: "{{ cassandra22x_root_default_directory_mode }}"
-  delegate_to: 127.0.0.1    
+  delegate_to: 127.0.0.1

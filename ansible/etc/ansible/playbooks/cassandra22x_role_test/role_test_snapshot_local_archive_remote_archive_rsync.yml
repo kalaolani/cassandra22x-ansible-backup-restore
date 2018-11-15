@@ -1,0 +1,23 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/cassandra22x_snapshot_local_archive_remote_archive_rsync.yml --extra-vars "target=ansible_inventory_hosts"
+
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: true
+  any_errors_fatal: true
+   
+  pre_tasks:        
+    - name: capture playbook start time
+      set_fact: 
+        start_date_time_fact: "{{ now }}" 
+
+  roles:
+    - cassandra22x_snapshot_local_archive_remote_archive_rsync
+
+  post_tasks:
+    - name: capture playbook end time
+      set_fact: 
+        end_date_time_fact: "{{ now }}"
+        
+    - name: cassandra22x_snapshot_local_archive_remote_archive_rsync.yml play start and end date times
+      debug: 
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for cassandra22x_snapshot_local_archive_remote_archive_rsync.yml playbook executed against {{ target }}"

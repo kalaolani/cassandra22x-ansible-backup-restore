@@ -14,3 +14,4 @@
     path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_{{ keyspace_name }}_schema.cql"
     line: "{{ item }}"
   with_items: "{{ get_schema_for_keyspace.stdout }}"
+  no_log: true

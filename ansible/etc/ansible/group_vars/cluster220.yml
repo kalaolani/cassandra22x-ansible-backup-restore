@@ -1,6 +1,5 @@
 ---
-# sample group_vars cluster220.yml - "cluster220" cassandra cluster level group_vars
-
+# cluster configuration
 # configuration
 # the cassandra environment
 cassandra22x_environment: cluster220
@@ -10,12 +9,12 @@ cassandra22x_cluster_name: "{{ cassandra22x_environment }}"
 cassandra22x_cluster_seeds: 10.10.10.55,10.10.10.56,10.10.10.57
 
 ## restore variables local (dest) cluster
-cassandra22x_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'deltakappa': '3'"
+cassandra22x_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'datacenter2201': '3'"
 
 ## restore variables foreign (src) cluster
 cassandra22x_src_environment: cluster22
 cassandra22x_src_cluster_name: "{{ cassandra22x_src_environment }}"
-cassandra22x_src_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'deltakappa': '3'"
+cassandra22x_src_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'datacenter221': '3'"
 
 # experimental incremental backups
 # disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"

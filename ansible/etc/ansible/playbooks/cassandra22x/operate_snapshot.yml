@@ -1,0 +1,30 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot.yml --extra-vars "target=ansible_inventory_hosts snapshot_uuid=$(uuidgen)"
+
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: yes
+  any_errors_fatal: true
+
+  pre_tasks:
+    - name: capture playbook start time
+      set_fact: 
+        start_date_time_fact: "{{ now }}"
+
+  roles:
+    - cassandra22x_configure_paths
+    - cassandra22x_snapshot
+    - cassandra22x_snapshot_local_archive
+    - cassandra22x_snapshot_local_archive_remote_archive_rsync
+
+  post_tasks:
+    - name: capture playbook end time
+      set_fact: 
+        end_date_time_fact: "{{ now }}"
+        
+    - name: operate_snapshot.yml play start and end date times
+      debug: 
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_snapshot.yml playbook executed against {{ target }}"
+
+    - name: snapshot confirm message
+      debug: 
+        msg: "Snapshot created... {{ fact_snapshot_name }} for these keyspaces {{ fact_snapshot_keyspace_list }} for {{ target }}"

@@ -4,3 +4,7 @@
   run_once: true  
   when: snapshot_schema_found.matched == 1 and
         inventory_hostname == ansible_play_hosts[0]
+        
+- name: "Schema Settling Warning!"
+  pause:
+    prompt: "Make sure the new schema has settled in the cluster before continuing..."        

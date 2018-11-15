@@ -1,0 +1,16 @@
+---
+- name: "create missing {{ cassandra22x_nfs_client_mount }}"
+  file:
+    path: "{{ cassandra22x_nfs_client_mount }}"
+    state: directory
+    owner: root
+    group: root    
+    mode: "{{ cassandra22x_root_default_directory_mode }}"
+
+- name: "mount nfs {{ cassandra22x_nfs_client_mount }}"
+  mount:
+    path: "{{ cassandra22x_nfs_client_mount }}"    
+    src: "{{ cassandra22x_nfs_server }}:{{ cassandra22x_nfs_server_path }}"
+    fstype: nfs4
+    opts: "rw"
+    state: mounted

@@ -1,0 +1,6 @@
+---    
+- name: "remove {{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+  file: 
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    state: absent
+  delegate_to: 127.0.0.1    

@@ -20,9 +20,9 @@
     src: "{{ cassandra22x_src_cluster_remote_archive_path }}/{{ keyspace_name }}/snapshots/"
     dest: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots"
     rsync_opts:
-        - "--bwlimit={{ cassandra22x_cassandra22x_rsync_bwlimit }}"
+        - "--bwlimit={{ cassandra22x_rsync_bwlimit }}"
         - "--no-motd"
-        - "--include={{ snapshot_name }}.{{ cassandra22x_src_cluster_archive_format }}"
+        - "--include={{ snapshot_name }}{{ cassandra22x_src_cluster_archive_file_ext }}"
         - "--exclude=*"
   delegate_to: "{{ inventory_hostname }}"
   
@@ -31,8 +31,8 @@
     src: "{{ cassandra22x_src_cluster_remote_archive_path_archived_logs }}/"
     dest: "{{ cassandra22x_local_archive_path_archived_logs }}"
     rsync_opts:
-        - "--bwlimit={{ cassandra22x_cassandra22x_rsync_bwlimit }}"
+        - "--bwlimit={{ cassandra22x_rsync_bwlimit }}"
         - "--no-motd"
-        - "--include={{ snapshot_name }}.{{ cassandra22x_src_cluster_archive_format }}"
+        - "--include={{ snapshot_name }}{{ cassandra22x_src_cluster_archive_file_ext }}"
         - "--exclude=*"
   delegate_to: "{{ inventory_hostname }}"  

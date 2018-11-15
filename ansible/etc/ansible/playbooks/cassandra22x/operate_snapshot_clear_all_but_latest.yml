@@ -1,0 +1,52 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_clear_all_but_latest.yml --extra-vars "target=ansible_inventory_hosts"
+
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: true
+  any_errors_fatal: true
+
+  vars:
+    snapshot_yml_list: []
+  
+  tasks:
+    - name: capture playbook start time
+      set_fact:
+        start_date_time_fact: "{{ now }}"
+        
+    - name: find existing snapshot yaml files
+      find:
+        paths: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+        patterns: 'snapshot_[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}.yml'
+        use_regex: yes
+      register: found_snapshot_yml
+      delegate_to: 127.0.0.1
+
+    - name: find latest existing snapshot yaml file
+      set_fact:
+        latest_snapshot_yml: "{{ found_snapshot_yml.files | sort(attribute='mtime',reverse=false) | last }}"
+      when: found_snapshot_yml.matched > 0
+
+    - name: "set fact containing {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/"
+      set_fact:
+        cassandra22x_restore_vars_environment_node_path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/"
+      
+    - name: set fact for snapshot_yml_list var
+      set_fact:
+        snapshot_yml_list: "{{ snapshot_yml_list }} + [ '{{ item.path }}' ]"
+      with_items: "{{ found_snapshot_yml.files | sort(attribute='mtime',reverse=true) }}"
+      when: latest_snapshot_yml.path != item.path
+
+    - name: cassandra22x_snapshot_clear__loop for each snapshot_yml_list
+      include_role:
+        name: cassandra22x_snapshot_clear__loop
+      loop: "{{ snapshot_yml_list }}"
+      loop_control:
+        loop_var: snapshot_yml_loop_item
+
+    - name: capture playbook end time
+      set_fact:
+        end_date_time_fact: "{{ now }}"
+
+    - name: operate_snapshot_clear_all_but_latest.yml play start and end date times
+      debug:
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_snapshot_clear_all_but_latest.yml playbook executed against {{ target }}"

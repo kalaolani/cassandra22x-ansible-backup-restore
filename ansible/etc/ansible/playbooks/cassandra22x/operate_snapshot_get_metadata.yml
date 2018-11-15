@@ -1,0 +1,66 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_get_metadata.yml --extra-vars "target=ansible_inventory_hosts"
+
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: yes
+  any_errors_fatal: true
+  
+  vars:
+    snapshot_yml_list: []
+    snapshot_yml_mtime_list: []
+
+  tasks:
+    - name: "find snapshot_ymls {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+      find:
+        paths: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+        patterns: 'snapshot_[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}.yml'
+        use_regex: yes
+      register: found_snapshot_yml
+      delegate_to: 127.0.0.1
+
+    - name: "build the list of snapshot_ymls per cassandra node"
+      set_fact: 
+        snapshot_yml_list: "{{ snapshot_yml_list }} + [ '{{ item.path }}' ]"
+      with_items: "{{ found_snapshot_yml.files | sort(attribute='mtime',reverse=true) }}"
+      delegate_to: 127.0.0.1
+      no_log: true
+      
+    - name: "build the list of snapshot_yml_mtime_list per cassandra node"
+      set_fact: 
+        snapshot_yml_mtime_list: "{{ snapshot_yml_mtime_list }} + [ '{{ item.mtime }}' ]"
+      with_items: "{{ found_snapshot_yml.files | sort(attribute='mtime',reverse=true) }}"
+      delegate_to: 127.0.0.1
+      no_log: true
+     
+    - name: "show snapshot_yml_list and snapshot_yml_mtime_list per cassandra node"
+      debug:
+        msg: "snapshot_yml={{ item.0 }} w/ mtime={{ item.1 }}"
+      with_together:
+        - "{{ snapshot_yml_list }}"
+        - "{{ snapshot_yml_mtime_list }}"
+      delegate_to: 127.0.0.1
+      no_log: true      
+  
+    - name: find the current most recent snapshot_yml
+      set_fact:
+        most_recent_snapshot_yml_found: "{{ found_snapshot_yml.files | sort(attribute='mtime',reverse=false) | last }}"
+      run_once: true        
+      when: found_snapshot_yml.matched > 0 and
+            inventory_hostname == ansible_play_hosts[0]
+      delegate_to: 127.0.0.1
+      
+    - name: "include the {{ most_recent_snapshot_yml_found.path }} vars"
+      include_vars:
+        file: "{{ most_recent_snapshot_yml_found.path }}"
+      run_once: true        
+      when: found_snapshot_yml.matched > 0 and
+            inventory_hostname == ansible_play_hosts[0]        
+      delegate_to: 127.0.0.1
+      
+    - name: "show keyspaces in snapshot {{ snapshot_name }}"
+      debug:
+        msg: "{{ keyspace_names }}"
+      run_once: true        
+      when: found_snapshot_yml.matched > 0 and
+            inventory_hostname == ansible_play_hosts[0]        
+      delegate_to: 127.0.0.1

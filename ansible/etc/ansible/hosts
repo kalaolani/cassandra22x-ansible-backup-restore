@@ -47,7 +47,7 @@
 ## all centos systems
 ##
 
-[test-lab]
+[lab]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
@@ -55,7 +55,7 @@ cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
 cassx.deltakappa.com
-sstableloaderx.deltakappa.com
+nfsx.deltakappa.com
 
 ## ansible
 ##
@@ -76,10 +76,7 @@ cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
 cassx.deltakappa.com
-sstableloaderx.deltakappa.com
-
-[sstableloaders]
-sstableloaderx.deltakappa.com
+nfsx.deltakappa.com
 
 ## cassandra clusters
 ##
@@ -87,20 +84,23 @@ sstableloaderx.deltakappa.com
 ## cluster level, data center level, and rack level
 ##
 
+##
+## cassandra cluster22
+##
 # cluster22 cassandra cluster hosts
 [cluster22]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
 
-# cluster22 cassandra cluster deltakappa dc hosts
-[cluster22-deltakappa-dc]
+# cluster22 cassandra cluster datacenter221 dc hosts
+[cluster22-datacenter221.yml]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
 
-# cluster22 cassandra cluster deltakappa dc & rack1 rac hosts
-[cluster22-deltakappa-dc-rack1]
+# cluster22 cassandra cluster datacenter221 dc & rack1 rac hosts
+[cluster22-datacenter221-rack1.yml]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
@@ -111,20 +111,23 @@ cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
 
+##
+## cassandra cluster220
+##
 # cluster220 cassandra cluster hosts
 [cluster220]
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
 
-# cluster220 cassandra cluster deltakappa dc hosts
-[cluster220-deltakappa-dc]
+# cluster220 cassandra cluster datacenter2201 dc hosts
+[cluster220-datacenter2201.yml]
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
 
-# cluster220 cassandra cluster deltakappa dc & rack1 rac hosts
-[cluster220-deltakappa-dc-rack1]
+# cluster220 cassandra cluster datacenter2201 dc & rack1 rac hosts
+[cluster220-datacenter2201-rack1]
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
@@ -135,16 +138,19 @@ cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
 
+##
+## cassandra clusterx
+##
 # clusterx cassandra cluster hosts
 [clusterx]
 cassx.deltakappa.com
 
 # clusterx cassandra cluster x dc hosts
-[clusterx-x-dc]
+[datacenterx]
 cassx.deltakappa.com
 
 # clusterx cassandra cluster x dc & rack1 rac hosts
-[clusterx-x-dc-rack1]
+[clusterx-datacenterx-rack1]
 cassx.deltakappa.com
 
 # cluster nfs servers

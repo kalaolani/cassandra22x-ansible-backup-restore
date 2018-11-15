@@ -1,0 +1,25 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_restore_src_dest_cluster_snapshot_copy_ring.yml --extra-vars "target=ansible_inventory_hosts snapshot_yml=snapshot_yml"
+
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: true
+  any_errors_fatal: true
+
+  pre_tasks:
+    - name: capture playbook start time
+      set_fact: 
+        start_date_time_fact: "{{ now }}"  
+
+  roles:
+    - cassandra22x_restore_src_dest_cluster_snapshot_remote_local_rsync_for_logs
+    - cassandra22x_restore_src_dest_cluster_snapshot_local_unarchive_for_logs
+    - cassandra22x_restore_src_dest_cluster_snapshot_copy_ring
+
+  post_tasks:
+    - name: capture playbook end time
+      set_fact:
+        end_date_time_fact: "{{ now }}"
+
+    - name: operate_restore_src_dest_cluster_snapshot_copy_ring.yml play start and end date times
+      debug:
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_restore_src_dest_cluster_snapshot_copy_ring.yml playbook executed against {{ target }} for {{ snapshot_keyspace_yml }}"

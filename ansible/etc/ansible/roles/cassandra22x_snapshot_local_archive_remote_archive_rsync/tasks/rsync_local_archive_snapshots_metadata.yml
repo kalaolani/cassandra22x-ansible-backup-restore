@@ -4,9 +4,8 @@
     src: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/"
     dest: "{{ cassandra22x_remote_archive_path_archived_ansible_restore_vars }}"
     rsync_opts:
-        - "--bwlimit={{ cassandra22x_cassandra22x_rsync_bwlimit }}"
+        - "--bwlimit={{ cassandra22x_rsync_bwlimit }}"
         - "--no-motd"
-        - "--include=snapshot_*.tar.gz"
-        - "--include=snapshot_*.tar"        
+        - "--include={{ snapshot_name }}{{ cassandra22x_src_cluster_archive_file_ext }}"
         - "--exclude=*"
   delegate_to: 127.0.0.1 

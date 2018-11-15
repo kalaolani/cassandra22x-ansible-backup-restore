@@ -4,6 +4,6 @@
     src: "{{ cassandra22x_remote_archive_path }}/{{ keyspace_name }}/"
     dest: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
     rsync_opts:
-        - "--bwlimit={{ rsync_bwlimit }}"
+        - "--bwlimit={{ cassandra22x_rsync_bwlimit }}"
         - "--no-motd"
   delegate_to: "{{ inventory_hostname }}"

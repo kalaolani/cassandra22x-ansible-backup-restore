@@ -13,7 +13,3 @@
     - import_tasks: create_new_schema.yml
     - import_tasks: create_new_schema_yml_for_snapshot.yml
   when: snapshot_schema_found.matched == 1
-
-- name: "Schema Settling Warning!"
-  pause:
-    prompt: "Make sure the new schema has settled in the cluster before continuing..."

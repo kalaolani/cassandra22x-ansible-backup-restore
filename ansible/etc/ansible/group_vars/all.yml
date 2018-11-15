@@ -1,6 +1,5 @@
 ---
-# sample group_vars all.yml
-
+# global variables
 # capture datetime with the following format YYYYmmdd-HHMMSS
 now: "{{ lookup('pipe', 'date +%Y%m%d-%H%M%S') }}"
 
@@ -57,7 +56,7 @@ cassandra22x_ansible_log: "{{ cassandra22x_ansible_log_path }}/cassandra22x_ansi
 # location of the cassandra22x_restore_vars (ansible metadata per node, snapshot, keyspaces, column families)
 cassandra22x_restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
 # rsync bwlimit configuration for the synchronization ansible module
-cassandra22x_cassandra22x_rsync_bwlimit: 5000
+cassandra22x_rsync_bwlimit: 5000
 
 # experimental automation scripts
 # cassandra22x_cron_script_path: "/var/lib/ansible/cassandra22x/{{ cassandra22x_environment }}/scripts"

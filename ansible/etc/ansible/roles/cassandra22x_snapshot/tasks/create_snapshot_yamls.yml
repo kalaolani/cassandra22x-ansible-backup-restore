@@ -20,6 +20,7 @@
     path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}.yml"
     line: "    - {{ item }}"
   with_items: "{{ fact_snapshot_keyspace_list }}"
+  no_log: true  
 
 - name: "create {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_item.yml file for each keyspace (item) on the C* node for the snapshot {{ fact_snapshot_name }}_item for each keyspace (item)"
   file: 
@@ -27,15 +28,18 @@
     state: touch
     mode: "u+rw,g-wx,o-rwx"
   with_items: "{{ fact_snapshot_keyspace_list }}"
+  no_log: true  
 
 - name: "update {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_item.yml file for each keyspace (item) on the C* node for the snapshot {{ fact_snapshot_name }}_item for each keyspace (item) snapshot metadata"
   lineinfile:
     path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_{{ item }}.yml"
     line: "snapshot_name: {{ fact_snapshot_name }}"
   with_items: "{{ fact_snapshot_keyspace_list }}"
+  no_log: true  
 
 - name: "update {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_item.yml file for each keyspace (item) on the C* node for the snapshot {{ fact_snapshot_name }}_item for each keyspace (item) keyspace metadata"
   lineinfile:
     path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_{{ item }}.yml"
     line: "keyspace_name: {{ item }}"
   with_items: "{{ fact_snapshot_keyspace_list }}"
+  no_log: true  

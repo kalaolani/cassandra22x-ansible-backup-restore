@@ -1,0 +1,11 @@
+---
+- name: "remove {{ cassandra22x_data_path }}/{{ keyspace_name }}/ ... old schema data paths and data"
+  debug:
+    msg: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }} will be removed"
+  with_items: "{{ column_families_disk }}"
+  
+- name: "remove {{ cassandra22x_data_path }}/{{ keyspace_name }}/ ... old schema data paths and data"
+  file:
+    path: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}"
+    state: absent
+  with_items: "{{ column_families_disk }}"

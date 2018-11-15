@@ -1,0 +1,31 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_restore_src_dest_cluster_snapshot_clean_up.yml --extra-vars "target=ansible_inventory_hosts snapshot_yml=snapshot_yml src_cluster_node_map_dict=true|false"
+
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: yes
+  any_errors_fatal: true
+   
+  pre_tasks:
+    - name: capture playbook start time
+      set_fact: 
+        start_date_time_fact: "{{ now }}"
+        
+    - name: "loop cassandra22x_restore_src_dest_cluster_get_node_map_dict role for just the {{ cassandra22x_dest_cluster_node_schema }}"
+      include_role:
+        name: cassandra22x_restore_src_dest_cluster_get_node_map_dict
+      loop: "{{ cassandra22x_src_cluster_node_map_dict }}"
+      loop_control:
+        loop_var: cassandra22x_node_idx
+      when: src_cluster_node_map_dict == true
+
+  roles:
+    - cassandra22x_restore_src_dest_cluster_snapshot_clean_up
+
+  post_tasks:
+    - name: capture playbook end time
+      set_fact: 
+        end_date_time_fact: "{{ now }}"
+        
+    - name: operate_restore_src_dest_cluster_snapshot_clean_up.yml play start and end date times
+      debug: 
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_restore_src_dest_cluster_snapshot_clean_up.yml playbook executed against {{ target }}"

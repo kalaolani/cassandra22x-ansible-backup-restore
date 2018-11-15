@@ -1,0 +1,24 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_rolling_full_partitioner-range_repair_by_node_for_keyspace.yml --extra-vars "target=ansible_inventory_hosts keyspace_name=keyspace_name"
+
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: yes
+  any_errors_fatal: true
+  serial: 1
+  
+  pre_tasks:
+    - name: capture playbook start time
+      set_fact: 
+        start_date_time_fact: "{{ now }}"
+
+  roles:
+     - cassandra22x_operate_repair_full_partitioner-range_by_keyspace
+
+  post_tasks:
+    - name: capture playbook end time
+      set_fact: 
+        end_date_time_fact: "{{ now }}"
+        
+    - name: operate_rolling_full_partitioner-range_repair_by_node_for_keyspace.yml play start and end date times
+      debug: 
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_rolling_full_partitioner-range_repair_by_node_for_keyspace.yml playbook executed against {{ target }}"

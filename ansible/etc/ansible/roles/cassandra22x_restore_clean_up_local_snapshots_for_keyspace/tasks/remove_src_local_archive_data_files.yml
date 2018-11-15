@@ -1,0 +1,5 @@
+---
+- name: "remove {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
+  file:
+    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
+    state: absent

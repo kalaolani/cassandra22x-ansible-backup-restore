@@ -1,0 +1,9 @@
+---
+- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_keyspace_yml }} vars"
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_keyspace_yml }}"
+    
+- import_tasks: remove_src_local_archive_data_files.yml
+- import_tasks: remove_src_local_archive_log_files.yml
+- import_tasks: remove_src_local_log_files.yml
+- import_tasks: remove_new_schema_yaml_file.yml

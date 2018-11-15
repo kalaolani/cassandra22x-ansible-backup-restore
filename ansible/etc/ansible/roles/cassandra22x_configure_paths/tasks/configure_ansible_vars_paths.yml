@@ -3,4 +3,7 @@
   file:
     path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
     state: directory
+    owner: root
+    group: root    
+    mode: "{{ cassandra22x_root_default_directory_mode }}"
   delegate_to: 127.0.0.1
