@@ -1,5 +1,5 @@
 ---
-# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_get_for_yml.yml --extra-vars "target=cluster22 snapshot_yml=snapshot_yml.yml"
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_get_for_yml.yml --extra-vars "target=ansible_inventory_hosts snapshot_yml=snapshot_yml.yml"
 
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: yes

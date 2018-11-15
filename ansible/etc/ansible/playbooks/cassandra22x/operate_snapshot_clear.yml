@@ -1,5 +1,5 @@
 ---
-# [root@ansible ~]# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_clear.yml --extra-vars "target=cluster22 snapshot_yml=snapshot_yml"
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_clear.yml --extra-vars "target=cluster22 snapshot_yml=snapshot_yml"
 
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: true

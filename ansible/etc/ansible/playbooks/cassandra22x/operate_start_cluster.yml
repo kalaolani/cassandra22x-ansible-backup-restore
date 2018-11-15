@@ -1,5 +1,5 @@
 ---
-# ansible-playbook /etc/ansible/playbooks/cassandra22x/cassandra22x_operate_start_cluster.yml --extra-vars "target=ansible_inventory_hosts"
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_start_cluster.yml --extra-vars "target=ansible_inventory_hosts"
 
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: yes
@@ -18,6 +18,6 @@
       set_fact: 
         end_date_time_fact: "{{ now }}"
         
-    - name: cassandra22x_operate_start_cluster.yml play start and end date times
+    - name: operate_start_cluster.yml play start and end date times
       debug: 
-        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for cassandra22x_operate_start_cluster.yml playbook executed against {{ target }}"
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_start_cluster.yml playbook executed against {{ target }}"

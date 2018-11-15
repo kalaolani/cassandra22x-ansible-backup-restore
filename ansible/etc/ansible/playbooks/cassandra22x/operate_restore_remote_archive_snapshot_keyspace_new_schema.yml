@@ -1,5 +1,5 @@
 ---
-# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_restore_remote_archive_snapshot_new_schema.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml"
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_restore_remote_archive_snapshot_keyspace_new_schema.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml"
 
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: true
@@ -23,9 +23,9 @@
       set_fact:
         end_date_time_fact: "{{ now }}"
 
-    - name: operate_restore_remote_archive_snapshot_new_schema.yml play start and end date times
+    - name: operate_restore_remote_archive_snapshot_keyspace_new_schema.yml play start and end date times
       debug:
-        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_restore_remote_archive_snapshot_new_schema.yml playbook executed against {{ target }} for {{ snapshot_keyspace_yml }}"
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_restore_remote_archive_snapshot_keyspace_new_schema.yml playbook executed against {{ target }} for {{ snapshot_keyspace_yml }}"
 
     - name: restore confirm message
       debug: 
