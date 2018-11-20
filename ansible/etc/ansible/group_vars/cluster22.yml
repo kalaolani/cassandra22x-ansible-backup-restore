@@ -1,12 +1,19 @@
 ---
+
+## configuration
 # cluster configuration
-# configuration
 # the cassandra environment
 cassandra22x_environment: cluster22
 # name of the cassandra cluster cassandra.yaml
 cassandra22x_cluster_name: "{{ cassandra22x_environment }}"
 # the cassandra cluster seed nodes configured in the cassandra yaml
 cassandra22x_cluster_seeds: 10.10.10.51,10.10.10.52,10.10.10.53
+# incremental backups
+# disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"
+# enabled               cassandra22x_incremental_backup_configuration: "incremental_backups: true"
+# cassandra22x_incremental_backup_configuration: "incremental_backups: false"
+cassandra22x_incremental_backup_replace_configuration: "incremental_backups: false"
+cassandra22x_incremental_backup_configuration: "incremental_backups: true"
 
 ## restore variables local (dest) cluster
 cassandra22x_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'datacenter221': '3'"
@@ -16,9 +23,6 @@ cassandra22x_src_environment: cluster220
 cassandra22x_src_cluster_name: "{{ cassandra22x_src_environment }}"
 cassandra22x_src_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'datacenter2201': '3'"
 
-# experimental incremental backups
-# disabled  default     cassandra22x_incremental_backup_configuration: "incremental_backups: false"
-# enabled               cassandra22x_incremental_backup_configuration: "incremental_backups: true"
 
 # experimental commit log archiving
 # cassandra22x_commitlog_path: /var/lib/cassandra/commitlog
