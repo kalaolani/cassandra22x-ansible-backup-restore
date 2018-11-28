@@ -64,12 +64,14 @@ The first version is called the simple backup and restore version.
 
 ### Future
 
-#### Cassandra 3.x
-All uses cases above
+#### Incremental Backup Support
+Working 2.x
 
-#### Incremental Backup and Restore Use Cases
-Considering 2.x 
-Planning 3.x
+#### Change Snapshot Archiving from per keyspaces to per keyspace and column family
+Working 2.x
+
+#### Cassandra 3.x
+All Completed & Future uses cases above
 
 #### Commit Log Archiving Use Cases
 Planning 3.x
