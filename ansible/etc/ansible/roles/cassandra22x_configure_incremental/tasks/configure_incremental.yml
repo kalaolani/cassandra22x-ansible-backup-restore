@@ -1,0 +1,7 @@
+---
+- name: "modify {{ cassandra22x_yaml }} with {{ cassandra22x_incremental_backup_configuration }}"
+  lineinfile:
+    path: "{{ cassandra22x_yaml }}"
+    regexp: "{{ cassandra22x_incremental_backup_replace_configuration }}"
+    line: "{{ cassandra22x_incremental_backup_configuration }}"
+  notify: incremental_backups configuration change

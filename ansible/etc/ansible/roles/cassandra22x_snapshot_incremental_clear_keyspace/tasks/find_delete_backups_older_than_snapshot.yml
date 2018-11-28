@@ -1,0 +1,25 @@
+---
+- name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_families_disk_name }}/snapshots/{{ snapshot_name }}/"
+  find:
+    paths: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_families_disk_name }}/snapshots/{{ snapshot_name }}/"
+    patterns: "manifest.json"
+  register: found_keyspace_snapshot_manifest
+
+- name: "find the backup {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_families_disk_name }}/backups"
+  find:
+    paths: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_families_disk_name }}/"
+    patterns: "backups"
+    file_type: directory
+  register: found_keyspace_backup_directory
+
+- name: set fact_snapshot_keyspace_list fact to the results of get_keyspaces
+  set_fact:    
+    fact_found_keyspace_snapshot_manifest: "{{ item.path }}"
+  with_items: "{{ found_keyspace_snapshot_manifest.files }}"
+  when: found_keyspace_snapshot_manifest.matched == 1 and
+        found_keyspace_backup_directory.matched == 1
+
+- name: "remove incremental backup files older than the {{ snapshot_name }} manifest.json for the column family {{ keyspace_name }}.{{ column_families_disk_name }}"
+  script: find_delete_backups_older_than_snapshot.sh {{ fact_found_keyspace_snapshot_manifest | regex_replace('/snapshots/snapshot_[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}/manifest.json', '/backups') }} {{ fact_found_keyspace_snapshot_manifest }}
+  when: found_keyspace_snapshot_manifest.matched == 1 and
+        found_keyspace_backup_directory.matched == 1

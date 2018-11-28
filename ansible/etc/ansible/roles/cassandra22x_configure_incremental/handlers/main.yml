@@ -1,0 +1,4 @@
+---
+- name: incremental_backups configuration change
+  debug:
+    msg: "execute a rolling restart on the reconfigured nodes - {{ target }}"

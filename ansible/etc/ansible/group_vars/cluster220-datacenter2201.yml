@@ -13,8 +13,6 @@ cassandra22x_local_archive_file_ext: ".tar"
 # cassandra22x_local_archive_file_ext: ".tar.bz2"
 # cassandra22x_local_archive_format: xz
 # cassandra22x_local_archive_file_ext: ".tar.xz"
-# cassandra22x_local_archive_format: zip
-# cassandra22x_local_archive_file_ext: ".tar.zip"
 
 # local archive paths for keyspace snapshot on node(s) archives and metadata snapshot on node(s) archives
 cassandra22x_local_archive_path: "{{ cassandra22x_var_path }}/archive"
