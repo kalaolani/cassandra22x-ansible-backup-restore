@@ -73,6 +73,9 @@ Working 2.x
 #### Cassandra 3.x
 All Completed & Future uses cases above
 
+#### Switch from Oracle Box VMs to Docker Containers
+Planning 3.x
+
 #### Commit Log Archiving Use Cases
 Planning 3.x
 
