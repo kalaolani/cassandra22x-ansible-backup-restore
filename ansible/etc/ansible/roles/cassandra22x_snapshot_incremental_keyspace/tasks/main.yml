@@ -1,0 +1,7 @@
+---
+- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }} vars"
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
+  delegate_to: 127.0.0.1
+  
+- import_tasks: loop_snapshot_keyspace.yml

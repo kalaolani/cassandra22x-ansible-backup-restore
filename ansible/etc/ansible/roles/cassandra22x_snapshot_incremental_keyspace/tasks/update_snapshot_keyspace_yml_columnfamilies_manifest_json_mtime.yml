@@ -1,0 +1,72 @@
+---
+- name: "find the snapshot {{ snapshot_name }} manifest.json for {{ column_families_disk_name }} in {{ keyspace_name }}"
+  find:
+    paths: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_families_disk_name }}/snapshots/{{ snapshot_name }}/"
+    patterns: "manifest.json"
+  register: find_column_families_disk_name_manifest_json
+
+
+
+# - name: "metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the {{ keyspace_name }} keyspace on each cassandra node"
+  # lineinfile:
+    # path: "{{ cassandra22x_log_path }}/{{ snapshot_name }}_{{ keyspace_name }}.yml"
+    # line: "{{ find_column_families_disk_name_manifest_json.mtime }}"
+  # when: find_column_families_disk_name_manifest_json.matched == 1
+
+
+
+
+
+# - name: set fact fact_find_column_families_disk_snapshot
+  # set_fact: 
+    # fact_find_column_families_disk_snapshot: "{{ item.files | map(attribute='path') | list }}"
+  # with_items: "{{ find_column_families_disk_snapshot_manifest.results }}"  
+  # register: find_column_families_disk_snapshot
+  
+# - name: set fact fact_find_column_families_disk_snapshot_list
+  # set_fact: 
+    # fact_find_column_families_disk_snapshot_list: "{{ find_column_families_disk_snapshot.results | map(attribute='ansible_facts.fact_find_column_families_disk_snapshot') | list | sum(start=[]) }}"
+
+# - name: "show the fact_find_column_families_disk_snapshot_list for all column families of {{ fact_snapshot_name }} & {{ keyspace_name }}"
+  # debug:
+    # msg: "{{ fact_find_column_families_disk_snapshot_list }}"
+
+# - name: set fact fact_find_column_families_disk_snapshot_manifest_mtime
+  # set_fact: 
+    # fact_find_column_families_disk_snapshot_manifest_mtime: "{{ item.files | map(attribute='mtime') | list }}"
+  # with_items: "{{ find_column_families_disk_snapshot_manifest.results }}"  
+  # register: find_column_families_disk_snapshot_manifest_mtime
+  
+# - name: set fact fact_find_column_families_disk_snapshot_manifest_mtime_list
+  # set_fact: 
+    # fact_find_column_families_disk_snapshot_manifest_mtime_list: "{{ find_column_families_disk_snapshot_manifest_mtime.results | map(attribute='ansible_facts.fact_find_column_families_disk_snapshot_manifest_mtime') | list | sum(start=[]) }}"
+  
+# - name: "show the fact_find_column_families_disk_snapshot_manifest_mtime_list for all column families of {{ fact_snapshot_name }} & {{ keyspace_name }}"
+  # debug:
+    # msg: "{{ fact_find_column_families_disk_snapshot_manifest_mtime_list }}"
+
+
+# - name: "get all column family names for the {{ keyspace_name }} keyspace on the cassandra node"
+  # script: get_columnfamilies_for_keyspace.py --keyspace_name {{ keyspace_name }}  --contact_points {{ inventory_hostname }} --username {{ cassandra22x_ansible_superuser }} --password {{ cassandra22x_ansible_superuser_password }}
+  # register: get_columnfamilies_for_keyspace
+
+
+
+# - name: "metadata snapshot the column families on disk names to the column_families_disk variable to the snapshot yaml file for the {{ keyspace_name }} keyspace on each cassandra node"
+  # lineinfile:
+    # path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_{{ keyspace_name }}.yml"
+    # line: "{{ get_columnfamilies_for_keyspace.stdout }}"
+
+# - name: "get all column family on disk names for the {{ keyspace_name }} keyspace on the cassandra node"
+  # script: get_columnfamilies_ondisk_for_keyspace.py --keyspace_name {{ keyspace_name }}  --contact_points {{ inventory_hostname }} --username {{ cassandra22x_ansible_superuser }} --password {{ cassandra22x_ansible_superuser_password }}
+  # register: get_columnfamilies_ondisk_for_keyspace
+    
+# - name: "save the column_families_disk variable to the {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_{{ keyspace_name }}.yml on each cassandra node"
+  # lineinfile:
+    # path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_{{ keyspace_name }}.yml"
+    # line: "column_families_disk:"
+
+# - name: "metadata snapshot the column family names to the column_families_disk variable to the snapshot yaml file for the {{ keyspace_name }} keyspace on each cassandra node"
+  # lineinfile:
+    # path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}_{{ keyspace_name }}.yml"
+    # line: "{{ get_columnfamilies_ondisk_for_keyspace.stdout }}"

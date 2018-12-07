@@ -1,0 +1,3 @@
+---
+- import_tasks: rsync_local_archive_snapshots.yml
+- import_tasks: rsync_local_archive_snapshots_metadata.yml
