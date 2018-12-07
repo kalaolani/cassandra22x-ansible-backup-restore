@@ -1,0 +1,11 @@
+---
+- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}.yml vars"
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}.yml"
+  delegate_to: 127.0.0.1
+
+- name: "archive the snapshot {{ snapshot_name }} of {{ keyspace_name }}"
+  include_tasks: local_archive_snapshot_keyspace_cf.yml
+  loop: "{{ column_families_disk }}"
+  loop_control:
+    loop_var: column_family_disk_name

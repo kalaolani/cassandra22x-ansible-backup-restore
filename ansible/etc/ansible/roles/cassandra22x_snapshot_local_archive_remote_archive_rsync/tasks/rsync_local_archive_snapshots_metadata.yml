@@ -6,6 +6,6 @@
     rsync_opts:
         - "--bwlimit={{ cassandra22x_rsync_bwlimit }}"
         - "--no-motd"
-        - "--include={{ snapshot_name }}{{ cassandra22x_src_cluster_archive_file_ext }}"
+        - "--include=snapshot_name_*{{ cassandra22x_src_cluster_archive_file_ext }}"
         - "--exclude=*"
-  delegate_to: 127.0.0.1 
+  delegate_to: 127.0.0.1

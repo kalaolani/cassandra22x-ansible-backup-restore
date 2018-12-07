@@ -1,0 +1,23 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_local_archive_for_keyspace.yml --extra-vars "target=cluster22 snapshot_yml=snapshot_yml"
+
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: true
+  any_errors_fatal: true
+
+  pre_tasks:
+    - name: capture playbook start time
+      set_fact:
+        start_date_time_fact: "{{ now }}"
+
+  roles:
+    - cassandra22x_snapshot_keyspace_local_archive
+
+  post_tasks:
+    - name: capture playbook end time
+      set_fact:
+        end_date_time_fact: "{{ now }}"
+
+    - name: operate_snapshot_local_archive_for_keyspace.yml play start and end date times
+      debug:
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_snapshot_local_archive_for_keyspace.yml playbook executed against {{ target }} for {{ fact_snapshot_name }}"

@@ -1,16 +1,9 @@
 ---
-- name: "create missing {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
+- name: "create missing {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/snapshots/{{ snapshot_name }}"
   file:
-    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
-    state: directory
-    owner: root
-    group: root    
-    mode: "{{ cassandra22x_root_default_directory_mode }}"
-    
-- name: "create missing {{ cassandra22x_data_path }}/{{ keyspace_name }}"
-  file:
-    path: "{{ cassandra22x_data_path }}/{{ keyspace_name }}"
+    path: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/snapshots/{{ snapshot_name }}"
     state: directory
     owner: "{{ cassandra22x_linux_user }}"
     group: "{{ cassandra22x_linux_group }}"
     mode: "{{ cassandra22x_cassandra_default_directory_mode }}"
+  with_items: "{{ column_families_disk }}"

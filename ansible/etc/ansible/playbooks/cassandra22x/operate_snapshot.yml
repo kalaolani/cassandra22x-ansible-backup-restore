@@ -13,7 +13,7 @@
   roles:
     - cassandra22x_configure_paths
     - cassandra22x_snapshot
-    - cassandra22x_snapshot_local_archive
+    - cassandra22x_snapshot_keyspace_local_archive
     - cassandra22x_snapshot_local_archive_remote_archive_rsync
 
   post_tasks:

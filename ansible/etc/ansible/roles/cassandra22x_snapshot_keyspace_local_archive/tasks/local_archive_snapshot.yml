@@ -1,0 +1,19 @@
+---
+- name: "{ cassandra22x_local_archive_format }} snapshot {{ cassandra22x_log_path }}/{{ snapshot_name }}*.* into {{ cassandra22x_local_archive_path }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+  archive:
+    path: "{{ cassandra22x_log_path }}/{{ snapshot_name }}*.*"
+    dest: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+    format: "{{ cassandra22x_local_archive_format }}"
+
+- name: "{{ cassandra22x_local_archive_format }} snapshot {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}*.yml into {{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+  archive:
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}*.yml"
+    dest: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+    format: "{{ cassandra22x_local_archive_format }}"
+  delegate_to: 127.0.0.1
+
+- name: "archive the snapshot {{ snapshot_name }}"
+  include_tasks: local_archive_snapshot_keyspace.yml
+  loop: "{{ keyspace_names }}"
+  loop_control:
+    loop_var: keyspace_name

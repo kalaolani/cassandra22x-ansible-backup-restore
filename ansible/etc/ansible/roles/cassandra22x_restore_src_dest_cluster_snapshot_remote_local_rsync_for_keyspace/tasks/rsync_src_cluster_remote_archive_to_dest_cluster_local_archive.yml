@@ -22,6 +22,7 @@
     rsync_opts:
         - "--bwlimit={{ cassandra22x_rsync_bwlimit }}"
         - "--no-motd"
-        - "--include={{ snapshot_name }}{{ cassandra22x_src_cluster_archive_file_ext }}"
+        - "--include={{ snapshot_name }}_{{ item }}{{ cassandra22x_src_cluster_archive_file_ext }}"
         - "--exclude=*"
   delegate_to: "{{ inventory_hostname }}"
+  with_items: "{{ column_families_disk }}"

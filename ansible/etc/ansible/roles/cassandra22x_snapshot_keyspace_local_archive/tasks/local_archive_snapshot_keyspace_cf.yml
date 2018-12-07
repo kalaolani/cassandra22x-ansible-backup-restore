@@ -1,0 +1,6 @@
+---    
+- name: "{{ cassandra22x_local_archive_format }} archive {{ snapshot_name }} of {{ keyspace_name }} {{ column_family_disk_name }}"
+  archive:
+    path: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ snapshot_name }}"
+    dest: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots/{{ snapshot_name }}_{{ column_family_disk_name }}{{ cassandra22x_local_archive_file_ext }}"
+    format: "{{ cassandra22x_local_archive_format }}"

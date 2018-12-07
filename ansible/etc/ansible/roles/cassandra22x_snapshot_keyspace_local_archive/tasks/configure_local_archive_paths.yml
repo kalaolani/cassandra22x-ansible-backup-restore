@@ -6,4 +6,4 @@
     owner: root
     group: root    
     mode: "{{ cassandra22x_root_default_directory_mode }}"
-  with_items: "{{ fact_snapshot_keyspace_list }}"
+  with_items: "{{ keyspace_names }}"
