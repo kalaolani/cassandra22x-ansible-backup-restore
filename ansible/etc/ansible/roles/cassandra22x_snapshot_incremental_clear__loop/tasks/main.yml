@@ -1,0 +1,13 @@
+---
+- name: "include the {{ snapshot_yml_loop_item }} vars"
+  include_vars:
+    file: "{{ snapshot_yml_loop_item }}"
+  delegate_to: 127.0.0.1
+  
+- name: "include the {{ snapshot_yml_loop_item }} vars"
+  set_fact:
+    snapshot_yml: "{{ snapshot_name }}.yml"
+
+- name: "run the cassandra22x_snapshot_clear role for {{ snapshot_name }}.yml"
+  include_role:
+    name: cassandra22x_snapshot_clear

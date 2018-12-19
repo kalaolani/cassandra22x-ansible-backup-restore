@@ -2,7 +2,7 @@
 # ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_get_metadata.yml --extra-vars "target=ansible_inventory_hosts"
 
 - hosts: "{{ target | default('FAIL') }}"
-  gather_facts: yes
+  gather_facts: false
   any_errors_fatal: true
   
   vars:

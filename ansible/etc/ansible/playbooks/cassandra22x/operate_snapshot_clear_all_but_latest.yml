@@ -2,7 +2,7 @@
 # ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_clear_all_but_latest.yml --extra-vars "target=ansible_inventory_hosts"
 
 - hosts: "{{ target | default('FAIL') }}"
-  gather_facts: true
+  gather_facts: false
   any_errors_fatal: true
 
   vars:

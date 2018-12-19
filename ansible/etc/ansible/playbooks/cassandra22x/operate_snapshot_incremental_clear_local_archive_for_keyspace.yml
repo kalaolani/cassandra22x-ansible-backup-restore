@@ -1,5 +1,5 @@
 ---
-# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_incremental_local_archive_for_keyspace.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml next_snapshot_name=next_snapshot_name"
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_incremental_clear_local_archive_for_keyspace.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml next_snapshot_name=next_snapshot_name"
 
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
@@ -26,6 +26,6 @@
       set_fact: 
         end_date_time_fact: "{{ now }}"
         
-    - name: operate_snapshot_incremental_local_archive_for_keyspace.yml play start and end date times
+    - name: operate_snapshot_incremental_clear_local_archive_for_keyspace.yml play start and end date times
       debug: 
-        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_snapshot_incremental_local_archive_for_keyspace.yml playbook executed against {{ target }}"
+        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_snapshot_incremental_clear_local_archive_for_keyspace.yml playbook executed against {{ target }}"
