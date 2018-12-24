@@ -1,5 +1,5 @@
 ---
-- name: "nodetool clearsnapshot -t {{ snapshot_name}} {{ keyspace_name }}"
+- name: "nodetool-clearsnapshot.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ snapshot_name }} {{ keyspace_name }}"
   script: nodetool-clearsnapshot.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ snapshot_name }} {{ keyspace_name }}
 
 - name: "clear {{ cassandra22x_log_path }} snapshot: {{ snapshot_name}} for keyspace: {{ keyspace_name }} metadata"

@@ -21,9 +21,9 @@ cassandra22x_incremental_backup_configuration: "incremental_backups: true"
 cassandra22x_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'datacenter221': '3'"
 
 ## restore variables foreign (src) cluster
-cassandra22x_src_environment: cluster220
+cassandra22x_src_environment: "{{ cassandra22x_environment }}"
 cassandra22x_src_cluster_name: "{{ cassandra22x_src_environment }}"
-cassandra22x_src_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'datacenter2201': '3'"
+cassandra22x_src_default_replication_topology: "{{ cassandra22x_default_replication_topology }}"
 
 
 # experimental commit log archiving

@@ -8,4 +8,3 @@
     file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
 
 - import_tasks: rsync_hardlink_column_families_disk_to_column_families_disk_new.yml
-- import_tasks: reset_permissions_column_families_disk_new.yml

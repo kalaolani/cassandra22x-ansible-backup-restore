@@ -1,13 +1,29 @@
 ---
-- name: "rsync hardlink local snapshot files to the new schema location for keyspace: {{ keyspace_name }}"
-  synchronize:
-    src: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item.0 }}/snapshots/{{ snapshot_name }}/"
-    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item.1 }}/"
-    rsync_opts:
-        - "--no-motd"
-        - "--exclude=manifest.json"
-        - "--link-dest={{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item.1 }}"
+# original pure Ansible rsync
+# - name: "rsync hardlink local snapshot files to the new schema location for keyspace: {{ keyspace_name }}"
+  # synchronize:
+    # src: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item.0 }}/snapshots/{{ snapshot_name }}/"
+    # dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item.1 }}/"
+    # rsync_opts:
+        # - "--no-motd"
+        # - "--exclude=manifest.json"
+        # - "--link-dest={{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item.1 }}"
+  # with_together: 
+        # - "{{ column_families_disk }}"
+        # - "{{ column_families_disk_new }}"
+  # delegate_to: "{{ inventory_hostname }}"
+  
+# faster bash rsync
+- name: "run rsync_local_snapshots_for_keyspace.sh script for each column_families_disk for {{ keyspace_name }}"
+  script: rsync_local_snapshots_for_keyspace.sh {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item.1 }} {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item.0 }}/snapshots/{{ snapshot_name }}/ {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item.1 }}
   with_together: 
         - "{{ column_families_disk }}"
         - "{{ column_families_disk_new }}"
-  delegate_to: "{{ inventory_hostname }}"
+
+- name: "set cassandra as owner/group rwx/rwx/rx {{ cassandra22x_data_path }}/{{ keyspace_name }}"
+  file: 
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/"
+    owner: "{{ cassandra22x_linux_user }}"
+    group: "{{ cassandra22x_linux_group }}"
+    mode: "{{ cassandra22x_cassandra_default_recursive_mode }}"
+    recurse: yes

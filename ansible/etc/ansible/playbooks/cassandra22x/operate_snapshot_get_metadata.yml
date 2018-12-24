@@ -8,7 +8,7 @@
   vars:
     snapshot_yml_list: []
     snapshot_yml_mtime_list: []
-
+    
   tasks:
     - name: "find snapshot_ymls {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
       find:

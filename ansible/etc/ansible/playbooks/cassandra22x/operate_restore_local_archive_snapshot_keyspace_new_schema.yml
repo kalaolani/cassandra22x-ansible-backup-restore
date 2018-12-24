@@ -1,31 +1,10 @@
 ---
 # ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_restore_local_archive_snapshot_keyspace_new_schema.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml"
-
 - hosts: "{{ target | default('FAIL') }}"
-  gather_facts: true
-  any_errors_fatal: true
-
-  pre_tasks:
-    - name: capture playbook start time
-      set_fact: 
-        start_date_time_fact: "{{ now }}"  
-
+  gather_facts: false
   roles:
      - cassandra22x_restore_local_archive_snapshot_unarchive_for_keyspace
      - cassandra22x_restore_local_snapshot_new_schema_for_keyspace
      - cassandra22x_restore_rsync_local_new_schema_snapshots_for_keyspace
      - cassandra22x_restore_refresh_colunmfamilies_for_keyspace
      - cassandra22x_restore_local_snapshot_old_schema_clean_up_for_keyspace
-     
-  post_tasks:
-    - name: capture playbook end time
-      set_fact:
-        end_date_time_fact: "{{ now }}"
-
-    - name: operate_restore_local_archive_snapshot_keyspace_new_schema.yml play start and end date times
-      debug:
-        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_restore_local_archive_snapshot_keyspace_new_schema.yml playbook executed against {{ target }} for {{ snapshot_keyspace_yml }}"
-
-    - name: restore confirm message
-      debug: 
-        msg: "Snapshot {{ snapshot_name }} for the keyspaces {{ keyspace_name }} restored successfully... run a repair."
