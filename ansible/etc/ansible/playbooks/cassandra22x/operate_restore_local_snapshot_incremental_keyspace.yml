@@ -1,0 +1,10 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_restore_local_snapshot_incremental_keyspace.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml next_snapshot_keyspace_yml=snapshot_keyspace_yml|none"
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: false
+  any_errors_fatal: true
+  
+  roles:
+     - cassandra22x_restore_rsync_local_snapshot_for_keyspace
+     - cassandra22x_restore_rsync_local_snapshot_incremental_for_keyspace
+     # - cassandra22x_restore_refresh_colunmfamilies_for_keyspace

@@ -4,5 +4,5 @@
   gather_facts: false
   any_errors_fatal: true
   roles:
-     - cassandra22x_restore_rsync_local_snapshots_for_keyspace
+     - cassandra22x_restore_rsync_local_snapshot_for_keyspace
      - cassandra22x_restore_refresh_colunmfamilies_for_keyspace

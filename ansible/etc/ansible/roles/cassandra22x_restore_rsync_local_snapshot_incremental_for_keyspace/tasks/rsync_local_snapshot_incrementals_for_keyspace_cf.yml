@@ -1,0 +1,193 @@
+---
+# original pure Ansible rsync
+# - name: rsync hardlink local snapshot files back to the keyspace for all column families data directories on disk
+  # synchronize:
+    # src: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/snapshots/{{ snapshot_name }}/"
+    # dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/"
+    # rsync_opts:
+        # - "--no-motd"
+        # - "--exclude=manifest.json"
+        # - "--link-dest={{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}"
+  # with_items: "{{ column_families_disk }}"
+  # delegate_to: "{{ inventory_hostname }}"
+
+# faster bash rsync
+# - name: "run rsync_local_snapshots_for_keyspace.sh script for each column_families_disk for {{ keyspace_name }}"
+  # script: rsync_local_snapshots_for_keyspace.sh {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }} {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/snapshots/{{ snapshot_name }}/ {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}
+  # with_items: "{{ column_families_disk }}"
+
+# - name: "{{ cassandra22x_linux_user }}:{{ cassandra22x_linux_group }} is the owner/group for all rsync-hardlink-ed files of the keyspace: {{ keyspace_name }} for all column families"
+  # file: 
+    # dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/"
+    # owner: "{{ cassandra22x_linux_user }}"
+    # group: "{{ cassandra22x_linux_group }}"
+    # mode: "{{ cassandra22x_cassandra_default_directory_mode }}"
+    # recurse: yes
+    
+# - name: "archive the snapshot {{ fact_snapshot_name }} of {{ fact_keyspace_name }}"
+  # include_tasks: local_archive_snapshot_incremental_keyspace_cf.yml
+  # loop: "{{ fact_column_families_disk }}"
+  # loop_control:
+    # loop_var: column_family_disk_name    
+
+# $SEARCH_PATH - {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/backups
+# - name: SEARCH_PATH - cassandra22x_data_path/fact_keyspace_name/column_family_disk_name/backups
+  # debug:
+    # msg: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/backups"
+
+# $REFERENCE_FILE_NEWER - {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/manifest.json 
+# - name: REFERENCE_FILE_NEWER - cassandra22x_data_path/fact_keyspace_name/column_family_disk_name/snapshots/fact_snapshot_name/manifest.json
+  # debug:
+    # msg: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/manifest.json"
+    
+# $REFERENCE_FILE_NOT_NEWER - {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/manifest.json
+# - name: REFERENCE_FILE_NOT_NEWER - cassandra22x_data_path/fact_keyspace_name/column_family_disk_name/snapshots/fact_next_snapshot_name/manifest.json
+  # debug:
+    # msg: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/manifest.json"
+    
+# $LINK_DEST - {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}
+# - name: LINK_DEST - cassandra22x_data_path/keyspace_name/column_family_disk_name
+  # debug:
+    # msg: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}"
+    
+# $SOURCE - {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ snapshot_name }}/
+# - name: SOURCE - cassandra22x_data_path/keyspace_name/column_family_disk_name/snapshots/snapshot_name/
+  # debug:
+    # msg: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ snapshot_name }}/"
+    
+# $DESTINATION - {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}
+# - name: DESTINATION - cassandra22x_data_path/keyspace_name/column_family_disk_name
+  # debug:
+    # msg: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}"
+
+# - name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+  # find:
+    # paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+    # patterns: "manifest.json"
+  # register: found_keyspace_snapshot_manifest
+  # no_log: true
+
+# - name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+  # find:
+    # paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+    # patterns: "manifest.json"
+  # register: found_keyspace_next_snapshot_manifest
+  # when: found_keyspace_snapshot_manifest.matched == 1
+  # no_log: true
+
+# - name: "find the incremental backup files for {{ fact_snapshot_name }}"
+  # script: find_backups_between_snapshots.sh {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/backups {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/manifest.json {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/manifest.json
+  # when: found_keyspace_snapshot_manifest.matched == 1 and
+        # found_keyspace_next_snapshot_manifest.matched == 1
+  # register: find_backups_between_snapshots_reg
+
+# - name: debug show find_backups_between_snapshots_reg.stdout_lines
+  # debug:
+    # msg: "{{ find_backups_between_snapshots_reg.stdout_lines }}"
+
+# - name: debug show column_family_disk_name before calling rsync_local_snapshot_incrementals_for_keyspace_between_snapshots script
+  # debug:
+    # msg: "{{ column_family_disk_name }}"
+
+# - name: set facts for rsync_local_snapshot_incrementals_for_keyspace_between_snapshots script parameters
+  # set_fact:
+    # fact_search_path_1: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/backups"
+    # fact_reference_file_newer_2: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/manifest.json"
+    # fact_reference_file_not_newer_3: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/manifest.json"
+    # fact_link_dest_4: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}"
+    # fact_source_5: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ snapshot_name }}/"
+    # fact_destination_6: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}"
+
+# - name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+  # find:
+    # paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+    # patterns: "manifest.json"
+  # register: found_keyspace_snapshot_manifest
+  # no_log: true
+
+# - name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+  # find:
+    # paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+    # patterns: "manifest.json"
+  # register: found_keyspace_next_snapshot_manifest
+  # when: found_keyspace_snapshot_manifest.matched == 1
+  # no_log: true
+
+# - name: "find and rsync snapshot incrementals for restore of a keyspace between {{ fact_snapshot_name }} and {{ fact_next_snapshot_name }}"
+  # script: rsync_local_snapshot_incrementals_for_keyspace_between_snapshots.sh {{ fact_search_path_1 }} {{ fact_reference_file_newer_2 }} {{ fact_reference_file_not_newer_3 }} {{ fact_link_dest_4 }} {{ fact_source_5 }} {{ fact_destination_6 }}
+  # when: found_keyspace_snapshot_manifest.matched == 1 and
+        # found_keyspace_next_snapshot_manifest.matched == 1
+
+- name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+  find:
+    paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+    patterns: "manifest.json"
+  register: found_keyspace_snapshot_manifest
+  no_log: true
+
+- name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+  find:
+    paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+    patterns: "manifest.json"
+  register: found_keyspace_next_snapshot_manifest
+  when: found_keyspace_snapshot_manifest.matched == 1
+  no_log: true
+
+- name: "find the incremental backup files for {{ fact_snapshot_name }}"
+  script: find_backups_between_snapshots.sh {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/backups {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/manifest.json {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/manifest.json
+  when: found_keyspace_snapshot_manifest.matched == 1 and
+        found_keyspace_next_snapshot_manifest.matched == 1
+  register: find_backups_between_snapshots_reg
+  no_log: true
+
+# - name: "debug show found incremental backup files for {{ fact_snapshot_name }} older than {{ fact_next_snapshot_name }}"
+  # debug:
+    # msg: "{{ find_backups_between_snapshots_reg.stdout_lines }}"
+  # when: found_keyspace_snapshot_manifest.matched == 1 and
+        # found_keyspace_next_snapshot_manifest.matched == 1 and 
+        # find_backups_between_snapshots_reg.stdout != ""    
+
+- name: rsync hardlink local snapshot incremental files back to the keyspace for all column families data directories on disk
+  synchronize:
+    src: "{{ item }}"
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}"
+    rsync_opts:
+        - "--no-motd"
+        - "--exclude=manifest.json"
+        - "--link-dest={{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}"
+  with_items: "{{ find_backups_between_snapshots_reg.stdout_lines }}"        
+  when: found_keyspace_snapshot_manifest.matched == 1 and
+        found_keyspace_next_snapshot_manifest.matched == 1 and 
+        find_backups_between_snapshots_reg.stdout != ""
+  delegate_to: "{{ inventory_hostname }}"
+  
+- name: "{{ cassandra22x_linux_user }}:{{ cassandra22x_linux_group }} is the owner/group for all rsync-hardlink-ed files of the keyspace: {{ keyspace_name }} for all column families"
+  file: 
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/"
+    owner: "{{ cassandra22x_linux_user }}"
+    group: "{{ cassandra22x_linux_group }}"
+    mode: "{{ cassandra22x_cassandra_default_directory_mode }}"
+    recurse: yes  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
