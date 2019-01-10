@@ -1,0 +1,31 @@
+---
+- name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+  find:
+    paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+    patterns: "manifest.json"
+  register: found_keyspace_snapshot_manifest
+  no_log: true
+
+- name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+  find:
+    paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+    patterns: "manifest.json"
+  register: found_keyspace_next_snapshot_manifest
+  when: found_keyspace_snapshot_manifest.matched == 1
+  no_log: true
+
+- name: "find the incremental backup files for {{ fact_snapshot_name }}"
+  script: find_backups_between_snapshots.sh {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/backups {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/manifest.json {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/manifest.json
+  when: found_keyspace_snapshot_manifest.matched == 1 and
+        found_keyspace_next_snapshot_manifest.matched == 1
+  register: find_backups_between_snapshots_reg
+
+- name: "{{ cassandra22x_local_archive_format }} archive incremental backups for {{ fact_snapshot_name }} of {{ fact_keyspace_name }}.{{ column_family_disk_name }}"
+  archive:
+    path: "{{ find_backups_between_snapshots_reg.stdout_lines }}"
+    dest: "{{ cassandra22x_local_archive_path }}/{{ fact_keyspace_name }}/backups/{{ fact_snapshot_name }}_{{ column_family_disk_name }}{{ cassandra22x_local_archive_file_ext }}"
+    format: "{{ cassandra22x_local_archive_format }}"
+    remove: yes
+  when: found_keyspace_snapshot_manifest.matched == 1 and
+        found_keyspace_next_snapshot_manifest.matched == 1 and 
+        find_backups_between_snapshots_reg.stdout != ""

@@ -4,4 +4,22 @@
     file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
   delegate_to: 127.0.0.1
   
-- import_tasks: loop_snapshot_keyspace.yml
+- name: "set_fact snapshot_name = snapshot_{{ snapshot_uuid }}"
+  set_fact:
+    snapshot_name: "snapshot_{{ snapshot_uuid }}"  
+
+- name: "create a list of all snapshot_keyspace_ymls for the {{ snapshot_name }}"
+  set_fact:
+    snapshot_keyspace_ymls: []
+    
+- name: "build a list of all the snapshot_keyspace_ymls for the {{ snapshot_name }}"
+  set_fact:
+    snapshot_keyspace_ymls: "{{ snapshot_keyspace_ymls }} + [ '{{ snapshot_name }}_{{ item }}.yml' ]"
+  with_items: "{{ keyspace_names }}"
+
+- name: loop role cassandra22x_snapshot_incremental_clear_for_keyspace
+  include_role: 
+    name: cassandra22x_snapshot_incremental_clear_for_keyspace
+  loop: "{{ snapshot_keyspace_ymls }}"
+  loop_control:
+    loop_var: snapshot_keyspace_yml

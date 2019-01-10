@@ -4,20 +4,5 @@
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true
-
-  pre_tasks:
-    - name: capture playbook start time
-      set_fact:
-        start_date_time_fact: "{{ now }}"
-
   roles:
-    - cassandra22x_snapshot_incremental_clear_keyspace
-
-  post_tasks:
-    - name: capture playbook end time
-      set_fact: 
-        end_date_time_fact: "{{ now }}"
-        
-    - name: operate_snapshot_incremental_clear_for_keyspace.yml play start and end date times
-      debug: 
-        msg: "start_date_time: {{ start_date_time_fact }} & end_date_time: {{ end_date_time_fact }} for operate_snapshot_incremental_clear_for_keyspace.yml playbook executed against {{ target }}"
+    - cassandra22x_snapshot_incremental_clear_for_keyspace

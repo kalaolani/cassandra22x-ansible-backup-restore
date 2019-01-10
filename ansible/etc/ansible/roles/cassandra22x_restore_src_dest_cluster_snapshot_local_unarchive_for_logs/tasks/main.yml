@@ -3,4 +3,8 @@
   include_vars:
     file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_src_environment }}/{{ cassandra22x_src_cluster_node }}/{{ snapshot_yml }}"
 
+- name: "set_fact snapshot_name = snapshot_{{ snapshot_uuid }}"
+  set_fact:
+    snapshot_name: "snapshot_{{ snapshot_uuid }}"
+
 - import_tasks: local_unarchive_snapshot_logs.yml

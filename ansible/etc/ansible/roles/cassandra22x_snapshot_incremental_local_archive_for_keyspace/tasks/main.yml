@@ -1,0 +1,28 @@
+---
+- name: "include snapshot_keyspace_yml = {{ snapshot_keyspace_yml_list.0 }}"
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml_list.0 }}"
+  delegate_to: 127.0.0.1
+
+- name: "set snapshot_keyspace_yml facts"
+  set_fact:
+    fact_snapshot_name: "{{ snapshot_name }}"
+    fact_keyspace_name: "{{ keyspace_name }}"
+    fact_column_families: "{{ column_families }}"
+    fact_column_families_disk: "{{ column_families_disk }}"
+
+- name: "include next_snapshot_keyspace_yml = {{ snapshot_keyspace_yml_list.1 }}"
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml_list.1 }}"
+  delegate_to: 127.0.0.1
+  register: include_vars_snapshot_keyspace_yml
+
+- name: "set next_snapshot_keyspace_yml facts"
+  set_fact:
+    fact_next_snapshot_name: "{{ snapshot_name }}"
+    fact_next_keyspace_name: "{{ keyspace_name }}"
+    fact_next_column_families: "{{ column_families }}"
+    fact_next_column_families_disk: "{{ column_families_disk }}"
+
+- import_tasks: configure_local_archive_paths.yml
+- import_tasks: local_archive_snapshot_incremental_keyspace.yml

@@ -4,6 +4,10 @@
     file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
   delegate_to: 127.0.0.1
   
+- name: "set_fact snapshot_name = snapshot_{{ snapshot_uuid }}"
+  set_fact:
+    snapshot_name: "snapshot_{{ snapshot_uuid }}"  
+  
 - name: "nodetool clearsnapshot -t for each keyspace in the {{ snapshot_yml }}"
   include_tasks: keyspace_clear_snapshot.yml
   loop: "{{ keyspace_names }}"

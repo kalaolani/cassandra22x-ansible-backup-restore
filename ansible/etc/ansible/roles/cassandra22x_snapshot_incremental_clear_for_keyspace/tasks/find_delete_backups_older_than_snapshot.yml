@@ -4,6 +4,7 @@
     paths: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_families_disk_name }}/snapshots/{{ snapshot_name }}/"
     patterns: "manifest.json"
   register: found_keyspace_snapshot_manifest
+  no_log: true  
 
 - name: "find the backup {{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_families_disk_name }}/backups"
   find:
@@ -11,6 +12,7 @@
     patterns: "backups"
     file_type: directory
   register: found_keyspace_backup_directory
+  no_log: true  
 
 - name: set fact_snapshot_keyspace_list fact to the results of get_keyspaces
   set_fact:    

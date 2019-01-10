@@ -1,0 +1,8 @@
+---
+- name: "create missing local archive for incremental backup directory for {{ fact_keyspace_name }}"
+  file:
+    path: "{{ cassandra22x_local_archive_path }}/{{ fact_keyspace_name }}/backups"
+    state: directory
+    owner: root
+    group: root    
+    mode: "{{ cassandra22x_root_default_directory_mode }}"

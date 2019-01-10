@@ -5,10 +5,15 @@
     state: touch
     mode: "u+rw,g-wx,o-rwx"
 
-- name: "update {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}.yml with snapshot_name metadata"
+- name: "update {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}.yml with snapshot_uuid metadata"
   lineinfile:
     path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}.yml"
-    line: "snapshot_name: {{ fact_snapshot_name }}"
+    line: "snapshot_uuid: {{ snapshot_uuid }}"
+
+- name: "update {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}.yml with snapshot_datetime metadata"
+  lineinfile:
+    path: "{{ cassandra22x_log_path }}/{{ fact_snapshot_name }}.yml"
+    line: "snapshot_datetime: {{ now }}"
 
 - name: "update {{ cassandra22x_log_path }}/{{ fact_snapshot_name }}.yml with keyspace_names metadata"
   lineinfile:

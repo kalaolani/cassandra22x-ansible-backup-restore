@@ -1,6 +1,0 @@
----
-- name: "loop update_snapshot_keyspace_columnfamilies.yml for each keyspace on the cassandra node"
-  include_tasks: update_snapshot_keyspace_columnfamilies.yml
-  loop: "{{ keyspace_names }}"
-  loop_control:
-    loop_var: keyspace_name

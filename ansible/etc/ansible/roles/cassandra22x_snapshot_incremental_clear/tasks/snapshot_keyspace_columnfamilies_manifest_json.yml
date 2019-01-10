@@ -1,6 +1,0 @@
----
-- name: "loop create_snapshot_keyspace_columnfamilies_manifest_json_yaml.yml for each keyspace on the cassandra node"
-  include_tasks: create_snapshot_keyspace_columnfamilies_manifest_json_yaml.yml
-  loop: "{{ fact_snapshot_keyspace_list }}"
-  loop_control:
-    loop_var: keyspace_name
