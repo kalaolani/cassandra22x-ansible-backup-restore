@@ -1,0 +1,6 @@
+---
+- name: "rsync the local snapshot incrementals {{ fact_snapshot_name }} of {{ fact_keyspace_name }}"
+  include_tasks: rsync_local_snapshot_incrementals_for_keyspace_cf.yml
+  loop: "{{ fact_column_families_disk|zip(column_families_disk_new)|list }}"
+  loop_control:
+    loop_var: column_family_disk_name_new_schema

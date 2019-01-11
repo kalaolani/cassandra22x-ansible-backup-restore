@@ -1,21 +1,21 @@
 ---
-- name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+- name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name_new_schema.0 }}/snapshots/{{ fact_snapshot_name }}/"
   find:
-    paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/"
+    paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name_new_schema.0 }}/snapshots/{{ fact_snapshot_name }}/"
     patterns: "manifest.json"
   register: found_keyspace_snapshot_manifest
   no_log: true
 
-- name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+- name: "find the snapshot manifest.json in {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name_new_schema.0 }}/snapshots/{{ fact_next_snapshot_name }}/"
   find:
-    paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/"
+    paths: "{{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name_new_schema.0 }}/snapshots/{{ fact_next_snapshot_name }}/"
     patterns: "manifest.json"
   register: found_keyspace_next_snapshot_manifest
   when: found_keyspace_snapshot_manifest.matched == 1
   no_log: true
 
 - name: "find the incremental backup files for {{ fact_snapshot_name }}"
-  script: find_backups_between_snapshots.sh {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/backups {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_snapshot_name }}/manifest.json {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name }}/snapshots/{{ fact_next_snapshot_name }}/manifest.json
+  script: find_backups_between_snapshots.sh {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name_new_schema.0 }}/backups {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name_new_schema.0 }}/snapshots/{{ fact_snapshot_name }}/manifest.json {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name_new_schema.0 }}/snapshots/{{ fact_next_snapshot_name }}/manifest.json
   when: found_keyspace_snapshot_manifest.matched == 1 and
         found_keyspace_next_snapshot_manifest.matched == 1
   register: find_backups_between_snapshots_reg
@@ -24,11 +24,11 @@
 - name: rsync hardlink local snapshot incremental files back to the keyspace for all column families data directories on disk
   synchronize:
     src: "{{ item }}"
-    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}"
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name_new_schema.0 }}"
     rsync_opts:
         - "--no-motd"
         - "--exclude=manifest.json"
-        - "--link-dest={{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name }}"
+        - "--link-dest={{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name_new_schema.1 }}"
   with_items: "{{ find_backups_between_snapshots_reg.stdout_lines }}"        
   when: found_keyspace_snapshot_manifest.matched == 1 and
         found_keyspace_next_snapshot_manifest.matched == 1 and 

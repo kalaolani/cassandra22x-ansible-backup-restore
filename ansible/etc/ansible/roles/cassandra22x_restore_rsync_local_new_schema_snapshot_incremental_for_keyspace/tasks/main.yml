@@ -1,0 +1,27 @@
+--- 
+- name: "set snapshot_keyspace_yml facts"
+  set_fact:
+    fact_snapshot_name: "{{ snapshot_name }}"
+    fact_keyspace_name: "{{ keyspace_name }}"
+    fact_column_families: "{{ column_families }}"
+    fact_column_families_disk: "{{ column_families_disk }}"
+
+- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ next_snapshot_keyspace_yml }} vars"
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ next_snapshot_keyspace_yml }}"
+
+- name: "set next_snapshot_keyspace_yml facts"
+  set_fact:
+    fact_next_snapshot_name: "{{ snapshot_name }}"
+    fact_next_keyspace_name: "{{ keyspace_name }}"
+    fact_next_column_families: "{{ column_families }}"
+    fact_next_column_families_disk: "{{ column_families_disk }}"
+
+- debug:
+    msg: "fact_snapshot_name = {{ fact_snapshot_name }} and fact_next_snapshot_name = {{ fact_next_snapshot_name }}" 
+
+- name: include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/inventory_hostname/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml vars"
+  include_vars:
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+
+- import_tasks: rsync_local_snapshot_incrementals_for_keyspace.yml
