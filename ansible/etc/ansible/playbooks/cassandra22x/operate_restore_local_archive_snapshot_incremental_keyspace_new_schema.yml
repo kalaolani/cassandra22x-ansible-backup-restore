@@ -1,0 +1,10 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_restore_local_archive_snapshot_keyspace_new_schema.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml"
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: false
+  roles:
+     - cassandra22x_restore_local_archive_snapshot_unarchive_for_keyspace
+     - cassandra22x_restore_local_snapshot_new_schema_for_keyspace
+     - cassandra22x_restore_rsync_local_new_schema_snapshot_for_keyspace
+     - cassandra22x_restore_refresh_colunmfamilies_for_keyspace
+     - cassandra22x_restore_local_snapshot_old_schema_clean_up_for_keyspace

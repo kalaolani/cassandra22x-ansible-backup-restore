@@ -1,15 +1,15 @@
 ---
-- name: include the snapshot_keyspace yaml file per node
+- name: include the snapshot_keyspace_yml vars
   include_vars:
     file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }}"
 
-- name: "find {{ snapshot_name }}_{{ keyspace_name }}_schema.cql file"
-  find:
-    name: "{{ cassandra22x_log_path }}"
-    patterns: "{{ snapshot_name }}_{{ keyspace_name }}_schema.cql"
-  register: snapshot_schema_found    
+# - name: "find {{ snapshot_name }}_{{ keyspace_name }}_schema.cql file"
+  # find:
+    # name: "{{ cassandra22x_log_path }}"
+    # patterns: "{{ snapshot_name }}_{{ keyspace_name }}_schema.cql"
+  # register: snapshot_schema_found    
 
-- block:
-    - import_tasks: create_new_schema.yml
-    - import_tasks: create_new_schema_yml_for_snapshot.yml
-  when: snapshot_schema_found.matched == 1
+# - block:
+    # - import_tasks: create_new_schema.yml
+    # - import_tasks: create_new_schema_yml_for_snapshot.yml
+  # when: snapshot_schema_found.matched == 1

@@ -3,7 +3,6 @@
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true
-  
   roles:
      - cassandra22x_restore_rsync_local_snapshot_for_keyspace
      - cassandra22x_restore_rsync_local_snapshot_incremental_for_keyspace

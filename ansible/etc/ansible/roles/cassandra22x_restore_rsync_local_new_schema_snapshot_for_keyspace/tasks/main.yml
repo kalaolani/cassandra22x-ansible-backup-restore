@@ -1,10 +1,6 @@
 --- 
-- name: include the snapshot_keyspace yaml file per node
-  include_vars:
-    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }}"
-
 - name: include the column_families_disk_new_snapshot_keyspace yaml file per node
   include_vars:
     file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
 
-- import_tasks: rsync_hardlink_column_families_disk_to_column_families_disk_new.yml
+# - import_tasks: rsync_hardlink_column_families_disk_to_column_families_disk_new.yml
