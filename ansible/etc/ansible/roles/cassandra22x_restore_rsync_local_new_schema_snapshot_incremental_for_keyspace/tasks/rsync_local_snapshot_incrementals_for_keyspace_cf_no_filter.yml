@@ -1,0 +1,30 @@
+---
+- name: "find the incremental backup files for {{ fact_snapshot_name }}"
+  script: find_backups_no_filter.sh {{ cassandra22x_data_path }}/{{ fact_keyspace_name }}/{{ column_family_disk_name_new_schema.0 }}/backups
+  register: find_backups_between_snapshots_reg
+  no_log: true
+
+- name: show snapshot incremental files when found for cf
+  debug:
+    msg: "{{ find_backups_between_snapshots_reg.stdout_lines }}"
+  when: find_backups_between_snapshots_reg.stdout != ""    
+
+- name: rsync hardlink local snapshot incremental files back to the keyspace for all column families data directories on disk
+  synchronize:
+    src: "{{ item }}"
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name_new_schema.1 }}"
+    rsync_opts:
+        - "--no-motd"
+        - "--exclude=manifest.json"
+        - "--link-dest={{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ column_family_disk_name_new_schema.1 }}"
+  with_items: "{{ find_backups_between_snapshots_reg.stdout_lines }}"        
+  when: find_backups_between_snapshots_reg.stdout != ""
+  delegate_to: "{{ inventory_hostname }}"
+  
+- name: "{{ cassandra22x_linux_user }}:{{ cassandra22x_linux_group }} is the owner/group for all rsync-hardlink-ed files of the keyspace: {{ keyspace_name }} for all column families"
+  file: 
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/"
+    owner: "{{ cassandra22x_linux_user }}"
+    group: "{{ cassandra22x_linux_group }}"
+    mode: "{{ cassandra22x_cassandra_default_directory_mode }}"
+    recurse: yes

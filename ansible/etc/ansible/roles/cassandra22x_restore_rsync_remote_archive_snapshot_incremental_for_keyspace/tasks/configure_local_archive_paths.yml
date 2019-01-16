@@ -1,0 +1,8 @@
+---
+- name: "create {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/backups"
+  file:
+    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/backups"
+    state: directory
+    owner: root
+    group: root    
+    mode: "{{ cassandra22x_root_default_directory_mode }}"

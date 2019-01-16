@@ -1,0 +1,9 @@
+---    
+- name: "create cassandra22x_data_path/{{ keyspace_name }} backups for each column family on disk"
+  file:
+    path: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item }}/backups"
+    state: directory
+    owner: "{{ cassandra22x_linux_user }}"
+    group: "{{ cassandra22x_linux_group }}"
+    mode: "{{ cassandra22x_cassandra_default_directory_mode }}"
+  with_items: "{{ column_families_disk }}"

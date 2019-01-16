@@ -10,5 +10,5 @@
   # delegate_to: "{{ inventory_hostname }}"
 
 # faster bash rsync
-- name: "rsync {{ cassandra22x_remote_archive_path }}/{{ keyspace_name }} to {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
-  script: rsync_remote_archive_snapshot.sh {{ cassandra22x_remote_archive_path }}/{{ keyspace_name }}/ {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}
+- name: "rsync {{ cassandra22x_remote_archive_path }}/{{ keyspace_name }}/backups to {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/backups"
+  script: rsync_remote_archive_snapshot_incremental.sh {{ snapshot_name }}*{{ cassandra22x_local_archive_file_ext }} {{ cassandra22x_remote_archive_path }}/{{ keyspace_name }}/backups/ {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/backups

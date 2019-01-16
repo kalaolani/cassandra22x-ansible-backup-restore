@@ -4,5 +4,4 @@
     file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_keyspace_yml }}"
 
 - import_tasks: configure_local_path_for_keyspace.yml
-- import_tasks: local_unarchive_snapshot.yml
-- import_tasks: local_unarchive_snapshot_logs.yml
+- import_tasks: local_unarchive_snapshot_incremental.yml

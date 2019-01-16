@@ -1,0 +1,19 @@
+---
+# original pure Ansible rsync
+# - name: "rsync cassandra22x_remote_archive_path => cassandra22x_local_archive_path for the {{ keyspace_name }} snapshot {{ snapshot_name }}"
+  # synchronize:
+    # src: "{{ cassandra22x_remote_archive_path }}/{{ keyspace_name }}/snapshots/"
+    # dest: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots"
+    # rsync_opts:
+        # - "--bwlimit={{ cassandra22x_rsync_bwlimit }}"
+        # - "--no-motd"
+        # - "--include={{ snapshot_name }}*{{ cassandra22x_local_archive_file_ext }}"
+        # - "--exclude=*"
+  # delegate_to: "{{ inventory_hostname }}"
+
+# faster bash rsync
+# - name: "rsync {{ cassandra22x_remote_archive_path }}/{{ keyspace_name }} to {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
+  # script: rsync_remote_archive_snapshot.sh {{ cassandra22x_remote_archive_path }}/{{ keyspace_name }}/ {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}
+  
+- name: "rsync {{ cassandra22x_remote_archive_path }}/{{ keyspace_name }} to {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}"
+  script: rsync_include_exclude_src_dest.sh {{ snapshot_name }}*{{ cassandra22x_local_archive_file_ext }} {{ cassandra22x_remote_archive_path }}/{{ keyspace_name }}/snapshots/ {{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots

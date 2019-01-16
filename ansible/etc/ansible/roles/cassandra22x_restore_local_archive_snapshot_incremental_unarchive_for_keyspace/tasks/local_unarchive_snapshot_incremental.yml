@@ -1,0 +1,31 @@
+---
+- name: "find column_families_disk with backups for {{ snapshot_name }} creates found_files"
+  find:
+    paths: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/backups" 
+    patterns: "{{ snapshot_name }}_{{ item }}{{ cassandra22x_local_archive_file_ext }}"
+  with_items: "{{ column_families_disk }}"
+  register: found_files
+  no_log: true  
+  
+- name: set_fact found_files_results
+  set_fact: 
+    found_files_results: "{{ item.files | map(attribute='path') | list }}"
+  with_items: "{{ found_files.results }}"
+  register: found_files_results_out
+  no_log: true  
+
+- name: set_fact found_files_results_list
+  set_fact: 
+    found_files_results_list: "{{ found_files_results_out.results | map(attribute='ansible_facts.found_files_results') | list | sum(start=[]) }}"
+  no_log: true
+
+- set_fact:
+    remove_str_1: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/backups/{{ snapshot_name}}_"
+    remove_str_2: "{{ cassandra22x_local_archive_file_ext }}"
+
+- name: "unarchive each table {{ snapshot_name }} backups archive to {{ cassandra22x_data_path }}/{{ keyspace_name }}/old_table_location"
+  unarchive:
+    src: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/backups/{{ snapshot_name }}_{{ item | regex_replace(remove_str_1,'') | regex_replace(remove_str_2,'') }}{{ cassandra22x_local_archive_file_ext }}"
+    dest: "{{ cassandra22x_data_path }}/{{ keyspace_name }}/{{ item | regex_replace(remove_str_1,'') | regex_replace(remove_str_2,'') }}/backups"
+    remote_src: yes
+  with_items: "{{ found_files_results_list }}"

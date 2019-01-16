@@ -4,7 +4,7 @@
   gather_facts: false
   any_errors_fatal: true
   roles:
-     - cassandra22x_restore_local_archive_from_remote_archive_for_keyspace_rsync
+     - cassandra22x_restore_rsync_remote_archive_snapshot_for_keyspace
      - cassandra22x_restore_local_archive_snapshot_unarchive_for_keyspace
      - cassandra22x_restore_local_snapshot_new_schema_for_keyspace
      - cassandra22x_restore_rsync_local_new_schema_snapshot_for_keyspace
