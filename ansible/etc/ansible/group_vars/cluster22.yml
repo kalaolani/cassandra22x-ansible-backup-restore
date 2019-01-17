@@ -8,6 +8,7 @@ cassandra22x_environment: cluster22
 cassandra22x_cluster_name: "{{ cassandra22x_environment }}"
 # the cassandra cluster seed nodes configured in the cassandra yaml
 cassandra22x_cluster_seeds: 10.10.10.51,10.10.10.52,10.10.10.53
+
 # incremental backups
 # cassandra22x_incremental_backup
 cassandra22x_incremental_backups_cluster: true
@@ -16,6 +17,9 @@ cassandra22x_incremental_backups_cluster: true
 # cassandra22x_incremental_backup_configuration: "incremental_backups: false"
 cassandra22x_incremental_backup_replace_configuration: "^incremental_backups:"
 cassandra22x_incremental_backup_configuration: "incremental_backups: true"
+
+## restore varialbes
+cassandra22x_schema_settle_delay_seconds: 30
 
 ## restore variables local (dest) cluster
 cassandra22x_default_replication_topology: "'class': 'NetworkTopologyStrategy', 'datacenter221': '3'"

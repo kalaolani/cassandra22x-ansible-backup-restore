@@ -14,3 +14,4 @@
 - name: "Schema Settling Warning!"
   pause:
     prompt: "Make sure the new schema has settled in the cluster before continuing..."
+    seconds: "{{ cassandra22x_schema_settle_delay_seconds }}"    

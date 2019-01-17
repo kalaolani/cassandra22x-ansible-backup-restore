@@ -1,0 +1,16 @@
+truncate killrvideo.comments_by_user;
+truncate killrvideo.comments_by_video;
+truncate killrvideo.latest_videos;
+truncate killrvideo.tags_by_letter;
+truncate killrvideo.user_credentials;
+truncate killrvideo.user_videos;
+truncate killrvideo.users;
+truncate killrvideo.video_event;
+truncate killrvideo.video_playback_stats;
+truncate killrvideo.video_rating;
+truncate killrvideo.video_ratings;
+truncate killrvideo.video_ratings_by_user;
+truncate killrvideo.video_recommendations;
+truncate killrvideo.video_recommendations_by_video;
+truncate killrvideo.videos;
+truncate killrvideo.videos_by_tag;
