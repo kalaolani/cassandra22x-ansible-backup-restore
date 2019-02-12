@@ -1,5 +1,5 @@
 ---
-- name: "{ cassandra22x_local_archive_format }} snapshot {{ cassandra22x_log_path }}/{{ snapshot_name }}*.* into {{ cassandra22x_local_archive_path }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+- name: "{{ cassandra22x_local_archive_format }} snapshot {{ cassandra22x_log_path }}/{{ snapshot_name }}*.* into {{ cassandra22x_local_archive_path }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
   archive:
     path: "{{ cassandra22x_log_path }}/{{ snapshot_name }}*.*"
     dest: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"

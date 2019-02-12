@@ -1,7 +1,7 @@
 ---
-- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }} vars"
+- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_incremental_clear_yml }} vars"
   include_vars:
-    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_incremental_clear_yml }}"
   delegate_to: 127.0.0.1
   
 - name: "set_fact snapshot_name = snapshot_{{ snapshot_uuid }}"

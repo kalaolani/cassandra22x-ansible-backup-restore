@@ -1,0 +1,4 @@
+---
+- name: find and delete all aged remote archives
+  script: find_delete_remote_archive.sh {{ cassandra22x_remote_archive_path }} {{ item }}
+  with_items: "{{ snapshot_archive_aged_list }}"

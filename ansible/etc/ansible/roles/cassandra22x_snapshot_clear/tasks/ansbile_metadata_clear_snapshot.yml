@@ -13,14 +13,14 @@
     path: "{{ cassandra22x_local_archive_path_archived_logs }}/{{ snapshot_name }}.tar"
     state: absent
 
-- name: "clear {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
-  file:
-    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
-    state: absent
-  delegate_to: 127.0.0.1
+# - name: "clear {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/inventory_hostname/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+  # file:
+    # path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}{{ cassandra22x_local_archive_file_ext }}"
+    # state: absent
+  # delegate_to: 127.0.0.1
 
-- name: "clear {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
+- name: "clear {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/inventory_hostname/{{ snapshot_clear_yml }}"
   file:
-    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_clear_yml }}"
     state: absent
   delegate_to: 127.0.0.1

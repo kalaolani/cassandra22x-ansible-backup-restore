@@ -3,9 +3,9 @@
   set_fact:
     fact_snapshot_name: "snapshot_{{ snapshot_uuid }}"
     
-- name: "set snapshot_yml fact to {{ fact_snapshot_name }}.yml"
+- name: "set fact_snapshot_yml fact to {{ fact_snapshot_name }}.yml"
   set_fact:
-    snapshot_yml: "{{ fact_snapshot_name }}.yml"    
+    fact_snapshot_yml: "{{ fact_snapshot_name }}.yml"    
 
 - name: "get all keyspaces on the {{ cassandra22x_cluster_name }} cluster per node"
   script: get_keyspaces.py --contact_points {{ inventory_hostname }} --username {{ cassandra22x_ansible_superuser }} --password {{ cassandra22x_ansible_superuser_password }}

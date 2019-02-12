@@ -1,7 +1,7 @@
 ---
-- name: "include next_snapshot_yml = {{ next_snapshot_yml }}"
+- name: "include next_snapshot_incremental_local_archive_yml = {{ next_snapshot_incremental_local_archive_yml }}"
   include_vars:
-    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ next_snapshot_yml }}"
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ next_snapshot_incremental_local_archive_yml }}"
   delegate_to: 127.0.0.1
 
 - name: "create a blank list of all next_snapshot_keyspace_ymls for the snapshot_{{ snapshot_uuid }}"
@@ -13,9 +13,9 @@
     next_snapshot_keyspace_ymls: "{{ next_snapshot_keyspace_ymls }} + [ 'snapshot_{{ snapshot_uuid }}_{{ item }}.yml' ]"
   with_items: "{{ keyspace_names }}"    
 
-- name: "include snapshot_yml = {{ snapshot_yml }}"
+- name: "include snapshot_incremental_local_archive_yml = {{ snapshot_incremental_local_archive_yml }}"
   include_vars:
-    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_yml }}"  
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_incremental_local_archive_yml }}"  
   delegate_to: 127.0.0.1
   
 - name: "create a blank list of all snapshot_keyspace_ymls for the snapshot_{{ snapshot_uuid }}"
@@ -26,10 +26,6 @@
   set_fact:
     snapshot_keyspace_ymls: "{{ snapshot_keyspace_ymls }} + [ 'snapshot_{{ snapshot_uuid }}_{{ item }}.yml' ]"
   with_items: "{{ keyspace_names }}"
-
-# - name: debug show snapshot_keyspace_ymls and next_snapshot_keyspace_ymls loop metadata
-  # debug: 
-    # msg: "{{ snapshot_keyspace_ymls|zip(next_snapshot_keyspace_ymls)|list }}"
 
 - name: loop role cassandra22x_snapshot_incremental_local_archive_for_keyspace
   include_role: 

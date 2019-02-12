@@ -1,0 +1,4 @@
+---
+- import_tasks: find_ansible_archive_aged.yml
+- import_tasks: find_delete_remote_archive_aged.yml
+- import_tasks: delete_ansible_archive_aged.yml

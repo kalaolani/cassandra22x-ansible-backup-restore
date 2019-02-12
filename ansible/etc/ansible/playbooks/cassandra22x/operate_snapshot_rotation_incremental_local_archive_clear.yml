@@ -1,0 +1,41 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_rotation_incremental_local_archive_clear.yml --extra-vars "target=ansible_inventory_hosts"
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: false
+  any_errors_fatal: true
+
+  vars:
+    snapshot_yml_list: []
+    
+  pre_tasks:
+    - name: "find snapshot_ymls {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+      find:
+        paths: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+        patterns: 'snapshot_[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}.yml'
+        use_regex: yes
+      register: found_snapshot_yml
+      delegate_to: 127.0.0.1
+
+    - name: "build the list of snapshot_ymls per cassandra node when there is one or more snapshots"
+      set_fact: 
+        snapshot_yml_list: "{{ snapshot_yml_list }} + [ '{{ item.path }}' ]"
+      with_items: "{{ found_snapshot_yml.files | sort(attribute='mtime',reverse=true) }}"
+      when: found_snapshot_yml.matched >= 1
+      no_log: true
+
+  tasks:
+    - name: create the incremental local archive for the previous snapshot and clear those incremental backup files
+      include_role: 
+        name: cassandra22x_snapshot_incremental_local_archive
+      vars:
+         next_snapshot_incremental_local_archive_yml: "{{ snapshot_yml_list[0] | basename }}"
+         snapshot_incremental_local_archive_yml: "{{ snapshot_yml_list[1] | basename }}"
+      when: found_snapshot_yml.matched > 1
+
+    - name: clear incremental backup files when there is no previous snapshot
+      include_role: 
+        name: cassandra22x_snapshot_incremental_clear
+      vars:
+         snapshot_incremental_clear_yml: "{{ snapshot_yml_list[0] | basename }}"
+      when: found_snapshot_yml.matched == 1
+    

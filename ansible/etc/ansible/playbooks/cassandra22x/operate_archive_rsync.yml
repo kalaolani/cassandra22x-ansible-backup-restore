@@ -1,6 +1,5 @@
 ---
 # ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_archive_rsync.yml --extra-vars "target=ansible_inventory_hosts"
-
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true

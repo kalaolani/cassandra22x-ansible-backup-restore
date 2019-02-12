@@ -1,0 +1,7 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_rotation_clear_aged_remote_archive.yml --extra-vars "target=ansible_inventory_hosts"
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: false
+  any_errors_fatal: true
+  roles:
+    - cassandra22x_snapshot_clear_remote_archive

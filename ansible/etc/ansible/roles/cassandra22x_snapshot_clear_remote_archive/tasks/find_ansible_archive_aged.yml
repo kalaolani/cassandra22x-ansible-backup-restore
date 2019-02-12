@@ -1,0 +1,24 @@
+---
+- set_fact:
+    snapshot_archive_aged_list: []
+  no_log: true
+  
+- set_fact:
+    snapshot_name_pattern_archive: "snapshot_[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}{{ cassandra22x_local_archive_file_ext }}"
+  no_log: true
+
+- name: "find all found_snapshot_yml_archive_aged {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/inventory_hostname"
+  find:
+    paths: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
+    patterns: "{{ snapshot_name_pattern_archive }}"
+    use_regex: yes
+    age: "{{ cassandra22x_snapshot_remote_archive_age }}"
+  register: found_snapshot_yml_archive_aged
+  delegate_to: 127.0.0.1  
+  no_log: true
+
+- name: create a list of found_snapshot_yml_archive_aged
+  set_fact: 
+    snapshot_archive_aged_list: "{{ snapshot_archive_aged_list }} + [ '{{ item.path | basename | regex_replace(cassandra22x_local_archive_file_ext,'*') }}' ]"
+  with_items: "{{ found_snapshot_yml_archive_aged.files | sort(attribute='mtime',reverse=true) }}"
+  no_log: true

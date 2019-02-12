@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# sh /var/lib/cassandra/test/scripts/repair.sh target_cluster
 
 TARGET=$1
 

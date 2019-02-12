@@ -1,41 +1,45 @@
 ---
-- name: "nodetool-clearsnapshot.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ snapshot_name }} {{ keyspace_name }}"
-  script: nodetool-clearsnapshot.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ snapshot_name }} {{ keyspace_name }}
+- name: "set_fact snapshot_name = snapshot_{{ snapshot_uuid }}"
+  set_fact:
+    snapshot_name: "snapshot_{{ snapshot_uuid }}"
 
-- name: "clear {{ cassandra22x_log_path }} snapshot: {{ snapshot_name}} for keyspace: {{ keyspace_name }} metadata"
+- name: "nodetool-clearsnapshot.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ snapshot_name }} {{ keyspace_name_loop }}"
+  script: nodetool-clearsnapshot.sh {{ cassandra22x_ansible_superuser }} {{ cassandra22x_ansible_superuser_password }} {{ snapshot_name }} {{ keyspace_name_loop }}
+
+- name: "clear {{ cassandra22x_log_path }} snapshot: {{ snapshot_name}} for keyspace: {{ keyspace_name_loop }} metadata"
   file:
     path: "{{ item }}"
     state: absent
   with_items:
-    - "{{ cassandra22x_log_path }}/{{ snapshot_name}}_{{ keyspace_name }}.log"
-    - "{{ cassandra22x_log_path }}/{{ snapshot_name}}_{{ keyspace_name }}.yml"    
-    - "{{ cassandra22x_log_path }}/{{ snapshot_name}}_{{ keyspace_name }}_schema.cql"
+    - "{{ cassandra22x_log_path }}/{{ snapshot_name}}_{{ keyspace_name_loop }}.log"
+    - "{{ cassandra22x_log_path }}/{{ snapshot_name}}_{{ keyspace_name_loop }}.yml"    
+    - "{{ cassandra22x_log_path }}/{{ snapshot_name}}_{{ keyspace_name_loop }}_schema.cql"
 
-- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}.yml vars"
+- name: "include the {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/inventory_hostname/{{ snapshot_name }}_{{ keyspace_name_loop }}.yml vars"
   include_vars:
-    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}.yml"
+    file: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name_loop }}.yml"
   delegate_to: 127.0.0.1
   
-- name: "clear snapshot files of {{ snapshot_name }} from {{ cassandra22x_local_archive_path }} for all column_families_disk of {{ keyspace_name }}"
+- name: "clear snapshot files of {{ snapshot_name }} from {{ cassandra22x_local_archive_path }} for all column_families_disk of {{ keyspace_name_loop }}"
   file:
-    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/snapshots/{{ snapshot_name }}_{{ item }}{{ cassandra22x_local_archive_file_ext }}"
+    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name_loop }}/snapshots/{{ snapshot_name }}_{{ item }}{{ cassandra22x_local_archive_file_ext }}"
     state: absent
   with_items: "{{ column_families_disk }}"
 
-- name: "clear incremental backup files of {{ snapshot_name }} from {{ cassandra22x_local_archive_path }} for all column_families_disk of {{ keyspace_name }}"
+- name: "clear incremental backup files of {{ snapshot_name }} from {{ cassandra22x_local_archive_path }} for all column_families_disk of {{ keyspace_name_loop }}"
   file:
-    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name }}/backups/{{ snapshot_name }}_{{ item }}{{ cassandra22x_local_archive_file_ext }}"
+    path: "{{ cassandra22x_local_archive_path }}/{{ keyspace_name_loop }}/backups/{{ snapshot_name }}_{{ item }}{{ cassandra22x_local_archive_file_ext }}"
     state: absent
   with_items: "{{ column_families_disk }}"
   
-- name: "clear {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}.yml"
+- name: "clear {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/inventory_hostname/{{ snapshot_name }}_{{ keyspace_name_loop }}.yml"
   file:
-    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}.yml"
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name_loop }}.yml"
     state: absent
   delegate_to: 127.0.0.1
   
-- name: "clear {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}.yml"
+- name: "clear {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/inventory_hostname/{{ snapshot_name }}_{{ keyspace_name_loop }}.yml"
   file:
-    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name }}_new_schema.yml"
+    path: "{{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}/{{ snapshot_name }}_{{ keyspace_name_loop }}_new_schema.yml"
     state: absent
   delegate_to: 127.0.0.1  

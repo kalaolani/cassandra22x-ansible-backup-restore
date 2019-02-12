@@ -4,10 +4,10 @@
 cassandra22x_cluster_dc: datacenter2201
 
 ## archive management
-# archive variables
+# archive variables - gz <= ansible default
 cassandra22x_local_archive_format: tar
 cassandra22x_local_archive_file_ext: ".tar"
-# cassandra22x_local_archive_format: gz <= ansible default
+# cassandra22x_local_archive_format: gz
 # cassandra22x_local_archive_file_ext: ".tar.gz"
 # cassandra22x_local_archive_format: bz2
 # cassandra22x_local_archive_file_ext: ".tar.bz2"

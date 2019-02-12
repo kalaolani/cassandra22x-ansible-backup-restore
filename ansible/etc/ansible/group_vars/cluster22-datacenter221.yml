@@ -28,6 +28,12 @@ cassandra22x_remote_archive_path: "{{ cassandra22x_remote_archive_nfs_mount }}{{
 cassandra22x_remote_archive_path_archived_logs: "{{ cassandra22x_remote_archive_path }}/archived_logs"
 cassandra22x_remote_archive_path_archived_ansible_restore_vars: "{{ cassandra22x_remote_archive_path }}/ansible_cassandra22x_restore_vars"
 
+## restore variables
+# dest cluster node that will deploy schema
+cassandra22x_dest_cluster_node_schema: cass1.deltakappa.com
+# src cluster node supplying schema
+cassandra22x_src_cluster_node_schema: cass1.deltakappa.com
+
 ## restore variables for a foregin cluster src
 # foregin cluster src 
 cassandra22x_src_cluster_var_path: /var/lib/cassandra

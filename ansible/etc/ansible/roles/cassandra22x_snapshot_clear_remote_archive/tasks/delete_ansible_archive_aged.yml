@@ -1,0 +1,7 @@
+---
+- name: "delete found_snapshot_yml_archive_aged {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/inventory_hostname"
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ found_snapshot_yml_archive_aged.files }}"
+  delegate_to: 127.0.0.1  
