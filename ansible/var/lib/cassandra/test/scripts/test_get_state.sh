@@ -1,6 +1,6 @@
 #!/usr/bin/bash
-
 #sh /var/lib/cassandra/test/scripts/test_get_state.sh $(date +%Y%m%d_%H%M%S) cluster22 cass1.deltakappa.com cass2.deltakappa.com cass3.deltakappa.com
+#sh /var/lib/cassandra/test/scripts/test_get_state.sh $(date +%Y%m%d_%H%M%S) cluster220 cass10.deltakappa.com cass20.deltakappa.com cass30.deltakappa.com
 
 LOG_FILE_DATE=$1
 TARGET=$2
@@ -9,13 +9,15 @@ NODE2=$4
 NODE3=$5
 # add more nodes here
 # ...
+PATH4LOG="/var/log/ansible/cassandra22x"
+SNAPSHOT_LOG_FILE=$PATH4LOG/$LOG_FILE_DATE.$TARGET.1.SNAPSHOT.log
+KILLRVIDEO_CNT=$PATH4LOG/$LOG_FILE_DATE.$TARGET.2.KILLRVIDEO_CNT.log
+DATAPATH=$PATH4LOG/$LOG_FILE_DATE.$TARGET.3.DATAPATH.log
+LOGPATH=$PATH4LOG/$LOG_FILE_DATE.$TARGET.4.LOGPATH.log
+LOCALARCHPATH=$PATH4LOG/$LOG_FILE_DATE.$TARGET.5.LOCALARCHPATH.log
+REMOTEARCHPATH=$PATH4LOG/$LOG_FILE_DATE.$TARGET.6.REMOTEARCHPATH.log
 
-SNAPSHOT_LOG_FILE=/var/log/cassandra/test/$LOG_FILE_DATE.$TARGET.1.SNAPSHOT.log
-KILLRVIDEO_CNT=/var/log/cassandra/test/$LOG_FILE_DATE.$TARGET.2.KILLRVIDEO_CNT.log
-DATAPATH=/var/log/cassandra/test/$LOG_FILE_DATE.$TARGET.3.DATAPATH.log
-LOGPATH=/var/log/cassandra/test/$LOG_FILE_DATE.$TARGET.4.LOGPATH.log
-LOCALARCHPATH=/var/log/cassandra/test/$LOG_FILE_DATE.$TARGET.5.LOCALARCHPATH.log
-REMOTEARCHPATH=/var/log/cassandra/test/$LOG_FILE_DATE.$TARGET.6.REMOTEARCHPATH.log
+echo "$(date): start - test_get_state.sh $TARGET"
 
 echo '$(date): execute playbook operate_snapshot_get_all.yml' >> $SNAPSHOT_LOG_FILE
 ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_get_all.yml --extra-vars "target=$TARGET" >> $SNAPSHOT_LOG_FILE
@@ -50,3 +52,5 @@ ansible $NODE1 -m shell -a "tree -at {{ cassandra22x_remote_archive_path }}" >> 
 ansible $NODE1 -m shell -a "tree -at {{ cassandra22x_remote_archive_path }}" >> $REMOTEARCHPATH
 # add more nodes here
 # ...
+
+echo "$(date): end - test_get_state.sh $TARGET"

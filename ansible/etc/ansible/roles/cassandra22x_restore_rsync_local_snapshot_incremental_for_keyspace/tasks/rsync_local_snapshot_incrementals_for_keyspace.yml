@@ -4,3 +4,11 @@
   loop: "{{ fact_column_families_disk }}"
   loop_control:
     loop_var: column_family_disk_name
+  when: next_snapshot_keyspace_yml != snapshot_keyspace_yml
+
+- name: "rsync the local snapshot incrementals {{ fact_snapshot_name }} of {{ fact_keyspace_name }}"
+  include_tasks: rsync_local_snapshot_all_incrementals_for_keyspace_cf.yml
+  loop: "{{ fact_column_families_disk }}"
+  loop_control:
+    loop_var: column_family_disk_name
+  when: next_snapshot_keyspace_yml == snapshot_keyspace_yml

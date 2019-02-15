@@ -25,6 +25,3 @@ sh $SCRIPT_PATH/exec_cql.sh $CQL_TARGET $CQL_SCRIPT_PATH/killrvideo_create_schem
 # import test data
 echo "$(date): create killrvideo keyspace"
 sh $SCRIPT_PATH/exec_cql.sh $CQL_TARGET $CQL_SCRIPT_PATH/killrvideo_data_import.cql
-
-echo "$(date): get state"
-sh $SCRIPT_PATH/test_get_state.sh $(date +%Y%m%d_%H%M%S) $TARGET

@@ -4,11 +4,6 @@
   register: find_backups_between_snapshots_reg
   no_log: true
 
-- name: show snapshot incremental files when found for cf
-  debug:
-    msg: "{{ find_backups_between_snapshots_reg.stdout_lines }}"
-  when: find_backups_between_snapshots_reg.stdout != ""    
-
 - name: rsync hardlink local snapshot incremental files back to the keyspace for all column families data directories on disk
   synchronize:
     src: "{{ item }}"

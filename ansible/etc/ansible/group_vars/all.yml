@@ -52,15 +52,5 @@ cassandra22x_ansible_log_path: "/var/log/ansible/cassandra22x/{{ cassandra22x_en
 # all purpose ansible log for the cassandra22x_environment
 cassandra22x_ansible_log: "{{ cassandra22x_ansible_log_path }}/cassandra22x_ansible.log"
 
-# ansible automation
-# location of the cassandra22x_restore_vars (ansible metadata per node, snapshot, keyspaces, column families)
-cassandra22x_restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
-# snapshot age => or -age <= in seconds, minutes, hours, days, or weeks by specifying the first letter of any of those words (e.g., "1w").
-cassandra22x_snapshot_yml_age: 5m
-# snapshot age => or -age <= in seconds, minutes, hours, days, or weeks by specifying the first letter of any of those words (e.g., "1w").
-cassandra22x_snapshot_remote_archive_age: 15m
-# rsync bwlimit configuration for the synchronization ansible module
-cassandra22x_rsync_bwlimit: 5000
-
 # experimental automation scripts
 # cassandra22x_cron_script_path: "/var/lib/ansible/cassandra22x/{{ cassandra22x_environment }}/scripts"

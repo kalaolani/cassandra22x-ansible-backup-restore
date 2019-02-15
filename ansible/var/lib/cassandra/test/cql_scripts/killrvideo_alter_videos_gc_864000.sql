@@ -1,0 +1,1 @@
+ALTER TABLE killrvideo.videos WITH gc_grace_seconds = 864000;

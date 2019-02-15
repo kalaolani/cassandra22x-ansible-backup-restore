@@ -4,7 +4,7 @@
 TARGET=$1
 SNAPSHOT_UUID=$(uuidgen)
 SNAPSHOT_YML="snapshot_$SNAPSHOT_UUID.yml"
-LOG=/var/log/ansible/cassandra22x/cron_script_exec.log
+LOG=/var/log/ansible/cassandra22x/cron_script_exec.$TARGET.log
 
 echo "$(date): BEGIN Snapshot Rotation Cron Job on $TARGET using $SNAPSHOT_UUID" |& tee -a $LOG
 

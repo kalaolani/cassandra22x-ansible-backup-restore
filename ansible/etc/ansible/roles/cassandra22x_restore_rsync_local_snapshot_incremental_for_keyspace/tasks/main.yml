@@ -17,7 +17,4 @@
     fact_next_column_families: "{{ column_families }}"
     fact_next_column_families_disk: "{{ column_families_disk }}"
 
-- debug:
-    msg: "fact_snapshot_name = {{ fact_snapshot_name }} and fact_next_snapshot_name = {{ fact_next_snapshot_name }}" 
-
 - import_tasks: rsync_local_snapshot_incrementals_for_keyspace.yml
