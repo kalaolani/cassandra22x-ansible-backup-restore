@@ -4,4 +4,4 @@
   gather_facts: false
   any_errors_fatal: true
   roles:
-     - cassandra22x_operate_start
+    - cassandra22x_operate_start

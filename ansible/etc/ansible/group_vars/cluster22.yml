@@ -17,13 +17,77 @@ cassandra22x_incremental_backups_cluster: true
 cassandra22x_incremental_backup_replace_configuration: "^incremental_backups:"
 cassandra22x_incremental_backup_configuration: "incremental_backups: true"
 
+## experimental commit log archiving
+# cassandra22x_commitlog_path: /var/lib/cassandra/commitlog
+# cassandra22x_commitlog_commitlog_archiving_properties: "{{ cass_conf_path }}/commitlog_archiving.properties"
+# disabled  defauilt    cassandra22x_commitlog_archive_configuration: "archive_command=" 
+# enabled               cassandra22x_commitlog_archive_configuration: "archive_command=/bin/ln %path {{ cass_commitlog_arch_path }}/%name"
+
+# path to the cassandra node configuration
+cassandra22x_conf_path: /etc/cassandra/conf
+# the cassandra yaml main configuration file
+cassandra22x_yaml: "{{ cassandra22x_conf_path }}/cassandra.yaml"
+# the cassandra cluster seed nodes configured in the cassandra yaml
+# the cassandra node cassandra-rackdc.properties configuration file
+cassandra22x_rackdc_properties: "{{ cass_conf_path }}/cassandra-rackdc.properties"
+# cassandra log path on the node(s)
+cassandra22x_log_path: /var/log/cassandra
+# active cassandra, system, debug, and garbage collection logs
+cassandra22x_log_cassandra: "{{ cassandra22x_log_path }}/cassandra.log"
+cassandra22x_log_system: "{{ cassandra22x_log_path }}/system.log"
+cassandra22x_log_debug: "{{ cassandra22x_log_path }}/debug.log"
+cassandra22x_log_gc: "{{ cassandra22x_log_path }}/gc.log.0.current"
+# cassandra var root path
+cassandra22x_var_path: /var/lib/cassandra
+# cassandra data path under which keyspaces exist
+cassandra22x_data_path: "{{ cassandra22x_var_path }}/data"
+
+# experimental cassandra tuning
+# MAX_HEAP_SIZE="4G" in /etc/cassandra/conf/cassandra-env.sh
+# HEAP_NEWSIZE="800M" in /etc/cassandra/conf/cassandra-env.sh
+
+# access
+# linux cassandra user/group
+cassandra22x_root_default_directory_mode: "u=rwx,g=rx,o=x"
+cassandra22x_root_default_file_mode: "u=rw,g=r,o=r"
+cassandra22x_linux_user: cassandra
+cassandra22x_linux_group: cassandra
+cassandra22x_cassandra_default_directory_mode: "u=rwx,g=rx,o=x"
+cassandra22x_cassandra_default_file_mode: "u=rw,g=r,o=r"
+cassandra22x_cassandra_default_recursive_mode: "u=rwx,g=rx,o=rx"
+
+# cql access to the cassandra cluster
+cassandra22x_ansible_superuser: cassandra
+cassandra22x_ansible_superuser_password: cassandra
+# jmx access to the cassandra node(s)
+cassandra22x_remote_jmx_user: cassandra
+cassandra22x_remote_jmx_pass: cassandra
+
+## ansible automation
+# ansible logs
+# ansible log path for the cassandra22x_environment
+cassandra22x_ansible_log_path: "/var/log/ansible/cassandra22x/{{ cassandra22x_environment }}"
+cassandra22x_ansible_log_age: 20m
+
+# ansible cron automation
+cassandra22x_script_path: "/etc/ansible/scripts/cassandra22x"
+
+# ansible snapshot rotation cron job configuration
+cassandra22x_snapshot_rotation_script: "operate_snapshot_rotation.sh"
+cassandra22x_snapshot_rotation_cron_job: "{{ cassandra22x_cluster_name }} snapshot rotation job"
+cassandra22x_snapshot_rotation_cron_job_minute: "*/5"
+cassandra22x_snapshot_rotation_cron_job_hour: "*"
+cassandra22x_snapshot_rotation_cron_job_day: "*"
+cassandra22x_snapshot_rotation_cron_job_month: "*"
+cassandra22x_snapshot_rotation_cron_job_weekday: "*"
+
 ## ansible automation
 # location of the cassandra22x_restore_vars (ansible metadata per node, snapshot, keyspaces, column families)
 cassandra22x_restore_vars: "/etc/ansible/roles/cassandra22x_restore/vars"
 # snapshot age => or -age <= in seconds, minutes, hours, days, or weeks by specifying the first letter of any of those words (e.g., "1w").
-cassandra22x_snapshot_yml_age: 120m
+cassandra22x_snapshot_yml_age: 5m
 # snapshot age => or -age <= in seconds, minutes, hours, days, or weeks by specifying the first letter of any of those words (e.g., "1w").
-cassandra22x_snapshot_remote_archive_age: 240m
+cassandra22x_snapshot_remote_archive_age: 10m
 # rsync bwlimit configuration for the synchronization ansible module
 cassandra22x_rsync_bwlimit: 5000
 
@@ -37,16 +101,3 @@ cassandra22x_default_replication_topology: "'class': 'NetworkTopologyStrategy', 
 cassandra22x_src_environment: "{{ cassandra22x_environment }}"
 cassandra22x_src_cluster_name: "{{ cassandra22x_src_environment }}"
 cassandra22x_src_default_replication_topology: "{{ cassandra22x_default_replication_topology }}"
-
-## experimental commit log archiving
-# cassandra22x_commitlog_path: /var/lib/cassandra/commitlog
-# cassandra22x_commitlog_commitlog_archiving_properties: "{{ cass_conf_path }}/commitlog_archiving.properties"
-# disabled  defauilt    cassandra22x_commitlog_archive_configuration: "archive_command=" 
-# enabled               cassandra22x_commitlog_archive_configuration: "archive_command=/bin/ln %path {{ cass_commitlog_arch_path }}/%name"
-
-# experimental cassandra tuning
-# MAX_HEAP_SIZE="4G" in /etc/cassandra/conf/cassandra-env.sh
-# HEAP_NEWSIZE="800M" in /etc/cassandra/conf/cassandra-env.sh
-
-# experimental automation scripts
-# cassandra22x_cron_script_path: "/var/lib/ansible/cassandra22x/{{ cassandra22x_environment }}/scripts"

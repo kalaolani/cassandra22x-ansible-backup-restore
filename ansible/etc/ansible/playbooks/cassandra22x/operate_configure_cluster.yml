@@ -3,7 +3,6 @@
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true
-
   roles:
     - cassandra22x_configure_incremental
     - cassandra22x_configure_paths

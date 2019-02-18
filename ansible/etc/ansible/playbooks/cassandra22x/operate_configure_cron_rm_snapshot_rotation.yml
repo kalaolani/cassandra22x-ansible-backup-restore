@@ -1,0 +1,21 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_configure_cron_rm_snapshot_rotation.yml --extra-vars "target=ansible_inventory_hosts"
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: false
+  any_errors_fatal: true
+  tasks:
+    - name: start service cron on the Anisble system
+      service: 
+        name: crond
+        state: started
+      run_once: true  
+      delegate_to: 127.0.0.1
+      when: inventory_hostname == ansible_play_hosts[0]
+
+    - name: "remove cron job {{ cassandra22x_snapshot_rotation_cron_job }} for {{ target }} on the Anisble system"
+      cron:
+        name: "{{ cassandra22x_snapshot_rotation_cron_job }}"
+        state: absent
+      run_once: true  
+      delegate_to: 127.0.0.1
+      when: inventory_hostname == ansible_play_hosts[0]

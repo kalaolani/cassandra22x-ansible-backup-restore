@@ -1,14 +1,11 @@
 ---
 # ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_incremental_local_archive_for_keyspace.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml next_snapshot_keyspace_yml=snapshot_keyspace_yml"
-
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true
-
   vars:
     snapshot_keyspace_ymls: []
     next_snapshot_keyspace_ymls: []    
-
   tasks:
     - name: "create a list of all snapshot_keyspace_ymls"
       set_fact:

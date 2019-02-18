@@ -3,12 +3,6 @@
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true
-
-  pre_tasks:
-    - name: capture playbook start time
-      set_fact:
-        next_snapshot_keyspace_yml: "none"
-
   roles:
      - cassandra22x_restore_rsync_remote_archive_snapshot_for_keyspace
      - cassandra22x_restore_rsync_remote_archive_snapshot_incremental_for_keyspace

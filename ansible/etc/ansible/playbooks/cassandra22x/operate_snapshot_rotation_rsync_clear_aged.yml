@@ -3,10 +3,8 @@
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true
-  
   vars:
     snapshot_yml_list: []
-    
   tasks:
     - name: include the cassandra22x_snapshot_local_archive_remote_archive_rsync role
       include_role:

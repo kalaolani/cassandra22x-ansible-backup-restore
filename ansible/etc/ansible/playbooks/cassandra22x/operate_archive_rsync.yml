@@ -3,6 +3,5 @@
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true
-
   roles:
     - cassandra22x_snapshot_local_archive_remote_archive_rsync

@@ -5,4 +5,4 @@
   any_errors_fatal: true
   serial: 1
   roles:
-     - cassandra22x_operate_repair_full_partitioner-range_by_keyspace
+    - cassandra22x_operate_repair_full_partitioner-range_by_keyspace

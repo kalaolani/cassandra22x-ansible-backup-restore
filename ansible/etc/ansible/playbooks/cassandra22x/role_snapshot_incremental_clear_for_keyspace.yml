@@ -1,6 +1,5 @@
 ---
 # ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_incremental_clear_for_keyspace.yml --extra-vars "target=ansible_inventory_hosts snapshot_keyspace_yml=snapshot_keyspace_yml"
-
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true

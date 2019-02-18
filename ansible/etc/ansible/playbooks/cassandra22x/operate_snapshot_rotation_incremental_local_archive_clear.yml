@@ -3,10 +3,8 @@
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true
-
   vars:
     snapshot_yml_list: []
-    
   pre_tasks:
     - name: "find snapshot_ymls {{ cassandra22x_restore_vars }}/{{ cassandra22x_environment }}/{{ inventory_hostname }}"
       find:
@@ -22,7 +20,6 @@
       with_items: "{{ found_snapshot_yml.files | sort(attribute='mtime',reverse=true) }}"
       when: found_snapshot_yml.matched >= 1
       no_log: true
-
   tasks:
     - name: create the incremental local archive for the previous snapshot and clear those incremental backup files
       include_role: 

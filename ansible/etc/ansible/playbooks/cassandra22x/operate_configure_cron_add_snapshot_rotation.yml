@@ -1,0 +1,26 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_configure_cron_add_snapshot_rotation.yml --extra-vars "target=ansible_inventory_hosts"
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: false
+  any_errors_fatal: true
+  tasks:
+    - name: start service cron on the Anisble system
+      service: 
+        name: crond
+        state: started
+      run_once: true  
+      delegate_to: 127.0.0.1
+      when: inventory_hostname == ansible_play_hosts[0]
+
+    - name: add ansible_cass_rsync.sh cron job on the Anisble system
+      cron:
+        name: "{{ cassandra22x_snapshot_rotation_cron_job }}"
+        minute: "{{ cassandra22x_snapshot_rotation_cron_job_minute }}"
+        hour: "{{ cassandra22x_snapshot_rotation_cron_job_hour }}"
+        day: "{{ cassandra22x_snapshot_rotation_cron_job_day }}"
+        month: "{{ cassandra22x_snapshot_rotation_cron_job_month }}"
+        weekday: "{{ cassandra22x_snapshot_rotation_cron_job_weekday }}"
+        job: "sh {{ cassandra22x_script_path }}/{{ cassandra22x_snapshot_rotation_script }} {{ target }}"
+      run_once: true  
+      delegate_to: 127.0.0.1
+      when: inventory_hostname == ansible_play_hosts[0]
