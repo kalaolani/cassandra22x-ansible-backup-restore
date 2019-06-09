@@ -1,0 +1,4 @@
+---
+# rack configuration
+# name of the cassandra datacenter rack
+cassandra22x_cluster_dc_rack: rack1

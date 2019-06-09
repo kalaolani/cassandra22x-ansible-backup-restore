@@ -2,11 +2,11 @@
 #
 # It should live in /etc/ansible/hosts
 #
-#   - Comments begin with the '#' character
-#   - Blank lines are ignored
-#   - Groups of hosts are delimited by [header] elements
-#   - You can enter hostnames or ip addresses
-#   - A hostname/ip can be a member of multiple groups
+#   _ Comments begin with the '#' character
+#   _ Blank lines are ignored
+#   _ Groups of hosts are delimited by [header] elements
+#   _ You can enter hostnames or ip addresses
+#   _ A hostname/ip can be a member of multiple groups
 
 # Ex 1: Ungrouped hosts, specify before any group headers.
 
@@ -40,7 +40,7 @@
 # Here's another example of host ranges, this time there are no
 # leading 0s:
 
-## db-[99:101]-node.example.com
+## db_[99:101]_node.example.com
 #
 #
 
@@ -48,6 +48,7 @@
 ##
 
 [lab]
+ansible.deltakappa.com
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
@@ -72,6 +73,11 @@ ansible.deltakappa.com
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
+cass4.deltakappa.com
+cass5.deltakappa.com
+cass6.deltakappa.com
+cass7.deltakappa.com
+cass8.deltakappa.com
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
@@ -85,6 +91,25 @@ nfsx.deltakappa.com
 ##
 
 ##
+## cassandra clusterx
+##
+# clusterx cassandra cluster hosts
+[clusterx]
+cassx.deltakappa.com
+
+# clusterx cassandra cluster x dc hosts
+[clusterx_datacenterx]
+cassx.deltakappa.com
+
+# clusterx cassandra cluster x dc & rack1 rac hosts
+[clusterx_datacenterx_rack1]
+cassx.deltakappa.com
+
+# cluster nfs servers
+[clusterx_nfs]
+nfsx.deltakappa.com
+
+##
 ## cassandra cluster22
 ##
 # cluster22 cassandra cluster hosts
@@ -92,24 +117,50 @@ nfsx.deltakappa.com
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
+cass4.deltakappa.com
+cass5.deltakappa.com
+cass6.deltakappa.com
+cass7.deltakappa.com
+cass8.deltakappa.com
 
 # cluster22 cassandra cluster datacenter221 dc hosts
-[cluster22-datacenter221.yml]
+[cluster22_datacenter221]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
+cass4.deltakappa.com
+cass5.deltakappa.com
 
 # cluster22 cassandra cluster datacenter221 dc & rack1 rac hosts
-[cluster22-datacenter221-rack1.yml]
+[cluster22_datacenter221_rack1]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
+cass4.deltakappa.com
+cass5.deltakappa.com
+
+# cluster22 cassandra cluster datacenter222 dc hosts
+[cluster22_datacenter222]
+cass6.deltakappa.com
+cass7.deltakappa.com
+cass8.deltakappa.com
+
+# cluster22 cassandra cluster datacenter221 dc & rack1 rac hosts
+[cluster22_datacenter222_rack1]
+cass6.deltakappa.com
+cass7.deltakappa.com
+cass8.deltakappa.com
 
 # cluster nfs servers
-[cluster22-nfs]
+[cluster22_nfs]
 cass1.deltakappa.com
 cass2.deltakappa.com
 cass3.deltakappa.com
+cass4.deltakappa.com
+cass5.deltakappa.com
+cass6.deltakappa.com
+cass7.deltakappa.com
+cass8.deltakappa.com
 
 ##
 ## cassandra cluster220
@@ -119,40 +170,66 @@ cass3.deltakappa.com
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
+cass40.deltakappa.com
+cass50.deltakappa.com
+cass60.deltakappa.com
 
 # cluster220 cassandra cluster datacenter2201 dc hosts
-[cluster220-datacenter2201.yml]
+[cluster220_datacenter2201]
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
 
 # cluster220 cassandra cluster datacenter2201 dc & rack1 rac hosts
-[cluster220-datacenter2201-rack1]
+[cluster220_datacenter2201_rack1]
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
 
+# cluster220 cassandra cluster datacenter2202 dc hosts
+[cluster220_datacenter2202]
+cass40.deltakappa.com
+cass50.deltakappa.com
+cass60.deltakappa.com
+
+# cluster220 cassandra cluster datacenter2202 dc & rack1 rac hosts
+[cluster220_datacenter2202_rack1]
+cass40.deltakappa.com
+cass50.deltakappa.com
+cass60.deltakappa.com
+
 # cluster nfs servers
-[cluster220-nfs]
+[cluster220_nfs]
 cass10.deltakappa.com
 cass20.deltakappa.com
 cass30.deltakappa.com
+cass40.deltakappa.com
+cass50.deltakappa.com
+cass60.deltakappa.com
 
 ##
-## cassandra clusterx
+## cassandra cluster2200
 ##
-# clusterx cassandra cluster hosts
-[clusterx]
-cassx.deltakappa.com
+# cluster2200 cassandra cluster hosts
+[cluster2200]
+cass100.deltakappa.com
+cass200.deltakappa.com
+cass300.deltakappa.com
 
-# clusterx cassandra cluster x dc hosts
-[clusterx-datacenterx]
-cassx.deltakappa.com
+# cluster2200 cassandra cluster datacenter22001 dc hosts
+[cluster2200_datacenter22001]
+cass100.deltakappa.com
+cass200.deltakappa.com
+cass300.deltakappa.com
 
-# clusterx cassandra cluster x dc & rack1 rac hosts
-[clusterx-datacenterx-rack1]
-cassx.deltakappa.com
+# cluster2200 cassandra cluster datacenter22001 dc & rack1 rac hosts
+[cluster2200_datacenter22001_rack1]
+cass100.deltakappa.com
+cass200.deltakappa.com
+cass300.deltakappa.com
 
-# cluster nfs servers
-[clusterx-nfs]
-sstableloaderx.deltakappa.com
+# cluster2200 nfs servers
+[cluster2200_nfs]
+cass100.deltakappa.com
+cass200.deltakappa.com
+cass300.deltakappa.com
