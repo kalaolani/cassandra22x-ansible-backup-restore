@@ -1,5 +1,5 @@
 ---
-# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot.yml --extra-vars "target=ansible_inventory_hosts snapshot_uuid=$(uuidgen)"
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/role_snapshot.yml --extra-vars "target=ansible_inventory_hosts snapshot_uuid=$(uuidgen)"
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true

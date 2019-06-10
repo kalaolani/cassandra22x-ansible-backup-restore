@@ -1,5 +1,5 @@
 ---
-# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_incremental_local_archive.yml --extra-vars "target=ansible_inventory_hosts next_snapshot_incremental_local_archive_yml=next_snapshot_incremental_local_archive_yml snapshot_incremental_local_archive_yml=snapshot_incremental_local_archive_yml"
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/role_snapshot_incremental_local_archive.yml --extra-vars "target=ansible_inventory_hosts next_snapshot_incremental_local_archive_yml=next_snapshot_incremental_local_archive_yml snapshot_incremental_local_archive_yml=snapshot_incremental_local_archive_yml"
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true

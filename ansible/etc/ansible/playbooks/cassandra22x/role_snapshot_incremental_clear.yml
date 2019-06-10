@@ -1,5 +1,5 @@
 ---
-# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_snapshot_incremental_clear.yml --extra-vars "target=ansible_inventory_hosts snapshot_incremental_clear_yml=snapshot_incremental_clear_yml"
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/role_snapshot_incremental_clear.yml --extra-vars "target=ansible_inventory_hosts snapshot_incremental_clear_yml=snapshot_incremental_clear_yml"
 - hosts: "{{ target | default('FAIL') }}"
   gather_facts: false
   any_errors_fatal: true
