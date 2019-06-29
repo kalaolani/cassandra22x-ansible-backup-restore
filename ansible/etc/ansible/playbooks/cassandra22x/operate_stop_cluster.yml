@@ -1,7 +1,0 @@
----
-# ansible-playbook /etc/ansible/playbooks/cassandra22x/operate_stop_cluster.yml --extra-vars "target=ansible_inventory_hosts"
-- hosts: "{{ target | default('FAIL') }}"
-  gather_facts: false
-  any_errors_fatal: true
-  roles:
-    - cassandra22x_operate_stop
