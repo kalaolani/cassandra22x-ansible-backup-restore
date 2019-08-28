@@ -1,4 +1,4 @@
-# cassandra22x-ansible-backup-restore
+# Cassandra 2.2.x Ansible Automated Snapshot and Restore
 A goal of this project is to create something with minimal installs and all freely available software with no licensing costs.
 
 ## IMPORTANT NOTE
